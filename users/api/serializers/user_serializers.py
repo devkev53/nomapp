@@ -62,8 +62,8 @@ class CreateUserSerializer(serializers.ModelSerializer):
         fields = ('username', 'email', 'password', 'name', 'last_name', 'phone', 'address', 'image')
 
     def create(self, validate_data):
-      """ Create a new User"""
-      return get_user_model().objects.create_user(**validate_data)
+        """ Create a new User"""
+        return get_user_model().objects.create_user(**validate_data)
 
 class ChangeImageUserSerialzier(serializers.Serializer):
     image = serializers.ImageField()

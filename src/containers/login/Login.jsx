@@ -3,7 +3,7 @@ import icon from '../../assets/img/payIcon.png'
 
 export const Login = () => {
   return (
-    <main className="main font-sans bg-gradient-to-tr from-purple-500 to-pink-500">
+    <main className="main font-sans bg-gradient-to-tr from-indigo-800 from-10% via-purple-500 to-pink-500 to-80%">
       <div>
         <picture className='icon_container bg-gray-50 rounded-full'>
           <img className='icon' src={icon} alt="" />
