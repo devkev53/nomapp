@@ -1,0 +1,32 @@
+.main {
+  min-height: 100vh;
+  display: grid;
+  align-items: center;
+  padding: 1.4rem;
+}
+.icon_container {
+  width: 8rem;
+  height: 8rem;
+  display: flex;
+  padding: 1rem;
+  margin: 0 auto;
+  margin-bottom: 1.4rem;
+}
+.icon_container .icon {
+  height: 100%;
+  object-fit: contain;
+}
+.form_content {
+  width: 100%;
+  padding: 1.2rem;
+  max-width: 22rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.4rem;
+}
+
+.form_content input {
+  background: transparent;
+}

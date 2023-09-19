@@ -1,15 +1,20 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 
+import { useAuth } from '../../hooks/useAuth'
+
 export const Home = () => {
 
   const [users,setUsers] = useState([])
+
+  const {login} = useAuth()
 
   const getUsers = async () => {
     const response = await axios.get('http://127.0.0.1:8000/api/users/')
     setUsers(response.data)
   }
-  console.log(users)
+  
+  console.log(`Estado del Login: ${login}`)
 
   return (
     <div>
