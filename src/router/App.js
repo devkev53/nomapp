@@ -6,6 +6,7 @@ import { Protected } from "./Protected";
 import { Error404 } from "../pages/errors/Error404";
 import { Home } from "../pages/home/Home";
 import { Login } from "../pages/login/Login";
+import { Empresas } from "../pages/empresas/Empresas";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route element={<Protected />}>
             <Route path="/" element={<Home />} />
+            <Route path="/companies" element={<Empresas />} />
           </Route>
 
           <Route path="*" element={<Error404 />} />

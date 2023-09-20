@@ -39,7 +39,7 @@ export const Sidebar = () => {
         <div className="sidebar__menu">
           <ul className="menu_list">
             <li className="menu_item">
-              <a href="" className="menu_link text-2xl font-bold text-gray-300">
+              <a href="/companies" className="menu_link text-2xl font-bold text-gray-300">
                 <RiBuilding2Fill/>
                 <span>
                   Empresas
