@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthContextProvider } from '../context/authContext'
 
 import { Protected } from './Protected'
-import { Error404 } from "../containers/errors/Error404";
-import { Home } from "../containers/pages/Home";
-import { Login } from "../containers/login/Login";
+import { Error404 } from "../pages/errors/Error404";
+import { Home } from "../pages/home/Home";
+import { Login } from "../pages/login/Login";
 
 function App() {
   return (
