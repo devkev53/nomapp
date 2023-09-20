@@ -1,15 +1,17 @@
+import './layout.css'
 import { Sidebar } from "../sidebar/Sidebar"
+import { Navbar } from '../navbar/Navbar'
 
 export const Layout = ({children}) => {
   return (
     <div className="layout">
       <Sidebar />
-      <div className="content">
-        <nav className="navbar"><h3>Navar section</h3></nav>
+      <div className="right_content">
+        <Navbar/>
+        <main className='main_content'>
+          {children}
+        </main>
       </div>
-      <main>
-        {children}
-      </main>
     </div>
   )
 }

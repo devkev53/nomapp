@@ -1,9 +1,19 @@
+.layout {
+  max-height: 100vh;
+  overflow: hidden;
+  /* border: 1px red solid; */
+  display: flex;
+  width: 100vw;
+}
+.right_content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
 
-
-
-@media (min-width: 768px) {
-  main {
-    /* padding: 3.2rem; */
-    /* max-width: 128rem; */
-  }
+.right_content .main_content {
+  overflow-y: scroll;
+  padding: 1rem;
+  background: #E7EAF3;
+  height: calc(100vh - 5rem);
 }

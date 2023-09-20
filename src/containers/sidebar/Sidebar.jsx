@@ -1,19 +1,37 @@
 import './sidebar.css'
 import {useAuth} from '../../hooks/useAuth'
-import {RiBuilding2Fill, RiUser2Fill, RiLogoutCircleFill} from "react-icons/ri";
+import {RiBuilding2Fill, RiUser2Fill, RiLogoutCircleFill, RiCloseCircleLine} from "react-icons/ri";
+import {menuSubject} from '../../services/show-menu-subject.service'
+import { useEffect, useState } from 'react';
 
 export const Sidebar = () => {
 
-  const {user} = useAuth()
+  const [showMenu, setShowMenu] = useState(false)
 
-  console.log(user)
+  const {user, handleLogout} = useAuth()
+
+  const handleCloseMenu = () => {
+    menuSubject.setSubject(false)
+  }
+
+  useEffect(() => {
+    menuSubject.getSubject().subscribe((value) => {
+      setShowMenu(value)
+    })
+  },[])
 
   return (
-    <aside className="sidebar_wrapper">
-      <div className="sidebar__content bg-teal-800 h-full">
+    <aside className={`${showMenu && 'show'} sidebar_wrapper`}>
+      <div className="sidebar__content bg-gradient-to-b from-indigo-800 via-purple-700 to-pink-900  h-full">
+        <button onClick={handleCloseMenu} className="sidebar__btn_close text-5xl text-gray-50">
+          <RiCloseCircleLine/>
+        </button>
         <div className="sidebar__user_info">
           <picture>
-            <img src={user?.url_img} alt="" />
+            {user?.image
+              ? (<img className='bg-gray-100 rounded-full' src={`http://127.0.0.1:8000${user?.image}`} alt="" />) 
+              : (<img src={user?.url_img} alt="" />)
+            }
           </picture>
           <h3 className=' text-xl text-gray-50 font-bold' >{`${user?.name} ${user?.last_name}`}</h3>
           <span className='text-gray-400'>{user?.email}</span>
@@ -37,12 +55,12 @@ export const Sidebar = () => {
               </a>
             </li>
             <li className="menu_item">
-              <a href="" className="menu_link text-2xl font-bold text-gray-300">
+              <button onClick={handleLogout} className="menu_link text-2xl font-bold text-gray-300">
                 <RiLogoutCircleFill />
                 <span>
                   Salir
                 </span>
-              </a>
+              </button>
             </li>
           </ul>
         </div>
