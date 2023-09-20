@@ -2,9 +2,8 @@ from django.db import models
 from django.utils.html import format_html
 
 from core.models import BaseModel
-from companies.models import Company
-from positions.models import JobPosition, JobPromotion, Department
 from users.models import User
+from positions.models import JobPosition
 
 # Create your models here.
 
@@ -51,10 +50,7 @@ class Employee(PersonBase):
   user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True)
   photo = models.ImageField(upload_to='employees/photos/', blank=True, null=True)
   start_work_date = models.DateField(blank=True, null=True)
-  company = models.ForeignKey(Company, on_delete=models.CASCADE, blank=True, null=True)
-  department = models.OneToOneField(Department, on_delete=models.CASCADE, blank=True, null=True)
-  job_position = models.OneToOneField(JobPosition, on_delete=models.CASCADE, blank=True, null=True)
-  job_promotion = models.ForeignKey(JobPromotion, on_delete=models.CASCADE, blank=True, null=True)
+  job_position = models.ForeignKey(JobPosition, on_delete=models.CASCADE, null=True, blank=True)
 
   class Meta:
     """Meta definition for Employee."""

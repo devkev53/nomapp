@@ -1,6 +1,7 @@
 from django.db import models
 from core.models import BaseModel
 from companies.models import Company
+# from employees.models import Employee
 
 # Create your models here.
 
@@ -32,6 +33,7 @@ class JobPosition(models.Model):
   department = models.ForeignKey(Department, on_delete=models.CASCADE)
   name = models.CharField(max_length=120)
   salary = models.DecimalField(max_digits=12, decimal_places=2)
+  # employee = models.ManyToManyField(Employee)
 
   class Meta:
     """Meta definition for JobPosition."""
@@ -41,7 +43,7 @@ class JobPosition(models.Model):
 
   def __str__(self):
     """Unicode representation of JobPosition."""
-    pass
+    return '%s - %s' % (self.name, self.salary)
 
   # TODO: Define custom methods here
 
@@ -50,6 +52,7 @@ class JobPromotion(BaseModel):
   """Model definition for JobPromotion."""
 
   # TODO: Define fields here
+  employee = models.PositiveIntegerField()
   old_job_position = models.IntegerField()
   old_department = models.IntegerField()
   old_salary = models.DecimalField(max_digits=12, decimal_places=2)
