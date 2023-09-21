@@ -1,0 +1,60 @@
+.input_group {
+  display: flex;
+  width: 100%;
+  position: relative;
+  margin-bottom: .6rem;
+}
+.input_group input {
+  border: none;
+  border-bottom: .2rem solid #ccc;
+  padding: .5rem;
+  background-color: transparent;
+  outline: none;
+  width: 100%;
+  color: #333;
+}
+
+.input_group .input_group__label {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+  top: .2rem;
+  left: .2rem;
+  color: #ccc;
+  transition: all .3s ease;
+  pointer-events: none;
+}
+
+.input_group input:focus ~ .input_group__label,
+.input_group input:valid ~ .input_group__label {
+  top: -1rem;
+  color: #B452E5;
+  font-weight: bold;
+  font-size: .9rem;
+}
+
+.input_group input:focus ~ .input_group__label svg,
+.input_group input:valid ~ .input_group__label svg {
+  font-size: 1rem;
+}
+
+.input_group .input_group__underline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: .2rem;
+  width: 100%;
+  background: #B452E5;
+  transform: scaleX(0);
+  transition: all 0.3s ease;
+}
+.input_group input:focus ~ .input_group__underline,
+.input_group input:valid ~ .input_group__underline {
+  transform: scaleX(1);
+}
+
+.primary_btn {
+  color: #333;
+}

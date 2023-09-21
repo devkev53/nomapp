@@ -10,7 +10,7 @@
   display: flex;
   padding: 1rem;
   margin: 0 auto;
-  margin-bottom: 1.4rem;
+  margin-bottom: 1rem;
 }
 .icon_container .icon {
   height: 100%;
@@ -30,3 +30,17 @@
 .form_content input {
   background: transparent;
 }
+
+.showPass {
+  position: absolute;
+  font-size: 1.4rem;
+  right: .5rem;
+  top: 0;
+  bottom: 0;
+  color: #ccc;
+  transition: .3s all ease;
+}
+.showPass:hover {
+  color: #B452E5;
+}
+

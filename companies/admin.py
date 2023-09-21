@@ -5,7 +5,7 @@ from .models import Company
 # Register your models here.
 
 @admin.register(Company)
-class CompanyAdmin(admin.ModelAdmin):
+class CompanyAdmin(SimpleHistoryAdmin):
   '''Admin View for Company'''
 
   list_display = ('id', 'img_preview', 'name', 'phone', 'email', 'num_employees')

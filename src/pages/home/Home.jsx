@@ -7,14 +7,13 @@ export const Home = () => {
 
   const [users,setUsers] = useState([])
 
-  const {login} = useAuth()
+  const {handleLogout} = useAuth()
 
   const getUsers = async () => {
     const response = await axios.get('http://127.0.0.1:8000/api/users/')
     setUsers(response.data)
   }
   
-  console.log(`Estado del Login: ${login}`)
 
   return (
     <div>
@@ -26,6 +25,7 @@ export const Home = () => {
         ))}
       </ul>
       <button onClick={getUsers}>Get Users..!</button>
+      <button onClick={handleLogout}>Salir</button>
     </div>
   )
 }
