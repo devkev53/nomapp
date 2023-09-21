@@ -1,9 +1,11 @@
 from django.db import models
 from django.utils.html import format_html
+from decimal import Decimal
 
 from core.models import BaseModel
 from users.models import User
 from positions.models import JobPosition
+from pays.utils import calculate_socialSecurity
 
 # Create your models here.
 
@@ -77,6 +79,21 @@ class Employee(PersonBase):
     style = 'object-fit:contain; border-radius: 50%; width: 30px; height:30px; background: #fff'
     return format_html('<img src="{}" style="{}" />', self.url_img(), style)
 
+  def calculate_prepaid(self):
+    total = None
+    if self.job_position:
+      total = "{:.2f}".format(Decimal(self.job_position.salary * Decimal(.45)))
+    return total
+
+  def calculate_monthPayment(self):
+    total = None
+    if self.job_position:
+      month_payment = Decimal(self.job_position.salary - Decimal(self.calculate_prepaid()))
+      social_security = calculate_socialSecurity(self.job_position.salary)
+      total = "{:.2f}".format(Decimal(month_payment) - Decimal(social_security))
+    return total
+
+
 
 class FamilyMember(PersonBase):
   """Model definition for FamilyMember."""
@@ -95,3 +112,7 @@ class FamilyMember(PersonBase):
   def __str__(self):
     """Unicode representation of FamilyMember."""
     return '%s %s' % (self.name, self.last_name)
+
+# Salario = 19750
+# IGSS = (19750*4.83)/100 => 953.925
+# Salario Percibido = (19750-953.925) => 18796.075

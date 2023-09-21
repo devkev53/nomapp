@@ -23,7 +23,7 @@ class PaymentBase(BaseModel):
     abstract = True
     verbose_name = 'PaymentBase'
     verbose_name_plural = 'PaymentBases'
-  
+
   def __str__(self):
     """Unicode representation of Pay."""
     return '%s - %s' % (self.employee.get_full_name(), self.created)
@@ -116,13 +116,13 @@ class MonthPayment(PaymentBase):
     total = self.employee.job_position.salary
     amount_rest = total - self.get_prepaid()
     cash = (
-      amount_rest - Decimal(self.calc_commission()) - Decimal(self.calc_creditPayment()) -
+      amount_rest - Decimal(Decimal(self.calc_creditPayment()) -
       Decimal(self.calc_socialSecurity()) - Decimal(self.calc_solidarityContribution()) -
-      Decimal(self.calc_storePayment())
+      Decimal(self.calc_storePayment() + self.calc_commission()))
     )
     cash = amount_rest - Decimal(self.calc_socialSecurity())
     return cash
-  
+
   def get_prepaid(self):
     today = datetime.date.today()
     try:
@@ -139,7 +139,7 @@ class MonthPayment(PaymentBase):
   def calc_creditPayment(self):
     total = Decimal(0.00)
     return total
-  
+
   def calc_storePayment(self):
     total = Decimal(0.00)
     return total
@@ -147,7 +147,7 @@ class MonthPayment(PaymentBase):
   def calc_solidarityContribution(self):
     total = Decimal(0.00)
     return total
-  
+
   def calc_socialSecurity(self):
     total = self.employee.job_position.salary
     amount = "{:.2f}".format(total * Decimal(4.83) / 100)

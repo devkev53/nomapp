@@ -14,7 +14,7 @@ class ProductAdmin(admin.ModelAdmin):
   # ]
   # raw_id_fields = ('',)
   # readonly_fields = ('',)
-  # search_fields = ('',)
+  search_fields = ('name',)
   # date_hierarchy = ''
   # ordering = ('',)
 

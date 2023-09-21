@@ -7,7 +7,10 @@ from .models import Employee, FamilyMember
 class EmployeeAdmin(admin.ModelAdmin):
   '''Admin View for Employee'''
 
-  list_display=('img_preview', 'get_full_name', 'gender')
+  list_display=(
+    'img_preview', 'get_full_name', 'gender', 'job_position',
+    'calculate_prepaid', 'calculate_monthPayment'
+  )
   list_filter=()
   list_display_links=('img_preview', 'get_full_name',)
 

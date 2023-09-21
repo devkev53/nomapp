@@ -44,10 +44,11 @@ INSTALLED_APPS = [
     'companies',
     'employees',
     'products',
-    'buys',
     'positions',
     'docs',
     'pays',
+    'store',
+    'credits'
 
 ]
 
