@@ -41,8 +41,9 @@ class Company(BaseModel):
     count = 0
     try:
       from employees.models import Employee
-      for employee in Employee.objects.filter(company=self.id):
+      employes = Employee.objects.filter(job_position__department__company=self.id)
+      for employee in employes:
         count += 1
       return count
-    except Exception as e:
+    except employes.DoesNotExist as e:
       raise e
