@@ -47,6 +47,9 @@ class JobPosition(models.Model):
 
   # TODO: Define custom methods here
 
+  def get_company(self):
+    return self.department.company.name
+
 
 class JobPromotion(BaseModel):
   """Model definition for JobPromotion."""

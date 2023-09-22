@@ -9,6 +9,3 @@ from employees.api.serialziers.employees_serializers import EmployeeSerializer
 class EmployeeViewSet(CustomBaseViewSet):
   serializer_class = EmployeeSerializer
   # permission_classes = (IsAuthenticated,)
-
-  @action(detail=True, methods=['get'], url_path='validate_balance')
-  def validate_valance

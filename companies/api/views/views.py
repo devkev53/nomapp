@@ -4,4 +4,4 @@ from companies.api.serializers.serializers import CompanySerializer
 
 class CompanyViewSet(CustomBaseViewSet):
   serializer_class = CompanySerializer
-  permission_classes = (IsAuthenticated,)
+  # permission_classes = (IsAuthenticated,)

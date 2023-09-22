@@ -71,7 +71,7 @@ class Employee(PersonBase):
 
   def url_img(self):
     if not self.photo:
-      return 'https://api.multiavatar.com/%s.svg' % self.name
+      return '/media/imgs/not-img.jpg'
     else:
       return self.photo.url
 

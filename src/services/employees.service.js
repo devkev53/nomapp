@@ -10,3 +10,8 @@ export const getEmployes = async () => {
   return response.data
 }
 
+export const getOneEmploye = async (id) => {
+  const response = await axiosPublicInstance.get(`http://localhost:8000/api/employees/${id}`);
+  return response.data
+}
+

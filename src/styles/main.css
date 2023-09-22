@@ -58,3 +58,67 @@
 .primary_btn {
   color: #333;
 }
+.secondary_btn {
+  background: #6228BD;
+  color: white;
+  padding: 12px;
+  border-radius: .5rem;
+  width: 100%;
+  max-width: 170px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  font-weight: bold;
+  gap: .5rem;
+  position: relative;
+  overflow: hidden;
+  transition: .3s all ease;
+}
+.secondary_btn svg {
+  font-size: 20px;
+  position: absolute;
+  transform: translate(-1000%) scale(300%);
+  transition: .3s all ease;
+  pointer-events: none;
+}
+
+.secondary_btn:hover span {
+  transition: .3s all ease;
+  transform: translate(1rem);
+  pointer-events: none;
+}
+.secondary_btn:hover svg {
+  transform: translate(-2rem) scale(140%);
+}
+
+
+
+.page_title {
+  font-size: 4rem;
+  display: flex;
+  font-weight: bold;
+  align-items: center;
+  justify-content: start;
+  width: 100%;
+  color: rgb(23, 7, 49);
+  position: relative;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.page_title .title {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  padding: 0 2rem;
+}
+
+.page_title .tite_border {
+  height: .5rem;
+  width: 100%;
+  position: absolute;
+  background: rgb(104, 4, 104);
+  left: 0;
+  bottom: 0;
+  border-radius: 1rem;
+}

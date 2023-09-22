@@ -13,4 +13,4 @@ class CompanySerializer(serializers.ModelSerializer):
     )
 
   def num_employees(self, obj):
-    return obj.num_employees
+    return obj.num_employees()
