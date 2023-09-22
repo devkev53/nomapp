@@ -69,7 +69,7 @@ MIDDLEWARE = [
     # Se utilia para validar las creaciones de usuario
     'crum.CurrentRequestUserMiddleware',
     # Simple History
-    'simple_history.middleware.HistoryRequestMiddleware',
+    # 'simple_history.middleware.HistoryRequestMiddleware',
 ]
 
 ROOT_URLCONF = 'app.urls'

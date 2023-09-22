@@ -3,16 +3,15 @@ import {
   axiosPublicInstance,
 } from "../utilitys/axios-instances";
 
-const baseUrl = process.env.REACT_APP_API_URL;
+const baseUrl = 'api/';
 
 export const loginService = async (data) => {
-  console.log(`${baseUrl}login/`);
-  const response = await axiosPublicInstance.post(`${baseUrl}login/`, data);
+  const response = await axiosPublicInstance.post(`http://localhost:8000/api/login/`, data);
   return response.data;
 };
 
 export const logoutService = async () => {
-  const response = await axiosPrivateInstance.post(`${baseUrl}logout/`);
+  const response = await axiosPrivateInstance.post(`http://localhost:8000/api/logout/`);
 };
 
 export const refreshTokenService = async (refreshToken) => {

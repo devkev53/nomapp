@@ -22,7 +22,7 @@ class BaseModel(models.Model):
         related_name='updated_by%(app_label)s_%(class)s_related', blank=True, null=True, editable=False)
     updated = models.DateField(
         _('Updated'), auto_now=True, blank=True, null=True)
-    historical = HistoricalRecords(inherit=True)
+    # historical = HistoricalRecords(inherit=True)
     is_active = models.BooleanField(_('Is Active'), default=True)
 
     class Meta:
