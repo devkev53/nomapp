@@ -146,7 +146,7 @@
   display: flex;
   width: 100%;
   height: 55px;
-  max-width: 400px;
+  max-width: 500px;
   background: #FFFF;
   border-radius: 10px;
   position: relative;
@@ -239,11 +239,13 @@
   position: relative;
   border-radius: 100%;
   overflow: hidden;
+  height: 100%;
   z-index: 2;
 }
 
 .image_input .image_input__img {
-  object-fit: contain;
+  object-fit: cover;
+  height: 100%;
   border-radius: 100%;
   transition: .3s all ease;
 }
@@ -291,7 +293,7 @@
   width: 100%;
   height: 3.5rem;
   border-radius: 1rem;
-  max-width: 200px;
+  max-width: 300px;
   gap: 5px;
   font-size: 18px;
   font-weight: bold;
@@ -326,7 +328,11 @@
   width: 100%;
   border-radius: 10px;
   position: relative;
+  height: 100%;
   background: #FFFF;
+  max-width: 500px;
+  height: 100%;
+  max-height: 150px;
 }
 .text_group__label {
   position: absolute;
@@ -336,13 +342,31 @@
   font-size: 1.2rem;
   transform: .3s all ease;
   transition: .3s all ease;
+  font-weight: bold;
+  z-index: 2;
 }
+.text_group::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 25px;
+  background: rgba(255, 255, 255, .6);
+  backdrop-filter: blur(10px);
+  top: 0;
+  left: 0;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  z-index: 1;
+}
+
 .text_group textarea {
   width: 100%;
   outline: none;
+  height: 100%;
   padding: 1rem;
-  margin-top: .5rem;
+  /* margin-top: .5rem; */
   resize: none;
+  border-radius: 10px;
 }
 
 .text_group.no_empty .text_group__label,

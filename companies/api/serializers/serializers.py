@@ -8,7 +8,7 @@ class CompanySerializer(serializers.ModelSerializer):
   class Meta:
     model=Company
     fields = (
-      'name', 'description', 'address', 'city',
+      'id', 'name', 'description', 'address', 'city',
       'phone', 'logo', 'email', 'num_employees'
     )
 
@@ -20,6 +20,6 @@ class CreateCompanySerialzier(serializers.ModelSerializer):
   class Meta:
     model=Company
     fields = (
-      'name', 'description', 'address', 'city',
+      'id', 'name', 'description', 'address', 'city',
       'phone', 'logo', 'email'
     )

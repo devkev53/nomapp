@@ -3,23 +3,26 @@ import {
   axiosPublicInstance,
 } from "../utilitys/axios-instances";
 
-const baseUrl = 'api/';
+const baseUrl = "api/";
 
 export const loginService = async (data) => {
-  const response = await axiosPublicInstance.post(`http://localhost:8000/api/login/`, data);
+  const response = await axiosPublicInstance.post(
+    `http://localhost:8000/api/login/`,
+    data
+  );
   return response.data;
 };
 
-export const logoutService = async () => {
-  const response = await axiosPrivateInstance.post(`http://localhost:8000/api/logout/`);
+export const logoutService = async (data) => {
+  const response = await axiosPublicInstance.post(
+    `http://localhost:8000/api/logout/`,
+    data
+  );
 };
 
 export const refreshTokenService = async (refreshToken) => {
-  const controller = loadAbort();
-  return {
-    call: axiosPublicInstance.post(`${baseUrl}login`, data, {
-      signal: controller.signal,
-    }),
-    controller,
-  };
+  const response = await axiosPublicInstance.post(
+    `localhost:8000/api/token/refresh/`,
+    refreshToken
+  );
 };

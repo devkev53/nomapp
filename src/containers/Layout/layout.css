@@ -3,6 +3,7 @@
   overflow: hidden;
   /* border: 1px red solid; */
   display: flex;
+  background: #E7EAF3;
   width: 100vw;
 }
 .right_content {
@@ -14,6 +15,8 @@
 .right_content .main_content {
   overflow-y: scroll;
   padding: 1rem;
-  background: #E7EAF3;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
   height: calc(100vh - 5rem);
 }

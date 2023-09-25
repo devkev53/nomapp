@@ -1,8 +1,10 @@
 from django.contrib.auth import authenticate
 
 from rest_framework import status
-from rest_framework.generics import GenericAPIView 
+from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+
 
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -32,18 +34,19 @@ class Login(TokenObtainPairView):
           'user': user_serializer.data,
           'message': 'login successfull'
         }, status=status.HTTP_200_OK)
-      
+
       return Response({'error': 'password or login is no correct'}, status=status.HTTP_400_BAD_REQUEST)
     return Response({'error': 'password or login is no correct'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class Logout(GenericAPIView):
-  
+  # permission_classes = (IsAuthenticated,)
+
   def post(self, request, *args, **kwargs):
+    print(request.headers)
     user=User.objects.filter(id=request.data.get('user', ''))
     if user.exists():
       RefreshToken.for_user(user.first())
       return Response({'message':'logout successfull'}, status=status.HTTP_200_OK)
-    
+
     return Response({'error': 'user no exists'}, status=status.HTTP_400_BAD_REQUEST)
-    

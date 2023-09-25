@@ -5,8 +5,7 @@ import { RiBuilding2Fill, RiSearchLine, RiFileAddFill } from "react-icons/ri";
 import { CustomInput } from '../../components/ui/CustomInput'
 
 import { AsyncTable } from "../../containers/asyncTable/AsyncTable"
-import { getUsers } from "../../services/users.service"
-import { getEmployes } from "../../services/employees.service";
+import { getCompanies } from "../../services/companies.service"
 import { useNavigate } from 'react-router-dom';
 
 export const Compaies = () => {
@@ -16,7 +15,7 @@ export const Compaies = () => {
 
   const handleFetchUsers = async () => {
     try {
-      const response = await getEmployes()
+      const response = await getCompanies()
       setData(response)
     } catch (e) {
       console.error(e)
@@ -24,14 +23,14 @@ export const Compaies = () => {
   }
 
   useEffect(() => {
-    setData(handleFetchUsers)
+    handleFetchUsers()
   },[])
 
   console.log(data)
 
   return (
     <div className="companies_wrapper p-4 flex flex-col justify-center">
-      
+
       {/* Title */}
       <div className="page_title">
         <h2 className='title'>
@@ -55,7 +54,12 @@ export const Compaies = () => {
         </button>
       </div>
 
-      <AsyncTable res={data} />
+      <div>
+        {data.map(company => (
+          <p key={company.id}>{company.name}</p>
+        ))}
+      </div>
+
     </div>
   )
 }

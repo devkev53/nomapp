@@ -3,32 +3,47 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   gap: 16px;
 }
-
+.form_fields {
+  display: flex;
+  border-bottom: 2px solid #ccc;
+  flex-direction: column;
+  padding: 16px 0;
+  gap: 16px;
+}
 .row {
   display: flex;
   justify-content: center;
-  align-items: center;
   /* max-width: 300px; */
 }
 
 .row_two {
   width: 100%;
-  border: 1px solid green;
+  /* border: 1px solid green; */
   display: grid;
   gap: 16px;
+  height: 100%;
+  align-content: start;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  align-items: baseline;
 }
 .row_two .row_two__row {
   display: grid;
   gap: 16px;
+  align-content: baseline;
+  height: 100%;
+  /* border: 1px solid gray; */
 }
 
 @media (min-width: 1024px) {
   .createCompany_form {
+    /* flex-direction: row; */
+  }
+  .form_fields {
     flex-direction: row;
+    width: 100%;
   }
   .row.row_image {
     justify-content: center;

@@ -2,7 +2,7 @@ import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { AuthContext, USER_STATES } from "../context/authContext";
-import { loginService } from "../services/auth.service";
+import { loginService, logoutService } from "../services/auth.service";
 
 export const useAuth = () => {
   const navigate = useNavigate();
@@ -52,6 +52,7 @@ export const useAuth = () => {
   const handleLogout = async () => {
     try {
       navigate("/login");
+      logoutService({ user: user.id });
       clearData();
     } catch (e) {
       console.error(e);

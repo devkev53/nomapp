@@ -10,7 +10,8 @@ export const Store = () => {
   const navigate = useNavigate()
 
   const fetchEmployes = async () => {
-    const result = await getEmployes().then(data=>setEmployees(data)) 
+    const result = await getEmployes()
+    console.log(result)
   }
 
   const handeleVerifyEmployee = (e) => {
@@ -30,7 +31,7 @@ export const Store = () => {
         </h2>
         <div className="tite_border"></div>
       </div>
-      
+
       <table className='styled-table'>
         <thead>
           <tr>

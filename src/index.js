@@ -4,6 +4,14 @@ import "./styles/index.css";
 import "./styles/main.css";
 import App from "./router/App";
 
+import {
+  PrivateInterceptor,
+  PublicInterceptor,
+} from "./utilitys/axios.interceptors";
+
+PublicInterceptor();
+PrivateInterceptor();
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
