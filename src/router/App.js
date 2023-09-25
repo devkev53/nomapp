@@ -4,11 +4,12 @@ import { AuthContextProvider } from "../context/authContext";
 
 import { Protected } from "./Protected";
 import { Error404 } from "../pages/errors/Error404";
-import { Home } from "../pages/home/Home";
 import { Login } from "../pages/login/Login";
-import { Empresas } from "../pages/empresas/Empresas";
 import { Store } from "../pages/store/Store";
 import { ValidateBuy } from "../pages/validateBuy/ValidateBuy";
+import { Dashboard } from "../pages/dashboard/Dashboard";
+import { Compaies } from "../pages/companies/Companies";
+import { CreateCompany } from "../pages/companies/CreateCompany";
 
 function App() {
   return (
@@ -16,8 +17,10 @@ function App() {
       <Router>
         <Routes>
           <Route element={<Protected />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/companies" element={<Empresas />} />
+            <Route path="/" element={<Dashboard />} />
+            {/* Companies Routes */}
+            <Route path="/companies" element={<Compaies />} />
+            <Route path="/companies-create" element={<CreateCompany />} />
             <Route path="/store" element={<Store/>} />
             <Route path="/validate-buy/:employeeId" element={<ValidateBuy/>} />
           </Route>

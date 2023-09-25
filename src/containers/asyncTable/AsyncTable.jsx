@@ -41,7 +41,7 @@ export const AsyncTable = ({res}) => {
       cell: info => info.getValue(),
       footer: info => info.column.id
     }),
-    columnHelper.accessor('image', {
+    columnHelper.accessor('url_img', {
       cell: info => info.getValue(),
       footer: info => info.column.id
     })

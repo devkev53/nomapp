@@ -3,7 +3,7 @@ from django.forms import ValidationError
 from core.models import BaseModel
 from products.models import Product
 from employees.models import Employee
-from pays.models import Prepaid, MonthPayment
+from pays.models import Payment
 from decimal import Decimal
 import datetime
 
@@ -42,14 +42,11 @@ class Sale(BaseModel):
 
   def check_salary(self):
     today = datetime.date.today()
-    last_prepaid = Prepaid.objects.filter(employee=self.employee, month=today.month).last()
-    last_monthPayment = MonthPayment.objects.filter(employee=self.employee, month=today.month).last()
-    print(last_prepaid)
-    print(last_monthPayment)
-    if today.day > 14 and last_monthPayment == None:
+    last_pay = Payment.objects.filter(employee=self.employee).last()
+    if today.day > 14 and last_pay.day >= 14:
       print("Verifica Fin de Mes")
       self.check_monthPayment()
-    elif today.day > 14 and last_monthPayment:
+    elif today.day > 14 and last_pay.day >= 30:
       print("Verifica Quincena")
       self.check_prepaid()
     else:

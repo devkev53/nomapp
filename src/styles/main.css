@@ -1,3 +1,15 @@
+:root {
+  --bg-gradient: conic-gradient(
+    rgb(131,24,71),
+    rgb(127,30,156),
+    rgb(241,42,109),
+    rgb(55,48,163),
+    rgb(127,30,156),
+    rgb(241,42,109),
+    rgb(131,24,71)
+  )
+}
+/* INPUT GROUP STYLES INIT */
 .input_group {
   display: flex;
   width: 100%;
@@ -13,7 +25,6 @@
   width: 100%;
   color: #333;
 }
-
 .input_group .input_group__label {
   position: absolute;
   display: flex;
@@ -26,7 +37,6 @@
   transition: all .3s ease;
   pointer-events: none;
 }
-
 .input_group input:focus ~ .input_group__label,
 .input_group input:valid ~ .input_group__label {
   top: -1rem;
@@ -34,13 +44,12 @@
   font-weight: bold;
   font-size: .9rem;
 }
-
 .input_group input:focus ~ .input_group__label svg,
 .input_group input:valid ~ .input_group__label svg {
   font-size: 1rem;
 }
-
-.input_group .input_group__underline {
+.input_group .input_group__underline,
+.text_group .text_group__underline {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -50,10 +59,17 @@
   transform: scaleX(0);
   transition: all 0.3s ease;
 }
+.input_group input:empty .input_group__underline {
+  width: 0;
+  background: red;
+}
 .input_group input:focus ~ .input_group__underline,
+.input_group input:not([value=""]) ~ .input_group__underline,
 .input_group input:valid ~ .input_group__underline {
   transform: scaleX(1);
 }
+/* INPUT GROUP STYLES END */
+
 
 .primary_btn {
   color: #333;
@@ -95,30 +111,257 @@
 
 
 .page_title {
-  font-size: 4rem;
+  font-size: clamp(1.4rem, 8vw, 3rem);
   display: flex;
   font-weight: bold;
   align-items: center;
   justify-content: start;
   width: 100%;
-  color: rgb(23, 7, 49);
+  color: rgb(104, 4, 104);
   position: relative;
-  gap: 1rem;
   margin-bottom: 2rem;
 }
 .page_title .title {
   display: flex;
+  width: 100%;
+  gap: .5rem;
   align-items: center;
   justify-content: start;
-  padding: 0 2rem;
+  padding: 0 clamp(0rem, 5vw, 2rem);
 }
 
 .page_title .tite_border {
-  height: .5rem;
+  height: .3rem;
   width: 100%;
   position: absolute;
-  background: rgb(104, 4, 104);
+  background: rgba(104, 4, 104, .5);
   left: 0;
   bottom: 0;
   border-radius: 1rem;
+}
+
+
+/* INPUT GROUP 2 STYLES INIT */
+.input_group2 {
+  display: flex;
+  width: 100%;
+  height: 55px;
+  max-width: 400px;
+  background: #FFFF;
+  border-radius: 10px;
+  position: relative;
+}
+.input_group2__underline {
+  content: "";
+  width: 99%;
+  bottom: 0;
+  left: .5%;
+  border-radius: 10px;
+  height: 2px;
+  position: absolute;
+  background: #B452E5;
+  transform: scaleX(0);
+  transition: all 0.3s ease;
+}
+.input_group2 input {
+  background: transparent;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  padding: 15px;
+  padding-bottom: 0;
+}
+.input_group2__label {
+  position: absolute;
+  top: 18px;
+  left: 15px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #ccc;
+  transition: .3s all ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.input_group2.no_empty .input_group2__label,
+.input_group2 input:focus ~ .input_group2__label {
+  transform: translateY(-15px) translateX(-10px) scale(60%);
+  color: #B452E5;
+  
+}
+.input_group2.no_empty .input_group2__underline,
+/* .input_group2 input:required ~ .input_group2__underline, */
+.input_group2 input:focus ~ .input_group2__underline{
+  transform: scaleX(1);
+}
+
+/* INPUT GROUP 2 STYLES END */
+
+
+/* CUSTOM IMAGE INPUT STYLES INIT */
+.image_input {
+  width: 200px;
+  height: 200px;
+  border-radius: 100%;
+  background: var(--bg-gradient);
+  padding: 5px;
+  position: relative;
+  transition: .3s all ease;
+  cursor: pointer;
+}
+
+.image_input:hover {
+  padding: 7px;
+}
+
+
+.image_input::after {
+  content: '';
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: #FFFF;
+  top: 0;
+  left: 0;
+  border-radius: 100%;
+  z-index: 1;
+  transition: .3s all ease;
+}
+
+.image_input:hover::after {
+  animation: rotate 2s infinite linear;
+  background: var(--bg-gradient);
+}
+
+.image_input picture {
+  display: flex;
+  position: relative;
+  border-radius: 100%;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.image_input .image_input__img {
+  object-fit: contain;
+  border-radius: 100%;
+  transition: .3s all ease;
+}
+.image_input:hover .image_input__img {
+  transform: scale(1.2) rotate(15deg);
+}
+
+.image_input picture::after {
+  content: '';
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  border-radius: 100%;
+  position: absolute;
+  background: rgba(180, 82, 229, .8);
+  transform: scale(0);
+  transition: .3s all ease;
+}
+.image_input:hover picture::after {
+  transform: scale(1);
+}
+  
+.image_input .image_input__input {
+  opacity: 1;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+/* CUSTOM IMAGE INPUT STYLES END */
+
+
+
+.primary_btn {
+  background: #FACC15;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 3.5rem;
+  border-radius: 1rem;
+  max-width: 200px;
+  gap: 5px;
+  font-size: 18px;
+  font-weight: bold;
+  overflow: hidden;
+  /* color: rgba(104, 4, 104, .6); */
+}
+.primary_btn svg {
+  font-size: 30px;
+  transform: translateX(-500%);
+  transition: .3s all ease;
+}
+.primary_btn span {
+  transform: translateX(-18px);
+  transition: .3s all ease;
+}
+.search_and_add {
+  display: flex;
+  gap: 20px;
+}
+.primary_btn:hover svg {
+  font-size: 30px;
+  transform: translateX(0%);
+}
+.primary_btn:hover span {
+  transform: translateX(0%);
+}
+.primary_btn:hover {
+  color: rgba(104, 4, 104, .8);
+}
+
+.text_group {
+  width: 100%;
+  border-radius: 10px;
+  position: relative;
+  background: #FFFF;
+}
+.text_group__label {
+  position: absolute;
+  top: 1rem;
+  left: .5rem;
+  color: #ccc;
+  font-size: 1.2rem;
+  transform: .3s all ease;
+  transition: .3s all ease;
+}
+.text_group textarea {
+  width: 100%;
+  outline: none;
+  padding: 1rem;
+  margin-top: .5rem;
+  resize: none;
+}
+
+.text_group.no_empty .text_group__label,
+.text_group textarea:focus ~ .text_group__label {
+  top: .2rem;
+  left: .5rem;
+  color: #B452E5;
+  font-weight: bold;
+  font-size: .8rem;
+}
+
+.text_group.text_group.no_empty .text_group__underline,
+.text_group textarea:focus ~ .text_group__underline {
+  transform: scale(1);
+  width: 99%;
+  left: .5%;
+}
+
+
+
+@media (min-width: 768px) {
 }

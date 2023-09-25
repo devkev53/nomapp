@@ -2,7 +2,7 @@ import './sidebar.css'
 import {useAuth} from '../../hooks/useAuth'
 import {
   RiBuilding2Fill, RiUser2Fill, RiLogoutCircleFill,
-  RiCloseCircleLine, RiStoreFill
+  RiCloseCircleLine, RiStoreFill, RiDashboardFill
 } from "react-icons/ri";
 import {menuSubject} from '../../services/show-menu-subject.service'
 import { useEffect, useState } from 'react';
@@ -41,6 +41,14 @@ export const Sidebar = () => {
         </div>
         <div className="sidebar__menu">
           <ul className="menu_list">
+            <li className="menu_item">
+              <a href="/" className="menu_link text-2xl font-bold text-gray-300">
+                <RiDashboardFill/>
+                <span>
+                  Dashboard
+                </span>
+              </a>
+            </li>
             <li className="menu_item">
               <a href="/companies" className="menu_link text-2xl font-bold text-gray-300">
                 <RiBuilding2Fill/>

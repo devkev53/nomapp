@@ -7,15 +7,23 @@ import datetime
 
 # Create your models here.
 
+TYPE_PAYMENT_CHOICE = {
+  ('1', 'Quincena'),
+  ('2', 'Mes'),
+  ('3', 'Bono 14'),
+  ('4', 'Aguinaldo')
+
+}
+
 class PaymentBase(BaseModel):
   """Model definition for PaymentBase."""
 
   # TODO: Define fields here
   employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
   amount = models.DecimalField(decimal_places=2, max_digits=10, default=0, editable=False)
-  day = models.PositiveSmallIntegerField(editable=False)
-  month = models.PositiveSmallIntegerField(editable=False)
-  year = models.PositiveSmallIntegerField(editable=False)
+  day = models.PositiveSmallIntegerField()
+  month = models.PositiveSmallIntegerField()
+  year = models.PositiveSmallIntegerField()
 
   class Meta:
     """Meta definition for PaymentBase."""
@@ -29,90 +37,86 @@ class PaymentBase(BaseModel):
     return '%s - %s' % (self.employee.get_full_name(), self.created)
 
   def save(self, *args, **kwargs):
-      today = datetime.date.today()
-      self.day = today.day
-      self.month = today.month
-      self.year = today.year
+      # today = datetime.date.today()
+      # self.day = today.day
+      # self.month = today.month
+      # self.year = today.year
       super(PaymentBase, self).save()
 
   # TODO: Define custom methods here
 
 
-
-class Prepaid(PaymentBase):
-  """Model definition for Prepaid."""
+class Payment(PaymentBase):
+  """Model definition for Payment."""
 
   # TODO: Define fields here
+  type = models.CharField(choices=TYPE_PAYMENT_CHOICE, default=1, max_length=15)
 
   class Meta:
-    """Meta definition for Prepaid."""
+    """Meta definition for Payment."""
 
-    verbose_name = 'Prepaid'
-    verbose_name_plural = 'Prepaids'
-    constraints = [
-      models.UniqueConstraint(
-        fields=['employee', 'year', 'month'],
-        name='prepay_unique_contrain'
-      )
-    ]
+    verbose_name = 'Payment'
+    verbose_name_plural = 'Payments'
 
-  def save(self):
-    """Save method for Prepaid."""
-    super(Prepaid, self).save()
+  # def save(self):
+  #   """Save method for Payment."""
+  #   pass
 
-  def clean(self):
-    self.amount = self.calc_prepaid()
-    return super(Prepaid, self).clean()
 
   # TODO: Define custom methods here
+  def clean(self):
+    if self.type == '1':
+      self.amount = self.pay_is_prepaid()
+    elif self.type == '2':
+      self.amount = self.pay_is_monthPayment()
+    return super(Payment, self).clean()
 
-  def calc_prepaid(self):
-    try:
-      total = self.employee.job_position.salary
-      prepaid_amount = "{:.2f}".format(total * Decimal(0.45))
-      return prepaid_amount
-    except IntegrityError as e:
-      raise ValidationError(e)
 
-  
+
   def salary_base(self):
     return self.employee.job_position.salary
   
+  def calculate_bono14(self):
+    total = 0
+    last_pay = Payment.objects.filter(employee=self.employee).last()
+    if last_pay.day >= 30 and last_pay.month == 6:
+
+      last_year_pays = Payment.objects.filter(
+        year__gte=(last_pay.year-1), year__lte=(last_pay.year),
+        month__gte=1, month__lte=6, employee=self.employee, 
+      ).exclude(type=[3,4])
+      for pay in last_year_pays:
+        total += pay.amount
+        print(pay)
+    total = total/12
+    return total
   
+  def calculate_aguinaldo(self):
+    total = 0
+    last_pay = Payment.objects.filter(employee=self.employee).last()
+    if last_pay.day >= 30 and last_pay.month == 11:
 
-class MonthPayment(PaymentBase):
-  """Model definition for MonthPayment."""
+      last_year_pays = Payment.objects.filter(
+        year__gte=(last_pay.year-1), year__lte=(last_pay.year),
+        month__gte=12, month__lte=11, employee=self.employee, 
+      ).exclude(type=[3,4])
+      for pay in last_year_pays:
+        total += pay.amount
+        print(pay)
+    total = total/12
+    return total
 
-  # TODO: Define fields here
+  def pay_is_prepaid(self):
+    try:
+      total = self.employee.job_position.salary
+      prepaid_amount = "{:.2f}".format(total * Decimal(0.45))
+      print(prepaid_amount)
+      return prepaid_amount
+    except IntegrityError as e:
+      raise ValidationError(e)
+      
 
-  class Meta:
-    """Meta definition for MonthPayment."""
-
-    verbose_name = 'MonthPayment'
-    verbose_name_plural = 'MonthPayments'
-    constraints = [
-      models.UniqueConstraint(
-        fields=['employee', 'year', 'month'],
-        name='monthPayment_unique_contrain'
-      )
-    ]
-
-  def save(self):
-    """Save method for MonthPayment."""
-    super(MonthPayment, self).save()
-  
-  def clean(self):
-    self.amount = self.calc_monthPayment()
-    return super(MonthPayment, self).clean()
-
-
-  def get_absolute_url(self):
-    """Return absolute url for MonthPayment."""
-    return ('')
-
-  # TODO: Define custom methods here
-
-  def calc_monthPayment(self):
+  def pay_is_monthPayment(self):
     total = self.employee.job_position.salary
     amount_rest = total - self.get_prepaid()
     cash = (
@@ -126,7 +130,7 @@ class MonthPayment(PaymentBase):
   def get_prepaid(self):
     today = datetime.date.today()
     try:
-      prepaid = Prepaid.objects.filter(employee=self.employee, month=today.month).last()
+      prepaid = Payment.objects.filter(employee=self.employee, type=1, month=self.month).last()
       return prepaid.amount
     except:
       raise ValidationError("Debe existe el pago quincenal..!")
