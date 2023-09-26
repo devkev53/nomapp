@@ -10,6 +10,7 @@ import { ValidateBuy } from "../pages/validateBuy/ValidateBuy";
 import { Dashboard } from "../pages/dashboard/Dashboard";
 import { Compaies } from "../pages/companies/Companies";
 import { CreateCompany } from "../pages/companies/CreateCompany";
+import { DetailCompany } from "../pages/detailCompany/DetailCompany";
 
 function App() {
   return (
@@ -20,9 +21,10 @@ function App() {
             <Route path="/" element={<Dashboard />} />
             {/* Companies Routes */}
             <Route path="/companies" element={<Compaies />} />
+            <Route path="/company/:companyId" element={<DetailCompany />} />
             <Route path="/companies-create" element={<CreateCompany />} />
-            <Route path="/store" element={<Store/>} />
-            <Route path="/validate-buy/:employeeId" element={<ValidateBuy/>} />
+            <Route path="/store" element={<Store />} />
+            <Route path="/validate-buy/:employeeId" element={<ValidateBuy />} />
           </Route>
 
           <Route path="*" element={<Error404 />} />

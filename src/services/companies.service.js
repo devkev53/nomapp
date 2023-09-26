@@ -2,10 +2,10 @@ import {
   axiosPrivateInstance,
   axiosPublicInstance,
 } from "../utilitys/axios-instances";
-import {loadAbort} from '../utilitys/load-abort-axios.utility'
+import { loadAbort } from "../utilitys/load-abort-axios.utility";
 
 const baseUrl = "api/";
-const companiesUrl = 'http://localhost:8000/api/companies/'
+const companiesUrl = "http://127.0.0.1:8000/api/companies/";
 
 // export const getCompanies = async () => {
 //   const response = await axiosPublicInstance.get(
@@ -15,17 +15,34 @@ const companiesUrl = 'http://localhost:8000/api/companies/'
 // };
 
 export const getCompanies = () => {
-  const controller = loadAbort()
+  const controller = loadAbort();
   return {
-    call: axiosPrivateInstance.get(companiesUrl, {signarl: controller.signal}), 
-    controller}
-}
+    call: axiosPrivateInstance.get(companiesUrl, {
+      signarl: controller.signal,
+    }),
+    controller,
+  };
+};
 
-export const getOneCompany = async (id) => {
-  const response = await axiosPublicInstance.get(
-    `http://localhost:8000/api/companies/${id}`
-  );
-  return response.data;
+export const getCompanyEmployes = (id) => {
+  const controller = loadAbort();
+  return {
+    call: axiosPrivateInstance.get(`${companiesUrl}${id}/employees/`, {
+      signarl: controller.signal,
+    }),
+    controller,
+  };
+};
+
+export const getOneCompany = (id) => {
+  console.log(`${companiesUrl}${id}`);
+  const controller = loadAbort();
+  return {
+    call: axiosPrivateInstance.get(`${companiesUrl}${id}`, {
+      signarl: controller.signal,
+    }),
+    controller,
+  };
 };
 
 export const createCompany = async (data) => {

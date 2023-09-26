@@ -20,17 +20,7 @@ export const Compaies = () => {
   const getData = async () => {
     try {
       let response = await callEndpoint(getCompanies())
-      console.log(response)
       setData(response.data)
-    } catch (e) {
-      console.error(e)
-    }
-  }
-
-  const handleFetchUsers = async () => {
-    try {
-      const response = await getCompanies()
-      setData(response)
     } catch (e) {
       console.error(e)
     }
@@ -40,9 +30,6 @@ export const Compaies = () => {
     getData()
   },[])
 
-  console.log(isLoading)
-  console.log(data)
-
   return (
     <>
     {!isLoading 
@@ -51,37 +38,29 @@ export const Compaies = () => {
       ) 
       : (
         <div className="companies_wrapper p-4 flex flex-col justify-center">
-    
+
           {/* Title */}
           <div className="page_title">
             <h2 className='title'>
               <RiBuilding2Fill />
               Empresas
             </h2>
+            <div className="button_add">
+              <button onClick={() => navigate('/companies-create')} className="primary_btn add_btn">
+                <RiFileAddFill/>
+                <span>Nueva</span>
+              </button>
+            </div>
             <div className="tite_border"></div>
           </div>
-    
-          <div className="search_and_add">
-            {/* Search component */}
-            <CustomInput name="search">
-              <RiSearchLine/>
-              Buscar
-            </CustomInput>
-    
-            {/* Add Btn */}
-            <button onClick={() => navigate('/companies-create')} className="primary_btn add_btn">
-              <RiFileAddFill/>
-              <span>Nueva</span>
-            </button>
-          </div>
-    
+
           <div className='companies_container'>
             {/* {data.map(company => (
               <p key={company.id}>{company.name}</p>
             ))} */}
-            <ComapniesTables data={data} />
+            <ComapniesTables data={data} searchLabel="Buscar Empresas..!" />
           </div>
-    
+
         </div>
       )
     }

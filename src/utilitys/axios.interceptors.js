@@ -29,7 +29,8 @@ export const PrivateInterceptor = () => {
           logoutService({ user: id });
           clearAuthData();
         }
-        const response = await refreshTokenService(refreshToken);
+        const response = await refreshTokenService({ refresh: refreshToken });
+        console.log(response.data);
         const { access, refresh } = response.data;
         const data = { token: access, refreshToken: refresh };
         updateAuthData(data);
@@ -49,7 +50,7 @@ export const PrivateInterceptor = () => {
       return response;
     },
     (error) => {
-      console.log(error);
+      // console.log(error);
       // throw new Error(error);
       return Promise.reject(error);
     }
@@ -65,8 +66,9 @@ export const PublicInterceptor = () => {
       return response;
     },
     (error) => {
-      console.log(error);
-      console.error(error.response.data.error);
+      // console.log(error);
+      // console.error(error.response.data.error);
+      return Promise.reject(error);
     }
   );
 };

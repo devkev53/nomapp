@@ -1,9 +1,35 @@
 import {createColumnHelper } from "@tanstack/react-table"
 import { AsyncTable } from '../asyncTable/AsyncTable'
+import { RiInformationFill } from "react-icons/ri";
+import noImg from '../../assets/img/not-img.jpg'
 
-export const ComapniesTables = ({data}) => {
+
+export const ComapniesTables = ({data, searchLabel}) => {
 
   const columnHelper = createColumnHelper()
+
+
+  const handleClick = (e) => {
+    console.log(e.target)
+  }
+
+
+  const detailCompanyBtn = (info) => {
+    return (
+      <a onClick={handleClick} href={`company/${info.row.original.id}`} className="secondary_btn">
+        <RiInformationFill/>
+        <span>Ver</span>
+      </a>
+    )
+  }
+  const printNominaBtn = (info) => {
+    return (
+      <button onClick={handleClick} href={`company/${info.row.original.id}`} className="secondary_btn">
+        <RiInformationFill/>
+        <span>Ver</span>
+      </button>
+    )
+  }
 
   const columns = [
     columnHelper.accessor('id', {
@@ -17,21 +43,41 @@ export const ComapniesTables = ({data}) => {
       footer: info => info.column.id
     }),
     columnHelper.accessor('logo', {
-      cell: info => (
-        <picture className="logo_company">
-          <img src={`http://localhost:8000${info.getValue()}`} />
-        </picture>
-      ),
+      cell: info => {
+        if (info.getValue() !== null) {
+          return (
+            <picture className="logo_company">
+              <img src={`http://localhost:8000${info.getValue()}`} />
+            </picture>
+          )
+        } else {
+          return (
+            <picture className="logo_company">
+              <img src={noImg} />
+            </picture>
+          )
+        }
+      },
       footer: info => info.column.id
     }),
     columnHelper.accessor('city', {
       header: () => <span>Ciudad</span>,
-      cell: info => info.getValue(),
+      cell: info => {
+        if (info.getValue() !== null ){
+          return info.getValue()
+        }
+        return 'No registrado'
+      },
       footer: info => info.column.id
     }),
     columnHelper.accessor('phone', {
       header: () => <span>Telefono</span>,
-      cell: info => info.getValue(),
+      cell: info => {
+        if (info.getValue() !== '' ){
+          return info.getValue()
+        }
+        return 'No registrado'
+      },
       footer: info => info.column.id
     }),
     columnHelper.accessor('num_employees', {
@@ -41,12 +87,13 @@ export const ComapniesTables = ({data}) => {
     }),
     columnHelper.accessor('Acciones', {
       header: () => <span>Acciones</span>,
-      cell: <button className="secondary_btn">Ver</button>,
+      cell: info => <div className="flex gap-3">{detailCompanyBtn(info)}{printNominaBtn(info)}</div>,
       footer: info => info.column.id
     }),
   ]
 
+
   return (
-    <AsyncTable data={data} columns={columns} />
+    <AsyncTable data={data} columns={columns} label={searchLabel} />
   )
 }
