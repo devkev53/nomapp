@@ -385,7 +385,22 @@
   left: .5%;
 }
 
-
+/* LOGO COMPANY IMAGE */
+.logo_company {
+  /* background: red; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  width: 40px;
+  border-radius: 100%;
+  overflow: hidden;
+}
+.logo_company img {
+  object-fit: cover;
+  height: 100%;
+}
+/* LOGO COMPANY IMAGE */
 
 @media (min-width: 768px) {
 }

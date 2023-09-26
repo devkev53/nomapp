@@ -3,15 +3,23 @@ import { useEffect, useState } from "react"
 import { getEmployes } from "../../services/employees.service"
 import { RiStoreFill, RiFileInfoFill } from "react-icons/ri";
 import { useNavigate } from 'react-router-dom';
+import { StoreTable } from '../../containers/storeTable/StoreTable';
+import {useFetchAndLoad} from '../../hooks/useFetchAndLoad'
 
 export const Store = () => {
 
   const [employees, setEmployees] = useState([])
   const navigate = useNavigate()
+  const {isLoading, callEndpoint} = useFetchAndLoad()
 
-  const fetchEmployes = async () => {
-    const result = await getEmployes()
-    console.log(result)
+  const getData = async () => {
+    try {
+      let response = await callEndpoint(getEmployes())
+      console.log(response)
+      setEmployees(response.data)
+    } catch (e) {
+      console.error(e)
+    }
   }
 
   const handeleVerifyEmployee = (e) => {
@@ -19,8 +27,9 @@ export const Store = () => {
   }
 
   useEffect(() => {
-    fetchEmployes()
+    getData()
   },[])
+
 
   return (
     <div className="store_wrapper p-4 flex flex-col justify-center">
@@ -59,6 +68,8 @@ export const Store = () => {
         ))}
       </select>
       <button>Validar Compra</button> */}
+
+      <StoreTable data={employees} />
     </div>
   )
 }

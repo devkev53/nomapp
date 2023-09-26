@@ -2,14 +2,17 @@ import {
   axiosPrivateInstance,
   axiosPublicInstance,
 } from "../utilitys/axios-instances";
+import {loadAbort} from '../utilitys/load-abort-axios.utility'
 
 const baseUrl = "api/";
+const employeesUrl = 'http://localhost:8000/api/employees/'
 
-export const getEmployes = async () => {
-  const response = await axiosPrivateInstance.get(
-    `http://localhost:8000/api/employees/`
-  );
-  return response;
+export const getEmployes = () => {
+  const controller = loadAbort()
+  return {
+    call: axiosPrivateInstance.get(employeesUrl, {signal: controller.signal}),
+    controller
+  }
 };
 
 export const getOneEmploye = async (id) => {

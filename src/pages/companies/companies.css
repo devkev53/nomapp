@@ -10,6 +10,9 @@
 .companies_wrapper .search_and_add div {
   margin: 0;
 }
+.companies_container {
+  margin-top: 16px;
+}
 
 @media (min-width: 768px) {
   .companies_wrapper .search_and_add {
