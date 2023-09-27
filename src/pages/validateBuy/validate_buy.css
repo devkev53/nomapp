@@ -1,11 +1,16 @@
+.validate_buy_wrapper {
+  display: grid;
+  gap: 16px;
+}
 .validate_buy_wrapper .employee_data {
   display: flex;
   gap: 1rem;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
   padding: 1rem;
-  box-shadow: .1rem .1rem 1rem rgba(51, 51, 51, 0.486);
+  /* box-shadow: .1rem .1rem 1rem rgba(51, 51, 51, 0.486); */
   border-radius: .5rem;
 }
 
@@ -31,4 +36,50 @@
 
 .validate_buy_wrapper .employee_data h4 span {
   font-weight: normal;
+}
+
+.employee_data .store_img_employee {
+  height: 150px;
+  width: 150px;
+}
+
+
+
+.detail_shop_products {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  width: 100%;
+  box-shadow: 2px 2px 20px rgba(98, 40, 189,.4);
+}
+.detail_shop_products .title_card {
+  width: 100%;
+  padding: 6px 24px;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  background: linear-gradient(-45deg, rgba(98, 40, 189), rgb(241,42,109));
+}
+.detail_shop_products .title_card h3 {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: bold;
+  color: #FFF;
+  font-size: 22px;
+}
+.detail_shop_products .title_card h3 svg {
+  font-size: 34px;
+}
+
+.detail_shop_products .body_card {
+  padding: 22px;
+}
+
+
+@media (min-width: 768px) {
+  .validate_buy_wrapper .employee_data {
+    flex-direction: row;
+  }
+
 }

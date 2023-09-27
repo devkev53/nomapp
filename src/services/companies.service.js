@@ -18,7 +18,7 @@ export const getCompanies = () => {
   const controller = loadAbort();
   return {
     call: axiosPrivateInstance.get(companiesUrl, {
-      signarl: controller.signal,
+      signal: controller.signal,
     }),
     controller,
   };
@@ -28,7 +28,7 @@ export const getCompanyEmployes = (id) => {
   const controller = loadAbort();
   return {
     call: axiosPrivateInstance.get(`${companiesUrl}${id}/employees/`, {
-      signarl: controller.signal,
+      signal: controller.signal,
     }),
     controller,
   };
@@ -39,7 +39,7 @@ export const getOneCompany = (id) => {
   const controller = loadAbort();
   return {
     call: axiosPrivateInstance.get(`${companiesUrl}${id}`, {
-      signarl: controller.signal,
+      signal: controller.signal,
     }),
     controller,
   };

@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import { AuthContextProvider } from "../context/authContext";
+import { StoreContextProvider } from "../context/storeContext";
 
 import { Protected } from "./Protected";
 import { Error404 } from "../pages/errors/Error404";
@@ -15,22 +16,27 @@ import { DetailCompany } from "../pages/detailCompany/DetailCompany";
 function App() {
   return (
     <AuthContextProvider>
-      <Router>
-        <Routes>
-          <Route element={<Protected />}>
-            <Route path="/" element={<Dashboard />} />
-            {/* Companies Routes */}
-            <Route path="/companies" element={<Compaies />} />
-            <Route path="/company/:companyId" element={<DetailCompany />} />
-            <Route path="/companies-create" element={<CreateCompany />} />
-            <Route path="/store" element={<Store />} />
-            <Route path="/validate-buy/:employeeId" element={<ValidateBuy />} />
-          </Route>
+      <StoreContextProvider>
+        <Router>
+          <Routes>
+            <Route element={<Protected />}>
+              <Route path="/" element={<Dashboard />} />
+              {/* Companies Routes */}
+              <Route path="/companies" element={<Compaies />} />
+              <Route path="/company/:companyId" element={<DetailCompany />} />
+              <Route path="/companies-create" element={<CreateCompany />} />
+              <Route path="/store" element={<Store />} />
+              <Route
+                path="/validate-buy/:employeeId"
+                element={<ValidateBuy />}
+              />
+            </Route>
 
-          <Route path="*" element={<Error404 />} />
-          <Route path="/login" element={<Login />} />
-        </Routes>
-      </Router>
+            <Route path="*" element={<Error404 />} />
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </Router>
+      </StoreContextProvider>
     </AuthContextProvider>
   );
 }

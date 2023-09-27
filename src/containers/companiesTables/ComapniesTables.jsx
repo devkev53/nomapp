@@ -16,9 +16,9 @@ export const ComapniesTables = ({data, searchLabel}) => {
 
   const detailCompanyBtn = (info) => {
     return (
-      <a 
-        onClick={handleClick} 
-        href={`company/${info.row.original.id}`} 
+      <a
+        onClick={handleClick}
+        href={`company/${info.row.original.id}`}
         className="btn table_btn secondary_btn">
         <RiInformationFill/>
         {/* <span>Ver</span> */}

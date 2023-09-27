@@ -35,14 +35,34 @@
   transform: scale(.9);
 }
 
+.btn:disabled:hover {
+  box-shadow: none;
+}
+.btn:disabled:hover svg {
+  transform: none;
+}
+.btn:disabled:hover span {
+  transform: none;
+}
+
 
 .primary_btn {
   color: #333;
   background: rgba(250, 204, 21);
 }
+.primary_btn:disabled {
+  opacity: .5;
+  background: rgba(250, 204, 21, .9);
+}
+
+
 .secondary_btn {
   background: rgba(98, 40, 189);
   color: #FFFFFF;
+}
+.secondary_btn:disabled {
+  opacity: .5;
+  background: rgba(98, 40, 189, .9);
 }
 
 .third_btn {}

@@ -32,17 +32,17 @@ class CustomBaseViewSet(viewsets.ModelViewSet):
       if self.queryset is None:
           return self.serializer_class().Meta.model.objects.filter(is_active=True)
       return self.queryset
-    
+
     # Return get or create object
     def get_object(self, pk):
         return get_object_or_404(self.serializer_class.Meta.model, pk=pk)
-    
+
     # List all active Instances Model
     def list(self, request):
         instances = self.get_queryset()
         instances_serializers = self.serializer_class(instances, many=True)
         return Response(instances_serializers.data, status=status.HTTP_200_OK)
-  
+
     # Create a new Instance of Model
     def create(self, request):
         instance_serialier = self.serializer_class(data = request.data)

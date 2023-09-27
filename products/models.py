@@ -1,5 +1,6 @@
 from django.db import models
 from core.models import BaseModel
+from django.forms.models import model_to_dict
 
 # Create your models here.
 
@@ -12,6 +13,8 @@ class Product(BaseModel):
   description = models.TextField(blank=True, null=True)
   price = models.DecimalField(max_digits=10, decimal_places=2)
   stock = models.PositiveIntegerField()
+  image=models.ImageField(upload_to='product/')
+
 
   class Meta:
     """Meta definition for Product."""
@@ -25,21 +28,8 @@ class Product(BaseModel):
 
   # TODO: Define custom methods here
 
-class ProductImage(models.Model):
-  """Model definition for ProductImage."""
-
-  # TODO: Define fields here
-  name = models.CharField(max_length=250)
-  image=models.ImageField(upload_to='product/')
-  product = models.ForeignKey(Product, on_delete=models.CASCADE)
-
-  class Meta:
-    """Meta definition for ProductImage."""
-
-    verbose_name = 'ProductImage'
-    verbose_name_plural = 'ProductImages'
-
-  def __str__(self):
-    """Unicode representation of ProductImage."""
-    pass
-
+  def url_img(self):
+    if not self.image:
+      return ''
+    else:
+      return self.image.url

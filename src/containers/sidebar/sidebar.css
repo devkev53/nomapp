@@ -94,6 +94,10 @@
     transform: translateX(0);
   }
 
+  .sidebar__user_info {
+    padding-left: 2rem;
+  }
+
   .sidebar__btn_close {
     display: none;
   }
@@ -102,7 +106,9 @@
   .sidebar__content {
     width: 100%;
   }
-
+  .menu_item .menu_link {
+    padding-left: 2rem;
+  }
   .menu_item:hover .menu_link {
     margin-left: 1.4rem;
   }

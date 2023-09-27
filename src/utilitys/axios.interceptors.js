@@ -29,13 +29,13 @@ export const PrivateInterceptor = () => {
           logoutService({ user: id });
           clearAuthData();
         }
+        console.log({ refresh: refreshToken });
         const response = await refreshTokenService({ refresh: refreshToken });
-        console.log(response.data);
         const { access, refresh } = response.data;
         const data = { token: access, refreshToken: refresh };
         updateAuthData(data);
 
-        request.headers.Authorization = `Bearer ${access}`;
+        request.headers.Authorization = `Bearer ${response.data.access}`;
       }
       console.log(request);
       return request;

@@ -54,5 +54,9 @@
   .title_app span {
     display: flex;
   }
-  
+
+  .nav_content__user_info {
+    padding-right: 2rem;
+  }
+
 }
