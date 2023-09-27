@@ -9,7 +9,7 @@ class EmployeeAdmin(admin.ModelAdmin):
 
   list_display=(
     'img_preview', 'get_full_name', 'gender', 'job_position',
-    'calculate_prepaid', 'calculate_monthPayment'
+    'calculate_prepaid', 'calculate_monthPayment', 'url_img'
   )
   list_filter=()
   list_display_links=('img_preview', 'get_full_name',)

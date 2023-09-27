@@ -7,6 +7,10 @@ export const Navbar = () => {
 
   const {user} = useAuth()
 
+  const timestamp = Date.now()
+  const now = new Date(timestamp).toLocaleDateString()
+
+
   const handleOpenMenu = () => {
     menuSubject.setSubject(true)
   }
@@ -15,7 +19,7 @@ export const Navbar = () => {
     <nav className="nav_wrapper">
       <div className="nav_content">
         <button onClick={handleOpenMenu} className='nav_open_menu text-4xl' ><RiMenu2Fill/></button>
-        <h1>nomapp</h1>
+        <h1 className='title_app'>nomapp <span>| {now}</span></h1>
         <div className="nav_content__user_info">
           <picture>
             {user?.image

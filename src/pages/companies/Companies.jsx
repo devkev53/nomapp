@@ -5,6 +5,8 @@ import { RiBuilding2Fill, RiSearchLine, RiFileAddFill } from "react-icons/ri";
 import { CustomInput } from '../../components/ui/CustomInput'
 
 import { AsyncTable } from "../../containers/asyncTable/AsyncTable"
+
+import {PrimaryBtn} from '../../components/ui/PrimaryBtn'
 import { getCompanies } from "../../services/companies.service"
 import { useNavigate } from 'react-router-dom';
 import {useFetchAndLoad} from '../../hooks/useFetchAndLoad'
@@ -46,10 +48,9 @@ export const Compaies = () => {
               Empresas
             </h2>
             <div className="button_add">
-              <button onClick={() => navigate('/companies-create')} className="primary_btn add_btn">
+              <PrimaryBtn callback={() => navigate('/companies-create')} label="Agregar">
                 <RiFileAddFill/>
-                <span>Nueva</span>
-              </button>
+              </PrimaryBtn>
             </div>
             <div className="tite_border"></div>
           </div>

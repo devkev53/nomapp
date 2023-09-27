@@ -1,14 +1,18 @@
 import { useEffect, useState } from "react"
-import { RiCoinsFill, RiEdit2Fill } from "react-icons/ri";
+import { useParams } from "react-router-dom"
+import { RiCoinsFill, RiEdit2Fill, RiPrinterFill } from "react-icons/ri";
 
 import noImg from '../../assets/img/not-img.jpg'
+
+import {PrimaryBtn} from '../../components/ui/PrimaryBtn'
+import { PageLoadingSpiner } from "../../components/ui/PageLoadingSpiner"
+
 import { getOneCompany } from "../../services/companies.service"
 import {useFetchAndLoad} from '../../hooks/useFetchAndLoad'
-import { useParams } from "react-router-dom"
-import { PageLoadingSpiner } from "../../components/ui/PageLoadingSpiner"
 
 import './detailCompany.css'
 import { EmployeCompanyTable } from "../../containers/employeCompanyTable/EmployeCompanyTable"
+import { SecondaryBtn } from "../../components/ui/SecondaryBtn";
 
 
 export const DetailCompany = () => {
@@ -51,15 +55,21 @@ export const DetailCompany = () => {
       </div>
 
       <div className="button_actions">
-        <button className="primary_btn"><RiEdit2Fill/><span>Editar</span></button>
-        <button className="secondary_btn"><RiCoinsFill/><span>Pagar Nomina</span></button>
+        <PrimaryBtn label="Pagar Nomina">
+          <RiCoinsFill/>
+        </PrimaryBtn>
+        <SecondaryBtn label="Imprimir Nomina" >
+          <RiPrinterFill/>
+        </SecondaryBtn>
+        {/* <button className="primary_btn"><RiEdit2Fill/><span>Editar</span></button>
+        <button className="secondary_btn"><RiCoinsFill/><span>Pagar Nomina</span></button> */}
       </div>
 
       <div className="info_company">
         <div className="row row_one">
           <p>Correo Electronico: <span>{`${data.email !== "" ? data.eamil : 'No registrado'}`}</span></p>
           <p>Telefono: <span>{`${data.phone !== "" ? data.phone : 'No registrado'}`}</span></p>
-          <p>Dirección: <span>{`${data.address !== null ? data.address : 'No registrado'}`}</span></p>
+          <p>Dirección: <span>{`${data.address !== '' ? data.address : 'No registrado'}`}</span></p>
           <p>Ciudad: <span>{`${data.city !== null ? data.city : 'No registrado'}`}</span></p>
         </div>
         <div className="row row_two">

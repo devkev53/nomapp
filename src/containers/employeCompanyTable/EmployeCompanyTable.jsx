@@ -38,7 +38,7 @@ export const EmployeCompanyTable = ({data, searchLabel, companyId}) => {
     columnHelper.accessor('url_img', {
       header: () => <span>Imágen</span>,
       cell: info => {
-        if (info.getValue() !== null) {
+        if (info.getValue() !== '') {
           return (
             <picture className="logo_company">
               <img src={`http://localhost:8000${info.getValue()}`} />

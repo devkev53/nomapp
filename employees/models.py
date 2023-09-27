@@ -71,7 +71,7 @@ class Employee(PersonBase):
 
   def url_img(self):
     if not self.photo:
-      return '/media/imgs/not-img.jpg'
+      return ''
     else:
       return self.photo.url
 

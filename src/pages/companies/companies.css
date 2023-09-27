@@ -14,8 +14,16 @@
   margin-top: 16px;
 }
 
+.button_add .primary_btn span {
+  display: none;
+}
+
 @media (min-width: 768px) {
   .companies_wrapper .search_and_add {
     flex-direction: row;
   }
+  .button_add .primary_btn span {
+    display: flex;
+  }
+
 }
