@@ -15,8 +15,9 @@ import {
 import { tokenValidate, refreshValidate } from "./token-validations.utility";
 
 export const PrivateInterceptor = () => {
-  axiosPrivateInstance.interceptors.request.use(
-    async (request) => {
+
+  axiosPrivateInstance.interceptors.request.use( async (request) => {
+
       const { token, refreshToken } = getAuthTokens();
       // console.log(token, refreshToken);
 
@@ -25,13 +26,16 @@ export const PrivateInterceptor = () => {
       if (token) {
         if (!tokenValidate(token)) return request;
         if (refreshValidate(refreshToken)) {
-          const { id } = getLocalUserInfo();
+          // const { id } = getLocalUserInfo();
           logoutService({ user: id });
           clearAuthData();
         }
-        console.log({ refresh: refreshToken });
+        // console.log({ refresh: refreshToken });
         const response = await refreshTokenService({ refresh: refreshToken });
         const { access, refresh } = response.data;
+        console.log(' -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*')
+        console.log(response)
+        console.log(' -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*')
         const data = { token: access, refreshToken: refresh };
         updateAuthData(data);
 
@@ -39,10 +43,6 @@ export const PrivateInterceptor = () => {
       }
       console.log(request);
       return request;
-    },
-    (error) => {
-      console.log(error);
-      return Promise.reject(error);
     }
   );
   axiosPrivateInstance.interceptors.response.use(

@@ -18,6 +18,7 @@ export const logoutService = async (data) => {
     `http://127.0.0.1:8000/api/logout/`,
     data
   );
+  return response
 };
 
 export const refreshTokenService = async (refreshToken) => {
@@ -25,4 +26,5 @@ export const refreshTokenService = async (refreshToken) => {
     `http://127.0.0.1:8000/api/token/refresh/`,
     refreshToken
   );
+  return response
 };

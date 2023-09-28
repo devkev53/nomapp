@@ -8,7 +8,7 @@ from .models import Company
 class CompanyAdmin(SimpleHistoryAdmin):
   '''Admin View for Company'''
 
-  list_display = ('id', 'img_preview', 'name', 'phone', 'email', 'num_employees')
+  list_display = ('id', 'img_preview', 'name', 'phone', 'email', 'num_employees', 'getLastPayment')
   # list_filter = ('',)
   # raw_id_fields = ('',)
   # readonly_fields = ('',)

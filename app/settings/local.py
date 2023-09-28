@@ -76,8 +76,8 @@ SIMPLE_JWT = {
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
     # 'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10),
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=360),
-    'REFRESH_TOKEN_LIFETIME': timedelta(hours=24),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=2),
+    'REFRESH_TOKEN_LIFETIME': timedelta(hours=4),
 }
 
 # CORS CONFIGURATION

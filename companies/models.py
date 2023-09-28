@@ -48,3 +48,13 @@ class Company(BaseModel):
       return count
     except employes.DoesNotExist as e:
       raise e
+  
+  def getLastPayment(self):
+    try:
+      from pays.models import Payments
+      lastPay = Payments.object.filter(employee__job_position__department__company=self.pk).last()
+      return last_pay.toJSON()
+    except:
+      return None
+      
+    

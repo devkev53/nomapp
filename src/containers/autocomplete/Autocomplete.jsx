@@ -6,7 +6,9 @@ import './autocomplete.css'
 const Autocomplete = ({data, callback}) => {
   return (
     <div className='autoComplete_wrapper'>
-      {data.map(({id, name, price, url_img}) => (
+      {data.length <= 0 
+        ? (<p>No se encontraro productos..!</p>)
+        : data.map(({id, name, price, url_img}) => (
         <button onClick={callback} key={id} className='item'>
           <picture>
             <img src={`${url_img !== '' ? ('http://127.0.0.1:8000'+url_img) : noImg }`} alt="" />

@@ -1,5 +1,6 @@
 from django.db import IntegrityError, models
 from django.core.exceptions import ValidationError
+from django.forms import model_to_dict
 from core.models import BaseModel
 from employees.models import Employee
 from decimal import Decimal
@@ -64,14 +65,17 @@ class Payment(PaymentBase):
 
 
   # TODO: Define custom methods here
+  def toJSON(self):
+    item = model_to_dict(self)
+    item['salary_base'] = self.salary_base()
+    return item
+
   def clean(self):
     if self.type == '1':
       self.amount = self.pay_is_prepaid()
     elif self.type == '2':
       self.amount = self.pay_is_monthPayment()
     return super(Payment, self).clean()
-
-
 
   def salary_base(self):
     return self.employee.job_position.salary
@@ -115,7 +119,6 @@ class Payment(PaymentBase):
     except IntegrityError as e:
       raise ValidationError(e)
       
-
   def pay_is_monthPayment(self):
     total = self.employee.job_position.salary
     amount_rest = total - self.get_prepaid()
@@ -134,7 +137,6 @@ class Payment(PaymentBase):
       return prepaid.amount
     except:
       raise ValidationError("Debe existe el pago quincenal..!")
-
 
   def calc_commission(self):
     total = Decimal(0.00)
