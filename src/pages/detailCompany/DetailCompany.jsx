@@ -11,7 +11,7 @@ import noImg from '../../assets/img/not-img.jpg'
 import {PrimaryBtn} from '../../components/ui/PrimaryBtn'
 import { PageLoadingSpiner } from "../../components/ui/PageLoadingSpiner"
 
-import { getOneCompany } from "../../services/companies.service"
+import { getOneCompany, paymentNomina } from "../../services/companies.service"
 import {useFetchAndLoad} from '../../hooks/useFetchAndLoad'
 
 import './detailCompany.css'
@@ -52,6 +52,16 @@ export const DetailCompany = () => {
     return setStateBtn(false)
   }
 
+  const getPaymentExecute = async () => {
+    try {
+      let response = await callEndpoint(paymentNomina(params.companyId))
+      console.log(response.data)
+      return response.data
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
   const handlePayBtn = () => {
     let month = dayjs(today).format('MMMM')
     let type = ''
@@ -68,9 +78,7 @@ export const DetailCompany = () => {
       confirmButtonText: 'Si, continuar el pago..!',
     }).then((result) => {
       if (result.isConfirmed) {
-        MySwal.fire(
-          'Tiene que llamar al endpoint..!'
-        )
+        MySwal.fire(getPaymentExecute())
       }
     })
   }

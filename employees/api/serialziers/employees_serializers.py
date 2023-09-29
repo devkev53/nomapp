@@ -22,13 +22,12 @@ class EmployeeSerializer(serializers.ModelSerializer):
 
   def get_full_name(self, obj):
     return obj.get_full_name
-  
+
   def calculate_prepaid(self, obj):
     return obj.calculate_prepaid
-  
+
   def calculate_monthPayment(self, obj):
     return obj.calculate_monthPayment
 
   def url_img(self, obj):
     return obj.url_img
-  

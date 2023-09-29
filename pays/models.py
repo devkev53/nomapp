@@ -79,7 +79,7 @@ class Payment(PaymentBase):
 
   def salary_base(self):
     return self.employee.job_position.salary
-  
+
   def calculate_bono14(self):
     total = 0
     last_pay = Payment.objects.filter(employee=self.employee).last()
@@ -94,7 +94,7 @@ class Payment(PaymentBase):
         print(pay)
     total = total/12
     return total
-  
+
   def calculate_aguinaldo(self):
     total = 0
     last_pay = Payment.objects.filter(employee=self.employee).last()
@@ -118,7 +118,7 @@ class Payment(PaymentBase):
       return prepaid_amount
     except IntegrityError as e:
       raise ValidationError(e)
-      
+
   def pay_is_monthPayment(self):
     total = self.employee.job_position.salary
     amount_rest = total - self.get_prepaid()

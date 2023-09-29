@@ -65,6 +65,12 @@ export const EmployeCompanyTable = ({data, searchLabel, companyId}) => {
       footer: info => info.column.id
     }),
     columnHelper.accessor('job_position', {
+      id: info => info.getValue().id,
+      header: () => <span>Puesto</span>,
+      cell: info => <p>{`${info.getValue().name}`}</p>,
+      footer: info => info.column.id
+    }),
+    columnHelper.accessor('job_position', {
       header: () => <span>Salario Base</span>,
       cell: info => <p>{`Q. ${info.getValue().salary}`}</p>,
       footer: info => info.column.id

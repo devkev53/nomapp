@@ -58,7 +58,7 @@ export const Sidebar = () => {
               </a>
             </li>
             <li className="menu_item">
-              <a href="" className="menu_link text-2xl font-bold text-gray-300">
+              <a href="/employees" className="menu_link text-2xl font-bold text-gray-300">
                 <RiUser2Fill/>
                 <span>
                   Empleados

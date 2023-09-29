@@ -52,3 +52,16 @@ export const createCompany = async (data) => {
   );
   return response.data;
 };
+
+export const paymentNomina = (company_id) => {
+  const controller = loadAbort();
+  return {
+    call: axiosPrivateInstance.get(
+      `http://localhost:8000/api/company/${company_id}/pay-nomina`,
+      {
+        signal: controller.signal,
+      }
+    ),
+    controller,
+  };
+};
