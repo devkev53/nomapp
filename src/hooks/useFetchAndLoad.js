@@ -1,40 +1,39 @@
-import { AxiosResponse } from "axios"
-import { useEffect, useState } from "react"
-
+import { AxiosResponse } from "axios";
+import { useEffect, useState } from "react";
 
 export const useFetchAndLoad = () => {
-  const [isLoading, setLoading] = useState(false)
-  let controller // Genera un controlador final
+  const [isLoading, setLoading] = useState(false);
+  let controller; // Genera un controlador final
 
   // Llama al endpon con la funcion asincrona
-  const callEndpoint = async(axiosCall) => {
-    if (axiosCall.controller) controller = axiosCall.controller // Valida y envia al controlador
-    setLoading(true)
+  const callEndpoint = async (axiosCall) => {
+    if (axiosCall.controller) controller = axiosCall.controller; // Valida y envia al controlador
+    setLoading(true);
 
-    let result = {}
+    let result = {};
 
     try {
-      result = await axiosCall.call
+      result = await axiosCall.call;
     } catch (error) {
-      setLoading(false)
-      throw new Error(error)
+      setLoading(false);
+      throw new Error(error);
     }
 
-    setLoading(true)
-    return result
-  }
+    setLoading(false);
+    return result;
+  };
 
   // Cancelar la llamada al endpoint
   const cancelEndpoint = () => {
-    setLoading(false)
-    controller && controller.abort()
-  }
+    setLoading(false);
+    controller && controller.abort();
+  };
 
   useEffect(() => {
     return () => {
-      cancelEndpoint()
-    }
-  },[])
+      cancelEndpoint();
+    };
+  }, []);
 
-  return {isLoading, callEndpoint}
-}
+  return { isLoading, callEndpoint };
+};

@@ -32,39 +32,33 @@ export const Compaies = () => {
     getData()
   },[])
 
+  console.log(isLoading)
+
   return (
-    <>
-    {!isLoading 
-      ? (
-        <PageLoadingSpiner />
-      ) 
-      : (
-        <div className="companies_wrapper p-4 flex flex-col justify-center">
+    <div className="companies_wrapper p-4 flex flex-col justify-center">
+      {isLoading && <PageLoadingSpiner/>}
 
-          {/* Title */}
-          <div className="page_title">
-            <h2 className='title'>
-              <RiBuilding2Fill />
-              Empresas
-            </h2>
-            <div className="button_add">
-              <PrimaryBtn callback={() => navigate('/companies-create')} label="Agregar">
-                <RiFileAddFill/>
-              </PrimaryBtn>
-            </div>
-            <div className="tite_border"></div>
-          </div>
-
-          <div className='companies_container'>
-            {/* {data.map(company => (
-              <p key={company.id}>{company.name}</p>
-            ))} */}
-            <ComapniesTables data={data} searchLabel="Buscar Empresas..!" />
-          </div>
-
+      {/* Title */}
+      <div className="page_title">
+        <h2 className='title'>
+          <RiBuilding2Fill />
+          Empresas
+        </h2>
+        <div className="button_add">
+          <PrimaryBtn callback={() => navigate('/companies-create')} label="Agregar">
+            <RiFileAddFill/>
+          </PrimaryBtn>
         </div>
-      )
-    }
-    </>
+        <div className="tite_border"></div>
+      </div>
+
+      <div className='companies_container'>
+        {/* {data.map(company => (
+          <p key={company.id}>{company.name}</p>
+        ))} */}
+        <ComapniesTables data={data} searchLabel="Buscar Empresas..!" />
+      </div>
+
+    </div>
   )
 }

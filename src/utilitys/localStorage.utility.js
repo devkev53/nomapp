@@ -20,5 +20,5 @@ export const updateAuthData = (data) => {
 };
 
 export const getLocalUserInfo = (data) => {
-  return window.localStorage.setItem("userInfo", JSON.stringify(data));
+  return window.localStorage.setItem("userInfo", JSON.stringify(data)) || null;
 };

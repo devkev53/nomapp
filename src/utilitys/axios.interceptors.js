@@ -15,36 +15,45 @@ import {
 import { tokenValidate, refreshValidate } from "./token-validations.utility";
 
 export const PrivateInterceptor = () => {
+  axiosPrivateInstance.interceptors.request.use(async (request) => {
+    const { token, refreshToken } = getAuthTokens();
 
-  axiosPrivateInstance.interceptors.request.use( async (request) => {
-
-      const { token, refreshToken } = getAuthTokens();
-      // console.log(token, refreshToken);
-
-      request = updateHeader(request);
-
-      if (token) {
-        if (!tokenValidate(token)) return request;
-        if (refreshValidate(refreshToken)) {
-          // const { id } = getLocalUserInfo();
-          logoutService({ user: id });
-          clearAuthData();
-        }
-        // console.log({ refresh: refreshToken });
-        const response = await refreshTokenService({ refresh: refreshToken });
-        const { access, refresh } = response.data;
-        console.log(' -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*')
-        console.log(response)
-        console.log(' -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*')
-        const data = { token: access, refreshToken: refresh };
-        updateAuthData(data);
-
-        request.headers.Authorization = `Bearer ${response.data.access}`;
-      }
-      console.log(request);
+    // UPDATE HEADER FOR REPORT DOCUMENTS PDF
+    const updateTypeReportHeader = (request) => {
+      const newHeaders = {
+        Authorization: `Bearer ${token}`,
+        "Content-type": "application/pdf",
+      };
+      request.responseType = "blob";
+      request.headers = newHeaders;
       return request;
+    };
+
+    console.log(request.url);
+
+    if (request.url?.includes("report")) return updateTypeReportHeader(request);
+
+    request = updateHeader(request);
+
+    if (token) {
+      if (!tokenValidate(token)) return request;
+      if (refreshValidate(refreshToken)) {
+        clearAuthData();
+      }
+      // console.log({ refresh: refreshToken });
+      const response = await refreshTokenService({ refresh: refreshToken });
+      const { access, refresh } = response.data;
+      console.log(" -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*");
+      console.log(response);
+      console.log(" -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*");
+      const data = { token: access, refreshToken: refresh };
+      updateAuthData(data);
+
+      request.headers.Authorization = `Bearer ${response.data.access}`;
     }
-  );
+    console.log(request);
+    return request;
+  });
   axiosPrivateInstance.interceptors.response.use(
     (response) => {
       return response;

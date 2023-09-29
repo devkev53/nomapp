@@ -65,3 +65,16 @@ export const paymentNomina = (company_id) => {
     controller,
   };
 };
+
+export const getNominaPDF = (company_id) => {
+  const controller = loadAbort();
+  return {
+    call: axiosPrivateInstance.post(
+      `http://localhost:8000/api/company_report_nomina/${company_id}`,
+      {
+        signal: controller.signal,
+      }
+    ),
+    controller,
+  };
+};

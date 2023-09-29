@@ -49,7 +49,7 @@ class PaymentNominaAPIView(APIView):
         company_id = pk
         employees = EmployeeSerializer.Meta.model.objects.filter(job_position__department__company=company_id)
         last_pay = Payment.objects.filter(employee__job_position__department__company=company_id).last()
-        print(last_pay)
+        # print(last_pay)
 
         # Verifica si existe un pago anterior
         if last_pay == None:
@@ -63,6 +63,7 @@ class PaymentNominaAPIView(APIView):
               # Ejecuta el pago de mes
               total = exucute_month_each(employees, day, month, year)
         elif last_pay.month == month and last_pay.year == year:
+            print("Error la nomina de este fin mes ya se pago")
             return Response({"error":"El pago de este mes ya existe"}, status=status.HTTP_409_CONFLICT)
         # Si existe un pago anterior se valida que el mes sea mayor y el año igual para generar pago de mes
         elif last_pay.month <= month and last_pay.year == year:

@@ -11,7 +11,7 @@ import noImg from '../../assets/img/not-img.jpg'
 import {PrimaryBtn} from '../../components/ui/PrimaryBtn'
 import { PageLoadingSpiner } from "../../components/ui/PageLoadingSpiner"
 
-import { getOneCompany, paymentNomina } from "../../services/companies.service"
+import { getOneCompany, paymentNomina, getNominaPDF } from "../../services/companies.service"
 import {useFetchAndLoad} from '../../hooks/useFetchAndLoad'
 
 import './detailCompany.css'
@@ -29,6 +29,22 @@ export const DetailCompany = () => {
 
   const {isLoading, callEndpoint} = useFetchAndLoad()
   const params = useParams()
+
+
+  const getPrintNomina = async () => {
+    const data = {"month":"", "year":""}
+    try {
+      let response = await callEndpoint(getNominaPDF(params.companyId))
+      const blob = response.data
+      const fileURL = window.URL.createObjectURL(blob)
+      let alink = document.createElement('a')
+      alink.href = fileURL
+      alink.target = '_blank'
+      alink.click()
+    } catch (e) {
+      console.log(e)
+    }
+  }
 
 
   const getData = async () => {
@@ -55,10 +71,11 @@ export const DetailCompany = () => {
   const getPaymentExecute = async () => {
     try {
       let response = await callEndpoint(paymentNomina(params.companyId))
-      console.log(response.data)
+      // console.log(response.data)
+      endPaymentNominaOK()
       return response.data
     } catch (e) {
-      console.error(e)
+      endPaymentNominaConflict()
     }
   }
 
@@ -78,10 +95,20 @@ export const DetailCompany = () => {
       confirmButtonText: 'Si, continuar el pago..!',
     }).then((result) => {
       if (result.isConfirmed) {
-        MySwal.fire(getPaymentExecute())
-      }
+        data.activate_payment_option && getPaymentExecute()}
     })
   }
+
+  const endPaymentNominaOK  = () => MySwal.fire({
+    title: 'Realizado con Exito..!',
+    icon: 'success',
+    html: <a className="btn secondary_btn" href="" target="_blank">Imprimir Nomina</a>
+  })
+  const endPaymentNominaConflict = () => MySwal.fire({
+    title: 'Oops..!',
+    icon: 'error',
+    text: 'No fue posible realiar el pago verifique con el administrador del sistema..!'
+  })
 
   useEffect(() => {
     getData()
@@ -93,7 +120,7 @@ export const DetailCompany = () => {
 
   return (
     <div className='detailCompany_wrapper p-4 flex flex-col justify-center'>
-      {!isLoading && <PageLoadingSpiner/>}
+      {isLoading && <PageLoadingSpiner/>}
       {/* Title */}
       <div className="page_title">
         <h2 className='title'>
@@ -109,12 +136,15 @@ export const DetailCompany = () => {
       <div className="button_actions">
         <PrimaryBtn
           label="Pagar Nomina"
-          state={stateBtn}
+          state={!data.activate_payment_option}
           callback={handlePayBtn}
         >
           <RiCoinsFill/>
         </PrimaryBtn>
-        <SecondaryBtn label="Imprimir Nomina" >
+        <SecondaryBtn 
+          label="Imprimir Nomina"
+          callback={getPrintNomina}
+        >
           <RiPrinterFill/>
         </SecondaryBtn>
         {/* <button className="primary_btn"><RiEdit2Fill/><span>Editar</span></button>

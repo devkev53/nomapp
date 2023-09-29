@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  @page {
+    margin: .8cm;
+    size: landscape;
+    orientation: landscape;
+    size: 13in 8.5in;
+  }
+  .nomina_table {
+    border-collapse: collapse;
+    font-size: 8px;
+    width: 100%;
+    border-radius: 5px;
+  }
+  .nomina_table tr th {
+    text-align: center;
+    background: rgba(51,51,51, 1);
+    color: white;
+    padding: 5px 10px;
+    /* border: 2px solid #ccc; */
+  }
+  .nomina_table tr:first-child th {
+    font-size: 10px;
+  }
+  .nomina_table tr:first-child th:first-child {
+    border-top-left-radius: 5px;
+  }
+  .nomina_table tr:first-child th:last-child {
+    border-top-right-radius: 5px;
+  }
+  .nomina_table tbody tr:nth-of-type(even) {
+    background-color: #dbdbdb;
+  }
+  .nomina_table tbody tr td {
+    padding: 12px 15px;
+    font-weight: normal;
+  }
+  .nomina_table tbody tr td:nth-child(3),
+  .nomina_table tbody tr td:nth-child(12),
+  .nomina_table tbody tr td:nth-child(9) {
+    border-right: 1px solid #ccc;
+  }
+  .nomina_table tbody tr td:nth-child(9),
+  .nomina_table tbody tr td:nth-child(13),
+  .nomina_table tbody tr td:nth-child(12) {
+    font-weight: bold;
+  }
+
+  .nomina_table tbody tr:last-of-type td {
+    border-bottom: 4px solid rgba(51,51,51, 1);
+  }
+
+
+</style>
+<body>
+  <h1>{{company.name}}</h1>
+
+  <div class="table_nomina_container">
+    <table class="nomina_table">
+      <thead>
+        <tr>
+          <th colspan="3">Informacion del Empleado</th>
+          <th colspan="6">Salarios y Beneficios</th>
+          <th colspan="6">Retenciones y Descuentos</th>
+        </tr>
+        <tr>
+          <th>Empleado</th>
+          <th>Cargo/Posición</th>
+          <th>Salario Base</th>
+          <th>Salario Quincenal</th>
+          <th>Salario Mensual</th>
+          <th>Comisiónes</th>
+          <th>Horas Extras</th>
+          <th>Total Ingresos</th>
+          <th>IGSS 4.83%</th>
+          <!-- <th>ISR</th> -->
+          <th>Contribucion Solidaria</th>
+          <th>Tienda</th>
+          <th>Total Descuentos</th>
+          <th>Total Liquido</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for pay in pays %}
+          <tr>
+            <td>{{pay.employee.get_full_name}}</td>
+            <td>{{pay.employee.job_position.name}}</td>
+            <td>Q. {{pay.employee.job_position.salary}}</td>
+            <td>Q. {{pay.employee.calculate_prepaid}}</td>
+            <td>Q. {{pay.employee.calculate_monthPayment}}</td>
+            <td>Q. Comisiones</td>
+            <td>Q. Horas Extras</td>
+            <td>Q. Total Ingresos</td>
+            <td>Q. {{pay.employee.social_security}}</td>
+            <td>Q. Contribucion Solidaria</td>
+            <td>Q. Tienda</td>
+            <td>Q. Total Descuentos</td>
+            <td>Q. Total Liquido</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

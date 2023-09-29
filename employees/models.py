@@ -89,9 +89,11 @@ class Employee(PersonBase):
     total = None
     if self.job_position:
       month_payment = Decimal(self.job_position.salary - Decimal(self.calculate_prepaid()))
-      social_security = calculate_socialSecurity(self.job_position.salary)
-      total = "{:.2f}".format(Decimal(month_payment) - Decimal(social_security))
+      total = "{:.2f}".format(Decimal(month_payment) - Decimal(self.social_security()))
     return total
+
+  def social_security(self):
+    return calculate_socialSecurity(self.job_position.salary)
 
 
 

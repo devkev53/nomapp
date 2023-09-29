@@ -18,7 +18,7 @@ export const Store = () => {
       console.log(response)
       setEmployees(response.data)
     } catch (e) {
-      console.error(e)
+      console.log(e)
     }
   }
 
