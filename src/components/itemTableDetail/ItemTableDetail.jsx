@@ -33,7 +33,7 @@ export const ItemTableDetail = ({item}) => {
         <img src={`${item.url_img !== '' ? ('http://127.0.0.1:8000'+item.url_img) : noImg }`} alt="" />
         <span>{item.name}</span>
       </td>
-      <td width="100%">
+      <td>
         <input
           value={cant}
           min="1"
@@ -42,8 +42,8 @@ export const ItemTableDetail = ({item}) => {
           type="number" 
         />
       </td>
-      <td width="100%">Q. <span id='price_prod'>{item.price}</span></td>
-      <td width="100%" id='total_for_cant'>Q. <span>{item.total}</span></td>
+      <td>Q. <span id='price_prod'>{item.price}</span></td>
+      <td id='total_for_cant'>Q. <span>{item.total}</span></td>
     </tr>
   )
 }

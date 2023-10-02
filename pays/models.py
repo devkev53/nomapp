@@ -13,8 +13,105 @@ TYPE_PAYMENT_CHOICE = {
   ('2', 'Mes'),
   ('3', 'Bono 14'),
   ('4', 'Aguinaldo')
-
 }
+
+class PayBase(BaseModel):
+  """Model definition for PayBase."""
+
+  # TODO: Define fields here
+  employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
+  credit_store = models.DecimalField(decimal_places=2, max_digits=10, default=0, blank=True, null=True, editable=False)
+  amount = models.DecimalField(decimal_places=2, max_digits=10, default=0, editable=False)
+  total = models.DecimalField(decimal_places=2, max_digits=10, editable=False)
+  month = models.PositiveSmallIntegerField(editable=False)
+  year = models.PositiveSmallIntegerField(editable=False)
+
+  class Meta:
+    """Meta definition for PayBase."""
+
+    abstract = True
+    verbose_name = 'PayBase'
+    verbose_name_plural = 'PayBases'
+
+  def __str__(self):
+    """Unicode representation of PayBase."""
+    return '%s - %s - %s' % (
+      self.employee.get_full_name(), self.amount, self.created
+    )
+
+  # TODO: Define custom methods here
+
+  def pay_credit_store(self):
+    try:
+      credit = 0
+      from store.models import Sale
+      sales = Sale.objects.filter(employee=self.employee, paid_status=False)
+      for sale in sales:
+        credit += sale.total
+        sale.paid_status=True
+        sale.save()
+      return credit
+    except IntegrityError as e:
+      raise ValidationError(e)
+
+
+class FortnightPayment(PayBase):
+  """Model definition for FortnightPayment."""
+
+  # TODO: Define fields here
+
+  class Meta:
+    """Meta definition for FortnightPayment."""
+
+    verbose_name = 'FortnightPayment'
+    verbose_name_plural = 'FortnightPayments'
+
+  def save(self, *args, **kwargs):
+    today = datetime.date.today()
+    self.month = today.month
+    self.year = today.year
+    self.validate_pay()
+    self.amount = self.employee.total_prepaid()
+    self.credit_store = self.pay_credit_store()
+    self.total = Decimal(self.amount) - Decimal(self.credit_store)
+    super(FortnightPayment, self).save()
+
+  # TODO: Define custom methods here
+  def clean(self):
+    self.validate_pay()
+    return super(FortnightPayment, self).clean()
+
+  def validate_pay(self):
+    today = datetime.date.today()
+    myMonth = today.month
+    myYear = today.year
+    if FortnightPayment.objects.filter(month=myMonth, year=myYear).exists():
+      raise ValidationError("El pago de este mes ya fue realizado..!")
+
+
+class MonthlyPayment(PayBase):
+  """Model definition for FortnightPayment."""
+
+  # TODO: Define fields here
+  comision = models.DecimalField(decimal_places=2, max_digits=10, default=0, blank=True, null=True)
+  social_security = models.DecimalField(decimal_places=2, max_digits=10, default=0, blank=True, null=True)
+  contribution = models.DecimalField(decimal_places=2, max_digits=10, default=0, blank=True, null=True)
+  credit = models.DecimalField(decimal_places=2, max_digits=10, default=0, blank=True, null=True)
+
+  class Meta:
+    """Meta definition for FortnightPayment."""
+
+    verbose_name = 'FortnightPayment'
+    verbose_name_plural = 'FortnightPayments'
+
+  def save(self, *args, **kwargs):
+    super(MonthlyPayment, self).save()
+
+  # TODO: Define custom methods here
+
+
+
+
 
 class PaymentBase(BaseModel):
   """Model definition for PaymentBase."""
@@ -38,10 +135,10 @@ class PaymentBase(BaseModel):
     return '%s - %s' % (self.employee.get_full_name(), self.created)
 
   def save(self, *args, **kwargs):
-      # today = datetime.date.today()
-      # self.day = today.day
-      # self.month = today.month
-      # self.year = today.year
+      today = datetime.date.today()
+      self.day = today.day
+      self.month = today.month
+      self.year = today.year
       super(PaymentBase, self).save()
 
   # TODO: Define custom methods here
@@ -112,23 +209,14 @@ class Payment(PaymentBase):
 
   def pay_is_prepaid(self):
     try:
-      total = self.employee.job_position.salary
-      prepaid_amount = "{:.2f}".format(total * Decimal(0.45))
-      print(prepaid_amount)
-      return prepaid_amount
+      total = self.employee.total_prepaid()
+      return total
     except IntegrityError as e:
       raise ValidationError(e)
 
   def pay_is_monthPayment(self):
-    total = self.employee.job_position.salary
-    amount_rest = total - self.get_prepaid()
-    cash = (
-      amount_rest - Decimal(Decimal(self.calc_creditPayment()) -
-      Decimal(self.calc_socialSecurity()) - Decimal(self.calc_solidarityContribution()) -
-      Decimal(self.calc_storePayment() + self.calc_commission()))
-    )
-    cash = amount_rest - Decimal(self.calc_socialSecurity())
-    return cash
+    total = self.employee.total_monthPayment()
+    return total
 
   def get_prepaid(self):
     today = datetime.date.today()
@@ -151,8 +239,11 @@ class Payment(PaymentBase):
     return total
 
   def calc_solidarityContribution(self):
-    total = Decimal(0.00)
-    return total
+    try:
+      total = self.employee.store_credit()
+      return total
+    except IntegrityError as e:
+      raise ValidationError(e)
 
   def calc_socialSecurity(self):
     total = self.employee.job_position.salary

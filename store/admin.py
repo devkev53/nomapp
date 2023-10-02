@@ -30,7 +30,7 @@ class SaleDetailAdmin(admin.TabularInline):
 class SaleAdmin(admin.ModelAdmin):
   '''Admin View for Sale'''
 
-  list_display = ('id', 'created', 'employee', 'total')
+  list_display = ('id', 'created', 'employee', 'total', 'paid_status')
   # list_filter = ('',)
   inlines = [
     SaleDetailAdmin,

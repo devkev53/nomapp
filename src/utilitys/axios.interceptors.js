@@ -15,7 +15,6 @@ import {
 import { tokenValidate, refreshValidate } from "./token-validations.utility";
 
 export const PrivateInterceptor = () => {
-  
   axiosPrivateInstance.interceptors.request.use(async (request) => {
     const { token, refreshToken } = getAuthTokens();
 
@@ -28,12 +27,26 @@ export const PrivateInterceptor = () => {
       };
       request.responseType = "blob";
       request.headers = pdfHeaders;
-      console.log(request)
+      console.log(request);
       return request;
     };
 
+    // UPDATE HEADER FOR POST WITH JSON
+    const updateJsonHeader = (request) => {
+      const jsonHeader = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      };
+      request.headers = jsonHeader;
+      console.log("Entro al JSON Header");
+      console.log(request);
+      return request;
+    };
 
-    if (request.url?.includes("report")) return updateTypeReportHeader(request)
+    console.log(request.url);
+
+    if (request.url?.includes("report")) return updateTypeReportHeader(request);
+    if (request.url?.includes("sales")) return updateJsonHeader(request);
 
     request = updateHeader(request);
 

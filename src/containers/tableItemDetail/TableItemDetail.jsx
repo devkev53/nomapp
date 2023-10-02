@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 import './tableItemDetail.css'
 
 import { useFetchAndLoad } from '../../hooks/useFetchAndLoad';
@@ -15,10 +17,11 @@ export const TableItemDetail = ({cart}) => {
 
   const [total, setTotal] = useState(0)
   const [check, setChek] = useState(true)
-  const {state} = useStoreContext()
+  const {state, resetShop} = useStoreContext()
   const {isLoading, callEndpoint} = useFetchAndLoad()
   const params = useParams()
   const navigate = useNavigate()
+  const SuccessSwall = withReactContent(Swal)
 
   const transformData = () => {
     let productsData = new Array()
@@ -29,25 +32,27 @@ export const TableItemDetail = ({cart}) => {
       }
       productsData.push(prod)
     });
-    const dataForm = new FormData()
-    productsData.forEach(element => {dataForm.append('detail', JSON.stringify(element))});
-    return dataForm
+    return {
+      employee: parseInt(params.employeeId),
+      detail: productsData
+    }
   }
 
   const handleCreateShop = async () => {
     const data = transformData()
-    console.log(data.get('detail'))
-    // try {
-    //   await callEndpoint(createSale(data))
-    //   SuccessSwall.fire({
-    //     icon: 'success',
-    //     title: <p>Compra realziada con exito..!</p>
-    //   }).then(result => {
-    //     navigate('/store')
-    //   })
-    // } catch (e) {
-    //   console.error(e)
-    // }
+    console.log(JSON.stringify(data))
+    try {
+      let response = await callEndpoint(createSale(data))
+      SuccessSwall.fire({
+        icon: 'success',
+        title: <p>Compra realziada con exito..!</p>
+      }).then(result => {
+        resetShop()
+        navigate('/store')
+      })
+    } catch (e) {
+      console.error(e)
+    }
   }
 
   const calculateTotal = () => {
@@ -77,7 +82,7 @@ export const TableItemDetail = ({cart}) => {
         ? (
           <>
           <div className="table_content">
-    
+
             <table className="table_detail_items">
               <thead>
                 <tr>
@@ -98,13 +103,13 @@ export const TableItemDetail = ({cart}) => {
           <div className="total_footer">
             <p>Total Q. <span>{total}</span></p>
           </div>
-          
-          {check 
+
+          {check
             ? <SecondaryBtn callback={handleCreateShop} label="Generar">
                 <RiShoppingBasketFill/>
               </SecondaryBtn>
             : (
-              <div className="warning_totat">
+              <div className="warning_total">
                 <RiErrorWarningFill/>
                 <div>
                   <p>Verifique el total de su compra..!</p>
@@ -113,7 +118,7 @@ export const TableItemDetail = ({cart}) => {
               </div>
             )
           }
-          
+
           </>
         )
         : (

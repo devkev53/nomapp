@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 from django.views.generic import TemplateView, View
 
 from companies.models import Company
-from pays.models import Payment
+# from pays.models import Payment
 
 from rest_framework.views import APIView
 

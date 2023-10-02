@@ -9,6 +9,7 @@ class EmployeeAdmin(admin.ModelAdmin):
 
   list_display=(
     'img_preview', 'get_full_name', 'gender', 'job_position',
+    'total_prepaid', 'total_monthPayment','social_security', 'store_credit',
     'calculate_prepaid', 'calculate_monthPayment', 'url_img'
   )
   list_filter=()

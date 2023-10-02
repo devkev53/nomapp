@@ -41,7 +41,7 @@ class PaymentNominaAPIView(APIView):
   def get(self, request, pk=None, *args, **kwargs):
       # try:
         total = 0
-        print(request.user)
+        # print(request.user)
         today = datetime.datetime.now()
         day = today.day
         month = today.month

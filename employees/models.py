@@ -79,21 +79,43 @@ class Employee(PersonBase):
     style = 'object-fit:contain; border-radius: 50%; width: 30px; height:30px; background: #fff'
     return format_html('<img src="{}" style="{}" />', self.url_img(), style)
 
+  def total_prepaid(self):
+    total = 0
+    if self.job_position:
+      total = "{:.2f}".format(Decimal(self.job_position.salary * Decimal(.45)))
+    return total
+
+  def total_monthPayment(self):
+    total = 0
+    if self.job_position:
+      month_payment = Decimal(self.job_position.salary - Decimal(self.total_prepaid()))
+      total = "{:.2f}".format(Decimal(month_payment) - Decimal(self.social_security()))
+    return total
+
   def calculate_prepaid(self):
     total = None
     if self.job_position:
-      total = "{:.2f}".format(Decimal(self.job_position.salary * Decimal(.45)))
+      total = Decimal(self.total_prepaid()) - Decimal(self.store_credit())
+      total = "{:.2f}".format(Decimal(total))
     return total
 
   def calculate_monthPayment(self):
     total = None
     if self.job_position:
-      month_payment = Decimal(self.job_position.salary - Decimal(self.calculate_prepaid()))
+      month_payment = Decimal(self.job_position.salary - Decimal(self.total_prepaid()))
       total = "{:.2f}".format(Decimal(month_payment) - Decimal(self.social_security()))
     return total
 
   def social_security(self):
     return calculate_socialSecurity(self.job_position.salary)
+
+  def store_credit(self):
+    from store.models import Sale
+    total = 0
+    sales = Sale.objects.filter(employee=self.id, paid_status=False)
+    for sale in sales:
+      total += sale.total
+    return "{:.2f}".format(Decimal(total))
 
 
 

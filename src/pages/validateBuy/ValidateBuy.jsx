@@ -83,7 +83,7 @@ export const ValidateBuy = () => {
         </div>
 
         <div className="body_card">
-            
+
             <div className="search_product">
               <CustomInput name='search_products' label="Buscar Productos" onKeyUp={hadleKeyUp}/>
               {showAutocomplete && <Autocomplete callback={clickProduct} data={productsFilter}/>}
@@ -92,7 +92,7 @@ export const ValidateBuy = () => {
             <div className="table_content_wrapper">
               <TableItemDetail cart={state.cart} />
             </div>
-            
+
         </div>
 
       </div>
