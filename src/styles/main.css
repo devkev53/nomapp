@@ -18,6 +18,9 @@
 }
 
 
+* {
+  /* border: 1px solid red; */
+}
 
 /* INPUT GROUP STYLES INIT */
 .input_group {

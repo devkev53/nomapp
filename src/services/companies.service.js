@@ -35,7 +35,6 @@ export const getCompanyEmployes = (id) => {
 };
 
 export const getOneCompany = (id) => {
-  console.log(`${companiesUrl}${id}`);
   const controller = loadAbort();
   return {
     call: axiosPrivateInstance.get(`${companiesUrl}${id}`, {
@@ -66,11 +65,12 @@ export const paymentNomina = (company_id) => {
   };
 };
 
-export const getNominaPDF = (company_id) => {
+export const getNominaPDF = (company_id, data) => {
   const controller = loadAbort();
   return {
     call: axiosPrivateInstance.post(
-      `http://localhost:8000/api/company_report_nomina/${company_id}`,
+      `http://localhost:8000/api/company_report_nomina/${company_id}/`,
+      data,
       {
         signal: controller.signal,
       }

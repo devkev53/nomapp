@@ -10,24 +10,24 @@ import datetime
 from products.models import Product
 from employees.models import Employee
 
-
-
 from store.api.serializers.serialziers import SaleSerializers, SaleDetailSerializers
 
+import ast
 
 def total_buy(data):
   total_buy = Decimal(0.00)
   detail_array = []
   for det in data:
-    product = Product.objects.filter(id=det["product"]).get()
-    total_buy += det["amount"] * product.price
-    # print("{} - {} - {}".format(product.name, det["amount"], product.price))
-    data = {
-      "product": det["product"],
-      "amount": det["amount"],
-      "total": det["amount"] * product.price
-    }
-    detail_array.append(data)
+    print(det)
+    # product = Product.objects.filter(id=det["product"]).get()
+    # total_buy += det["amount"] * product.price
+    # # print("{} - {} - {}".format(product.name, det["amount"], product.price))
+    # data = {
+    #   "product": det["product"],
+    #   "amount": det["amount"],
+    #   "total": det["amount"] * product.price
+    # }
+    # detail_array.append(data)
   return {"total": total_buy, "array": detail_array}
 
 def validate_sale(total_buy, employee):
@@ -40,12 +40,17 @@ def validate_sale(total_buy, employee):
   print(total_buy)
   return aviable > total_buy
 
+
+
 class SaleViewSet(CustomBaseViewSet):
   serializer_class = SaleSerializers
   permission_classes = (IsAuthenticated,)
 
   def create(self, request):
-    detail = self.request.data["detail"]
+    detail = ast.literal_eval(self.request.data["detail"])
+    print(detail)
+    print(self.request.data["employee"])
+  
     employee = Employee.objects.filter(pk=self.request.data["employee"]).get()
 
     total=total_buy(detail)
@@ -53,19 +58,19 @@ class SaleViewSet(CustomBaseViewSet):
       return Response({"error": "El monto excede el limite de compra"}, status=status.HTTP_401_UNAUTHORIZED)
 
     sale_serialzier = SaleSerializers(data={"employee": employee.pk, "total":total["total"]})
-    if sale_serialzier.is_valid():
-      sale_serialzier.save()
+    # if sale_serialzier.is_valid():
+    #   sale_serialzier.save()
 
-      for det in total["array"]:
-        sale_id = sale_serialzier.data["id"]
-        det["sale"] = sale_id
-        detail_serializer = SaleDetailSerializers(data=det)
-        if detail_serializer.is_valid():
-          detail_serializer.save()
+    #   for det in total["array"]:
+    #     sale_id = sale_serialzier.data["id"]
+    #     det["sale"] = sale_id
+    #     detail_serializer = SaleDetailSerializers(data=det)
+    #     if detail_serializer.is_valid():
+    #       detail_serializer.save()
 
-      return Response(sale_serialzier.data, status=status.HTTP_201_CREATED)
+    #   return Response(sale_serialzier.data, status=status.HTTP_201_CREATED)
 
-    return Response(sale_serialzier.errors, status=status.HTTP_409_CONFLICT)
+    # return Response(sale_serialzier.errors, status=status.HTTP_409_CONFLICT)
 
   @action(detail=True, methods=['patch'], url_path='pay')
   def pay_sale(self, request, pk=None, *args, **kwargs):

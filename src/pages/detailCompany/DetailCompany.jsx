@@ -19,7 +19,7 @@ import { EmployeCompanyTable } from "../../containers/employeCompanyTable/Employ
 import { SecondaryBtn } from "../../components/ui/SecondaryBtn";
 
 dayjs.locale("es")
-
+getNominaPDF
 
 export const DetailCompany = () => {
 
@@ -33,17 +33,14 @@ export const DetailCompany = () => {
 
   const getPrintNomina = async () => {
     const data = {"month":"", "year":""}
-    try {
-      let response = await callEndpoint(getNominaPDF(params.companyId))
-      const blob = response.data
-      const fileURL = window.URL.createObjectURL(blob)
-      let alink = document.createElement('a')
-      alink.href = fileURL
-      alink.target = '_blank'
-      alink.click()
-    } catch (e) {
-      console.log(e)
-    }
+    let response = await callEndpoint(getNominaPDF(params.companyId, data))
+    console.log(response)
+    const blob = response.data
+    const fileURL = window.URL.createObjectURL(blob)
+    let alink = document.createElement('a')
+    alink.href = fileURL
+    alink.target = '_blank'
+    alink.click()
   }
 
 
@@ -71,7 +68,6 @@ export const DetailCompany = () => {
   const getPaymentExecute = async () => {
     try {
       let response = await callEndpoint(paymentNomina(params.companyId))
-      // console.log(response.data)
       endPaymentNominaOK()
       return response.data
     } catch (e) {
@@ -115,7 +111,6 @@ export const DetailCompany = () => {
     check_pay_day()
   },[])
 
-  console.log(isLoading)
 
 
   return (

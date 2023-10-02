@@ -15,7 +15,6 @@ export const Store = () => {
   const getData = async () => {
     try {
       let response = await callEndpoint(getEmployes())
-      console.log(response)
       setEmployees(response.data)
     } catch (e) {
       console.log(e)
@@ -36,7 +35,7 @@ export const Store = () => {
       <div className="page_title">
         <h2 className='title'>
           <RiStoreFill />
-          Store
+          Tienda
         </h2>
         <div className="tite_border"></div>
       </div>

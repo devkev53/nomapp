@@ -1,10 +1,10 @@
 .layout {
-  min-height: 100vh;
+  height: 100vh;
   /* overflow: hidden; */
   /* border: 1px red solid; */
   display: flex;
   background: #E7EAF3;
-  width: 100vw;
+  width: 100%;
 }
 .right_content {
   width: 100%;
@@ -18,5 +18,40 @@
   width: 100%;
   max-width: 1280px;
   margin: 0 auto;
+  background: #E7EAF3;
   /* height: calc(100vh - 5rem); */
+}
+
+
+
+@media (min-width: 768px) {
+  .right_content {
+    overflow-y: scroll;
+  }
+
+  .right_content::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .right_content::-webkit-scrollbar-thumb {
+    background: rgba(131,24,71, .7);
+    border-radius: 4px;
+  }
+  .right_content::-webkit-scrollbar-thumb:hover {
+    background: rgb(233, 4, 103);
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+  }
+  .right_content::-webkit-scrollbar-thumb:active {
+    background: rgb(211, 14, 99);
+  }
+  
+  
+  .right_content::-webkit-scrollbar-track {
+    background: rgba(55,48,163,.3);
+    border-radius: 4px;
+  }
+  .right_content::-webkit-scrollbar-track:hover,
+  .right_content::-webkit-scrollbar-track:active {
+    background: #d4d4d4;
+  }
 }

@@ -8,14 +8,14 @@ const Autocomplete = ({data, callback}) => {
     <div className='autoComplete_wrapper'>
       {data.length <= 0 
         ? (<p>No se encontraro productos..!</p>)
-        : data.map(({id, name, price, url_img}) => (
-        <button onClick={callback} key={id} className='item'>
+        : data.map(product => (
+        <button onClick={() => callback(product)} key={product.id} className='item'>
           <picture>
-            <img src={`${url_img !== '' ? ('http://127.0.0.1:8000'+url_img) : noImg }`} alt="" />
+            <img src={`${product.url_img !== '' ? ('http://127.0.0.1:8000'+product.url_img) : noImg }`} alt="" />
           </picture>
           <div className="info">
-            <p>{name}</p>
-            <p>Q. {price}</p>
+            <p>{product.name}</p>
+            <p>Q. {product.price}</p>
           </div>
         </button>
       ))}

@@ -12,8 +12,8 @@ class Product(BaseModel):
   name = models.CharField(max_length=125)
   description = models.TextField(blank=True, null=True)
   price = models.DecimalField(max_digits=10, decimal_places=2)
-  stock = models.PositiveIntegerField()
-  image=models.ImageField(upload_to='product/')
+  stock = models.PositiveIntegerField(blank=True, null=True)
+  image=models.ImageField(upload_to='product/',blank=True, null=True)
 
 
   class Meta:

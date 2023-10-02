@@ -15,23 +15,25 @@ import {
 import { tokenValidate, refreshValidate } from "./token-validations.utility";
 
 export const PrivateInterceptor = () => {
+  
   axiosPrivateInstance.interceptors.request.use(async (request) => {
     const { token, refreshToken } = getAuthTokens();
 
     // UPDATE HEADER FOR REPORT DOCUMENTS PDF
     const updateTypeReportHeader = (request) => {
-      const newHeaders = {
+      const pdfHeaders = {
         Authorization: `Bearer ${token}`,
-        "Content-type": "application/pdf",
+        "Content-Type": "multipart/form-data",
+        // "Content-Disposition": "inline; report.pdf"
       };
       request.responseType = "blob";
-      request.headers = newHeaders;
+      request.headers = pdfHeaders;
+      console.log(request)
       return request;
     };
 
-    console.log(request.url);
 
-    if (request.url?.includes("report")) return updateTypeReportHeader(request);
+    if (request.url?.includes("report")) return updateTypeReportHeader(request)
 
     request = updateHeader(request);
 
@@ -40,27 +42,24 @@ export const PrivateInterceptor = () => {
       if (refreshValidate(refreshToken)) {
         clearAuthData();
       }
-      // console.log({ refresh: refreshToken });
+
       const response = await refreshTokenService({ refresh: refreshToken });
       const { access, refresh } = response.data;
-      console.log(" -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*");
-      console.log(response);
-      console.log(" -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*");
+
       const data = { token: access, refreshToken: refresh };
       updateAuthData(data);
 
       request.headers.Authorization = `Bearer ${response.data.access}`;
     }
-    console.log(request);
+
     return request;
   });
+
   axiosPrivateInstance.interceptors.response.use(
     (response) => {
       return response;
     },
     (error) => {
-      // console.log(error);
-      // throw new Error(error);
       return Promise.reject(error);
     }
   );
@@ -75,8 +74,6 @@ export const PublicInterceptor = () => {
       return response;
     },
     (error) => {
-      // console.log(error);
-      // console.error(error.response.data.error);
       return Promise.reject(error);
     }
   );
