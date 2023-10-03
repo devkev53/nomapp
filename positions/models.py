@@ -21,7 +21,7 @@ class Department(BaseModel):
 
   def __str__(self):
     """Unicode representation of Department."""
-    return self.name
+    return '%s - %s' % (self.name, self.company)
 
   # TODO: Define custom methods here
 

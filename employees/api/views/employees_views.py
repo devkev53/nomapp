@@ -15,6 +15,14 @@ class EmployeeViewSet(CustomBaseViewSet):
 
 class EmployeeFilterAPIView(APIView):
 
+  def get_queryset(self):
+    queryset = EmployeeSerializer.Meta.model.objects.all()
+    companyId = self.request.query_params.get('companyId')
+    if companyId is not None:
+      queryset = queryset.filter(job_position__department__company=companyId)
+    return queryset
+
   def get(self, reques, pk=None, *args, **kwargs):
-    print(self.request.data)
-    return Response({"message":"OK"})
+    employes = self.get_queryset()
+    employes_serialzier = EmployeeSerializer(employes, many=True)
+    return Response(employes_serialzier.data)
