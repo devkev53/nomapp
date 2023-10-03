@@ -1,6 +1,6 @@
 import './store.css'
 import { useEffect, useState } from "react"
-import { getEmployes } from "../../services/employees.service"
+import { getEmployees } from "../../services/employees.service"
 import { RiStoreFill, RiFileInfoFill } from "react-icons/ri";
 import { useNavigate } from 'react-router-dom';
 import { StoreTable } from '../../containers/storeTable/StoreTable';
@@ -14,7 +14,7 @@ export const Store = () => {
 
   const getData = async () => {
     try {
-      let response = await callEndpoint(getEmployes())
+      let response = await callEndpoint(getEmployees())
       setEmployees(response.data)
     } catch (e) {
       console.log(e)

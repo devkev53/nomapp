@@ -3,7 +3,7 @@ import {
   RiBuilding2Fill, RiUser2Fill 
 } from "react-icons/ri";
 
-import {getEmployes} from '../../services/employees.service'
+import {getEmployees} from '../../services/employees.service'
 import {getCompanies} from '../../services/companies.service'
 import {useFetchAndLoad} from '../../hooks/useFetchAndLoad'
 import {chekFortnightPayment, chekMonthlyPayment, restPayDays} from '../../utilitys/checkPayDay'
@@ -30,6 +30,15 @@ export const Dashboard = () => {
     }
   }
 
+  const countEmployees = async () => {
+    try {
+      let response = await callEndpoint(getEmployees())
+      setNumEmployees(response.data.length)
+    } catch (e) {
+        console.error(e)
+    }
+  }
+
   const checkPayDate = () => {
     if (restPayDays() > 31) {
       setNumPayDays(0)
@@ -42,6 +51,7 @@ export const Dashboard = () => {
   useEffect(()=>{
     checkPayDate()
     countCompanies()
+    countEmployees()
   },[])
 
 

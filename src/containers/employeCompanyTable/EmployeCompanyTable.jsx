@@ -25,11 +25,11 @@ export const EmployeCompanyTable = ({data, searchLabel, companyId}) => {
   },[])
 
   const columns = [
-    columnHelper.accessor('id', {
-      header: () => <span>Id</span>,
-      cell: info => info.getValue(),
-      footer: info => info.column.id
-    }),
+    // columnHelper.accessor('id', {
+    //   header: () => <span>Id</span>,
+    //   cell: info => info.getValue(),
+    //   footer: info => info.column.id
+    // }),
     columnHelper.accessor('get_full_name', {
       header: () => <span>Nombre</span>,
       cell: info => info.getValue(),

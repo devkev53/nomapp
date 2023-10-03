@@ -34,6 +34,7 @@ urlpatterns = [
     path('', include('companies.urls')),
     path('', include('store.urls')),
     path('', include('employees.urls')),
+    path('', include('positions.urls')),
     path('api/', include('core.api.router')),
 
     # Auth Views

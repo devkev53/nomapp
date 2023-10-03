@@ -1,0 +1,75 @@
+.addEmploye_wrapper form {
+  display: flex;
+  gap: 22px;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.addEmploye_wrapper form .select_container label {
+  font-weight: bold;
+  color: #7732c5;
+  padding-left: 15px;
+}
+
+.addEmploye_wrapper .employee_info {
+  gap: 16px;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  flex-direction: column;
+}
+.addEmploye_wrapper .employee_info .row {
+  gap: 16px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.addEmploye_wrapper .employee_info .select {
+  display: flex;
+  width: 100%;
+  background: #FFF;
+  font-weight: bold;
+  color: #ccc;
+  font-size: 17px;
+  padding: 12px;
+  border-radius: 5px;
+}
+
+@media (min-width: 768px) {
+  .addEmploye_wrapper .employee_info {
+    display: grid;
+    grid-template-columns: 200px auto;
+    grid-template-rows: 50px 116px 50px;
+  }
+
+  .addEmploye_wrapper .employee_info .img {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 4;
+  }
+  .addEmploye_wrapper .employee_info .row_one {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .addEmploye_wrapper .employee_info .row_two {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+  .addEmploye_wrapper .employee_info .row_two div:last-child {
+    grid-column-start: 1;
+    grid-row-end: 2;
+    grid-row-start: 2;
+    grid-column-end: 3;
+  }
+  .addEmploye_wrapper .employee_info .row_thre {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+}
+
+
+

@@ -33,7 +33,7 @@ class PersonBase(BaseModel):
     address = models.CharField(max_length=255, blank=True, null=True)
     phone = models.CharField(max_length=15, blank=True, null=True)
     birthday = models.DateField(blank=True, null=True)
-    gender = models.CharField(choices=GENDER_CHOICE, max_length=10)
+    gender = models.CharField(choices=GENDER_CHOICE, max_length=10, blank=True, null=True)
 
     class Meta:
       abstract = True

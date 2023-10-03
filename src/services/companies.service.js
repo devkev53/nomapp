@@ -49,7 +49,7 @@ export const createCompany = async (data) => {
     `http://localhost:8000/api/companies/`,
     data
   );
-  return response.data;
+  return response;
 };
 
 export const paymentNomina = (company_id) => {
@@ -75,6 +75,28 @@ export const getNominaPDF = (company_id, data) => {
         signal: controller.signal,
       }
     ),
+    controller,
+  };
+};
+
+export const getDepartments = (data) => {
+  let url = "http://localhost:8000/api/department/";
+  const controller = loadAbort();
+  return {
+    call: axiosPrivateInstance.get(url, {
+      signal: controller.signal,
+    }),
+    controller,
+  };
+};
+
+export const getPositions = (data) => {
+  let url = "http://localhost:8000/api/positions/";
+  const controller = loadAbort();
+  return {
+    call: axiosPrivateInstance.get(url, {
+      signal: controller.signal,
+    }),
     controller,
   };
 };

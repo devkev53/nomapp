@@ -12,20 +12,20 @@ export const EmployeesTable = ({data}) => {
 
   const checkBtn = (info) => {
     return (
-      <button
-        onClick={() => navigate(`/validate-buy/${info.row.original.id}`)}
+      <a
+        href={`/employee/${info.row.original.id}`}
         className="btn table_btn secondary_btn">
         <RiInformationFill/>
-      </button>
+      </a>
     )
   }
 
   const columns = [
-    columnHelper.accessor('id', {
-      header: () => <span>Id</span>,
-      cell: info => info.getValue(),
-      footer: info => info.column.id
-    }),
+    // columnHelper.accessor('id', {
+    //   header: () => <span>Id</span>,
+    //   cell: info => info.getValue(),
+    //   footer: info => info.column.id
+    // }),
     columnHelper.accessor('url_img', {
       header: () => <span>Foto</span>,
       cell: info => {
@@ -74,7 +74,7 @@ export const EmployeesTable = ({data}) => {
     }),
     columnHelper.accessor('Verificar', {
       header: () => <span>Acciones</span>,
-      cell: info => <div className="flex gap-3">{checkBtn(info)}</div>,
+      cell: info => <div className="flex gap-3 justify-center">{checkBtn(info)}</div>,
       footer: info => info.column.id
     }),
 

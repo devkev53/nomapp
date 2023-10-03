@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from positions.api.serialziers.position_serializers import JobPositionSerialzier
+from positions.api.serialziers.serializaers import JobPositionSerialzier
 from users.api.serializers.user_serializers import CreateUserSerializer
 from employees.models import Employee
 
@@ -28,7 +28,7 @@ class EmployeeSerializer(serializers.ModelSerializer):
 
   def total_prepaid(self, obj):
     return obj.total_prepaid
-  
+
   def get_full_name(self, obj):
     return obj.get_full_name
 
@@ -40,3 +40,14 @@ class EmployeeSerializer(serializers.ModelSerializer):
 
   def url_img(self, obj):
     return obj.url_img
+
+
+class CreateEmployeeSerializer(serializers.ModelSerializer):
+
+  class Meta:
+    model = Employee
+    fields = (
+      'name', 'last_name',
+      'url_img', 'gender', 'photo',
+      'get_full_name', 'job_position'
+      )

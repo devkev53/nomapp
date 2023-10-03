@@ -1,6 +1,6 @@
 import './createCompany.css'
 import { useRef } from 'react'
-import { RiBuilding2Fill } from "react-icons/ri";
+import { RiBuilding2Fill, RiSave2Fill } from "react-icons/ri";
 import { CustomTexarea } from '../../components/ui/CustomTexarea';
 import { CustomInput } from '../../components/ui/CustomInput';
 import { CustomImageInput } from '../../components/ui/CustomImageInput';
@@ -19,12 +19,15 @@ export const CreateCompany = () => {
   const handleCreateCompany = async (data) => {
     try {
       const result = await createCompany(data)
-      SuccessSwall.fire({
-        icon: 'success',
-        title: <p>Empresa Creada con exito..!</p>
-      }).then(result => {
-        navigate('/companies')
-      })
+      console.log(result)
+      if (result.status == 201) {
+        SuccessSwall.fire({
+          icon: 'success',
+          title: <p>Empresa Creada con exito..!</p>
+        }).then(result => {
+          navigate('/companies')
+        })
+      }
     } catch (error) {
 
     }
@@ -70,7 +73,10 @@ export const CreateCompany = () => {
 
           </div>
         </div>
-        <button type='submit' className="primary_btn">Crear</button>
+        <button type='submit' className="btn primary_btn">
+          <RiSave2Fill/>
+          <span>Crear</span>
+        </button>
       </form>
 
 

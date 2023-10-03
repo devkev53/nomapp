@@ -27,7 +27,6 @@ export const PrivateInterceptor = () => {
       };
       request.responseType = "blob";
       request.headers = pdfHeaders;
-      console.log(request);
       return request;
     };
 
@@ -38,12 +37,8 @@ export const PrivateInterceptor = () => {
         "Content-Type": "application/json",
       };
       request.headers = jsonHeader;
-      console.log("Entro al JSON Header");
-      console.log(request);
       return request;
     };
-
-    console.log(request.url);
 
     if (request.url?.includes("report")) return updateTypeReportHeader(request);
     if (request.url?.includes("sales")) return updateJsonHeader(request);

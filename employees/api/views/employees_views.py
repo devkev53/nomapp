@@ -6,11 +6,24 @@ from rest_framework import status
 from rest_framework.views import APIView
 
 
-from employees.api.serialziers.employees_serializers import EmployeeSerializer
+from employees.api.serialziers.employees_serializers import EmployeeSerializer, CreateEmployeeSerializer
 
 class EmployeeViewSet(CustomBaseViewSet):
   serializer_class = EmployeeSerializer
   # permission_classes = (IsAuthenticated,)
+
+  def create(self, request):
+    data = request.data
+    print(data)
+    instance_serialier = CreateEmployeeSerializer(data = request.data)
+
+    if instance_serialier.is_valid():
+      instance_serialier.save()
+      return Response(instance_serialier.data, status=status.HTTP_201_CREATED)
+
+    return Response({
+    'error':'check your fields', 'errors':instance_serialier.errors
+    }, status=status.HTTP_400_BAD_REQUEST)
 
 
 class EmployeeFilterAPIView(APIView):
@@ -22,7 +35,7 @@ class EmployeeFilterAPIView(APIView):
       queryset = queryset.filter(job_position__department__company=companyId)
     return queryset
 
-  def get(self, reques, pk=None, *args, **kwargs):
+  def get(self, request, pk=None, *args, **kwargs):
     employes = self.get_queryset()
     employes_serialzier = EmployeeSerializer(employes, many=True)
-    return Response(employes_serialzier.data)
+    return Response(employes_serialzier.data, status=status.HTTP_200_OK)

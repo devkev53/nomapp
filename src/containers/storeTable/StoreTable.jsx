@@ -24,11 +24,11 @@ export const StoreTable = ({data}) => {
   }
 
   const columns = [
-    columnHelper.accessor('id', {
-      header: () => <span>Id</span>,
-      cell: info => info.getValue(),
-      footer: info => info.column.id
-    }),
+    // columnHelper.accessor('id', {
+    //   header: () => <span>Id</span>,
+    //   cell: info => info.getValue(),
+    //   footer: info => info.column.id
+    // }),
     columnHelper.accessor('url_img', {
       header: () => <span>Foto</span>,
       cell: info => {
@@ -67,7 +67,7 @@ export const StoreTable = ({data}) => {
     }),
     columnHelper.accessor('Verificar', {
       header: () => <span>Acciones</span>,
-      cell: info => <div className="flex gap-3">{checkBtn(info)}</div>,
+      cell: info => <div className="flex gap-3 justify-center">{checkBtn(info)}</div>,
       footer: info => info.column.id
     }),
 

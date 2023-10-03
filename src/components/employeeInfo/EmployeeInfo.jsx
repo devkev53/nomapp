@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 
 import noImg from '../../assets/img/not-img.jpg'
 
-import { getOneEmploye } from "../../services/employees.service";
+import { getOneEmployee } from "../../services/employees.service";
 
 import './employeeInfo.css'
 
@@ -14,7 +14,7 @@ export const EmployeeInfo = () => {
 
 
   const getEmployeData = async (id) => {
-    const resutl = await getOneEmploye(id).then(value => setEmployee(value))
+    const resutl = await getOneEmployee(id).then(value => setEmployee(value))
     return resutl
   }
 
