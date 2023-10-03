@@ -33,6 +33,7 @@ urlpatterns = [
     path('', include('myAuth.urls')),
     path('', include('companies.urls')),
     path('', include('store.urls')),
+    path('', include('employees.urls')),
     path('api/', include('core.api.router')),
 
     # Auth Views

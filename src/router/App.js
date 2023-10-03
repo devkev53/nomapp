@@ -12,6 +12,7 @@ import { Dashboard } from "../pages/dashboard/Dashboard";
 import { Compaies } from "../pages/companies/Companies";
 import { CreateCompany } from "../pages/companies/CreateCompany";
 import { DetailCompany } from "../pages/detailCompany/DetailCompany";
+import { Employees } from "../pages/employees/Employees";
 
 function App() {
   return (
@@ -25,6 +26,9 @@ function App() {
               <Route path="/companies" element={<Compaies />} />
               <Route path="/company/:companyId" element={<DetailCompany />} />
               <Route path="/companies-create" element={<CreateCompany />} />
+
+              <Route path="/employees" element={<Employees />} />
+              
               <Route path="/store" element={<Store />} />
               <Route
                 path="/validate-buy/:employeeId"

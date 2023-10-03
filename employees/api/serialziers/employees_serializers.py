@@ -6,6 +6,8 @@ from employees.models import Employee
 
 class EmployeeSerializer(serializers.ModelSerializer):
   get_full_name = serializers.SerializerMethodField()
+  total_prepaid = serializers.SerializerMethodField()
+  total_monthPayment = serializers.SerializerMethodField()
   calculate_prepaid = serializers.SerializerMethodField()
   calculate_monthPayment = serializers.SerializerMethodField()
   url_img = serializers.SerializerMethodField()
@@ -17,9 +19,16 @@ class EmployeeSerializer(serializers.ModelSerializer):
       'id', 'name', 'last_name',
       'url_img', 'gender',
       'get_full_name', 'job_position',
+      'total_prepaid', 'total_monthPayment',
       'calculate_monthPayment', 'calculate_prepaid'
     )
 
+  def total_monthPayment(self, obj):
+    return obj.total_monthPayment
+
+  def total_prepaid(self, obj):
+    return obj.total_prepaid
+  
   def get_full_name(self, obj):
     return obj.get_full_name
 

@@ -15,6 +15,14 @@ export const getEmployes = () => {
   }
 };
 
+export const getEmployesFilter = (data) => {
+  const controller = loadAbort()
+  return {
+    call: axiosPrivateInstance.get('http://localhost:8000/api/employees-filter/', data, {signal: controller.signal}),
+    controller
+  }
+};
+
 export const getOneEmploye = async (id) => {
   const response = await axiosPublicInstance.get(
     `http://localhost:8000/api/employees/${id}`
