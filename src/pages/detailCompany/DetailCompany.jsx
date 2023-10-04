@@ -15,6 +15,7 @@ import { getOneCompany, paymentNomina, getNominaPDF } from "../../services/compa
 import {useFetchAndLoad} from '../../hooks/useFetchAndLoad'
 import { useModal } from "../../hooks/useModal";
 
+import 'animate.css';
 import './detailCompany.css'
 import { EmployeCompanyTable } from "../../containers/employeCompanyTable/EmployeCompanyTable"
 import { SecondaryBtn } from "../../components/ui/SecondaryBtn";
@@ -31,6 +32,7 @@ export const DetailCompany = () => {
   const [data, setData] = useState([])
   const [stateBtn, setStateBtn] = useState(true)
   const [showAdd, setShowAdd] = useState(false)
+  const [deptos, setDeptos] = useState([])
   const MySwal = withReactContent(Swal)
 
   const {isLoading, callEndpoint} = useFetchAndLoad()
@@ -92,6 +94,16 @@ export const DetailCompany = () => {
     }
   }
 
+  const departmentsAndPositions = () => {
+    let list = []
+    data?.get_departments !== undefined && data?.get_departments.map( item => {
+      let positions = data?.get_job_positions.filter(pos => pos.department === item.id)
+      item['positions'] = positions
+      list.push(item)
+    })
+    setDeptos(list)
+  }
+
   const handlePayBtn = () => {
     let month = dayjs(today).format('MMMM')
     let type = ''
@@ -123,10 +135,20 @@ export const DetailCompany = () => {
     text: 'No fue posible realiar el pago verifique con el administrador del sistema..!'
   })
 
+  const handleAddShowClass = (id) => {
+    document.getElementById(id).classList.toggle('show')
+  }
+
   useEffect(() => {
     getData()
+    departmentsAndPositions()
     check_pay_day()
   },[])
+
+  useEffect(() => {
+    departmentsAndPositions()
+  },[data])
+
 
 
   return (
@@ -166,10 +188,12 @@ export const DetailCompany = () => {
         addClass="drowpdown_btn"
         callback={() => setShowAdd(!showAdd)}>
           <RiArrowDownSFill />
-          <div className={`options_container ${showAdd && 'show'}`}>
-            <p onClick={openDeptModal} className="btn">Departmanento</p>
-            <p onClick={openPosModal} className="btn">Puesto</p>
-          </div>
+          {showAdd && (
+            <div className={`options_container animate__animated animate__fadeIn show`}>
+              <p onClick={openDeptModal} className="btn">Departmanento</p>
+              <p onClick={openPosModal} className="btn">Puesto</p>
+            </div>
+          )}
         </ThirdBtn>
 
         {/* Add Button */}
@@ -190,6 +214,40 @@ export const DetailCompany = () => {
 
       <div className="employe_table_container">
         <EmployeCompanyTable companyId={params.companyId} />
+      </div>
+
+      <div className="deptos_and_positions">
+        <h5>Departamentos y Puestos</h5>
+        <div className="info_section">
+          {deptos?.length > 0
+            ? deptos.map(({id, name, positions}) => (
+              <div key={id} className="deptos_section">
+
+                <div className="subtitle depto" id={id} onClick={()=>handleAddShowClass(id)}>
+                  <p>Departamento de {name}</p>
+                  <RiArrowDownSFill/>
+                </div>
+
+                <div className="positions">
+                  {positions?.length > 0
+                    ? (
+                      <ul>{positions.map(({id, name}) => (
+                        <li key={id}>
+                          {name}
+                        </li>
+                      ))
+                        }</ul>
+                    )
+                    :(
+                      <ul>
+                        <li>No se han regitrado puestos en el departamento</li>
+                      </ul>
+                    )}
+                </div>
+              </div> ))
+
+            : (<p>No se ha registrado departamentos</p>)}
+        </div>
       </div>
 
       {isVisibleDeptModal && <ModalContainer>

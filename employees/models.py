@@ -1,3 +1,4 @@
+from datetime import date
 from django.db import models
 from django.utils.html import format_html
 from decimal import Decimal
@@ -16,7 +17,7 @@ GENDER_CHOICE = {
 
 FAMILYRELATION_CHOICE = {
   ('Father', 'father'),
-  ('Mother', 'motherr'),
+  ('Mother', 'mother'),
   ('Son', 'son'),
   ('Daughter', 'daughter'),
   ('Wife', 'wife'),
@@ -43,6 +44,13 @@ class PersonBase(BaseModel):
 
     def get_full_name(self):
       return '%s %s' % (self.name, self.last_name)
+
+    def calculate_old_year(self):
+      if self.birthday != None:
+        today = date.today()
+        age = today.year - self.birthday.year - ((today.month, today.day) < (self.birthday.month, self.birthday.day))
+        return age
+      return 'N/I'
 
 
 class Employee(PersonBase):
@@ -117,6 +125,12 @@ class Employee(PersonBase):
       total += sale.total
     return "{:.2f}".format(Decimal(total))
 
+  def get_company_name(self):
+    return self.job_position.department.company.name
+
+  def get_department_name(self):
+    return self.job_position.department.name
+
 
 
 class FamilyMember(PersonBase):
@@ -124,7 +138,7 @@ class FamilyMember(PersonBase):
 
   # TODO: Define fields here
   employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
-  relation = models.CharField(choices=FAMILYRELATION_CHOICE, max_length=10)
+  relation = models.CharField(max_length=10)
   dependent = models.BooleanField(default=False)
 
   class Meta:

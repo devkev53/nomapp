@@ -32,8 +32,6 @@ export const Compaies = () => {
     getData()
   },[])
 
-  console.log(isLoading)
-
   return (
     <div className="companies_wrapper p-4 flex flex-col justify-center">
       {isLoading && <PageLoadingSpiner/>}

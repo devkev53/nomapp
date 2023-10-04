@@ -18,14 +18,13 @@ export const CreateCompany = () => {
 
   const handleCreateCompany = async (data) => {
     try {
-      const result = await createCompany(data)
-      console.log(result)
-      if (result.status == 201) {
+      const response = await createCompany(data)
+      if (response.status == 201) {
         SuccessSwall.fire({
           icon: 'success',
           title: <p>Empresa Creada con exito..!</p>
         }).then(result => {
-          navigate('/companies')
+          navigate(`/company/${response.data.id}`)
         })
       }
     } catch (error) {

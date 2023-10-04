@@ -81,6 +81,75 @@
 }
 
 
+
+.deptos_and_positions {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 600px;
+  margin: 22px auto;
+  /* background: red; */
+}
+.deptos_and_positions h5 {
+  font-size: clamp(14px, 5vw, 24px);
+  font-weight: bold;
+  color: #3730A3;
+  padding: 6px  12px;
+  border-bottom: 2px solid #3730A3;
+}
+.deptos_and_positions .info_section {
+  position: relative;
+}
+.deptos_and_positions .deptos_section .subtitle{
+  display: flex;
+  align-items: center;
+  padding: 6px 12px;
+  gap: 12px;
+  width: 100%;
+  position: relative;
+  cursor: pointer;
+  /* max-width: 300px; */
+}
+.deptos_and_positions .deptos_section .subtitle::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  transform: scale(0);
+  transition: .3s all ease;
+  background: #ccc;
+}
+.deptos_and_positions .deptos_section .subtitle:hover::after {
+  transform: scale(1);
+}
+
+.deptos_and_positions .deptos_section .positions {
+  height: 0;
+  overflow: hidden;
+  background: #ccc;
+  border-radius: 5px;
+  padding: 0 12px;
+  transition: .3s all ease;
+}
+
+.deptos_and_positions .deptos_section .subtitle.show ~ .positions,
+.deptos_and_positions .deptos_section .subtitle p.show ~ .positions,
+  .deptos_and_positions .deptos_section .subtitle svg.show ~ .positions {
+  height: max-content;
+}
+.deptos_and_positions .deptos_section ul {
+  list-style: disc;
+  margin-left: 24px;
+}
+.deptos_and_positions .deptos_section ul li {
+  /* border-bottom: 1px solid rgba(51,51,51,.5); */
+  padding: 5px;
+}
+
+
+
 @media (min-width: 768px) {
   .detailCompany_wrapper .info_company .row {
     flex-direction: row;

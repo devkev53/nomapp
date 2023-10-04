@@ -13,6 +13,8 @@ import {
   getLocalUserInfo,
 } from "./localStorage.utility";
 import { tokenValidate, refreshValidate } from "./token-validations.utility";
+import { mySwall } from "./swal-manager";
+import { getValidationError } from "./get-validation-errors";
 
 export const PrivateInterceptor = () => {
   axiosPrivateInstance.interceptors.request.use(async (request) => {
@@ -68,6 +70,10 @@ export const PrivateInterceptor = () => {
       return response;
     },
     (error) => {
+      if (!error.code === "ERR_CANCELED") {
+        let message = getValidationError(error.code);
+        mySwall("error", message, "Error!");
+      }
       return Promise.reject(error);
     }
   );
@@ -82,6 +88,10 @@ export const PublicInterceptor = () => {
       return response;
     },
     (error) => {
+      if (!error.code === "ERR_CANCELED") {
+        let message = getValidationError(error.code);
+        mySwall("error", message, "Error!");
+      }
       return Promise.reject(error);
     }
   );

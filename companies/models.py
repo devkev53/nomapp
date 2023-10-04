@@ -81,3 +81,17 @@ class Company(BaseModel):
       else:
         return False
     return False
+
+  def get_job_positions(self):
+    from positions.models import JobPosition
+    positions  = []
+    for position in JobPosition.objects.filter(department__company=self.id):
+      positions.append(position.toJSON())
+    return positions
+
+  def get_departments(self):
+    from positions.models import Department
+    departments = []
+    for department in Department.objects.filter(company=self.id):
+      departments.append(department.toJSON())
+    return departments

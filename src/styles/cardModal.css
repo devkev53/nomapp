@@ -59,6 +59,9 @@
   gap: 22px;
   width: 100%;
 }
+.card_modal .body form div {
+  width: 100%;
+}
 
 .card_modal .body form select {
   color: #ccc;

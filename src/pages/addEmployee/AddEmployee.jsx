@@ -56,12 +56,13 @@ export const AddEmployee = () => {
   const fetchAddNewEmploye = async (data) => {
     try {
       let response = await callEndpoint(addEmployee(data))
+      console.log(response)
       if (response.status == 201) {
         SuccessSwall.fire({
           icon: 'success',
           title: <p>Empleado Ingresado con exito..!</p>
         }).then(result => {
-          navigate('/employees')
+          navigate(`/employee/${response.data.id}`)
         })
       }
     } catch (e) {

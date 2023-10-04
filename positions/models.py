@@ -1,4 +1,6 @@
 from django.db import models
+from django.forms.models import model_to_dict
+
 from core.models import BaseModel
 from companies.models import Company
 # from employees.models import Employee
@@ -25,6 +27,13 @@ class Department(BaseModel):
 
   # TODO: Define custom methods here
 
+  def toJSON(self):
+    item = model_to_dict(self)
+    return item
+
+
+
+
 
 class JobPosition(models.Model):
   """Model definition for JobPosition."""
@@ -47,8 +56,16 @@ class JobPosition(models.Model):
 
   # TODO: Define custom methods here
 
+  def toJSON(self):
+    item = model_to_dict(self)
+    return item
+
   def get_company(self):
     return self.department.company.name
+
+
+
+
 
 
 class JobPromotion(BaseModel):
@@ -75,3 +92,7 @@ class JobPromotion(BaseModel):
     return '%s - %s' % (self.new_job_position, self.date_start_new_position)
 
   # TODO: Define custom methods here
+
+  def toJSON(self):
+    item = model_to_dict(self)
+    return item
