@@ -55,6 +55,32 @@
   margin-top: 26px;
 }
 
+.options_container {
+  height: 0px;
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+  top: 100%;
+  background: rgba(68, 68, 68);
+  border-radius: 5px;
+}
+.options_container.show {
+  height: max-content;
+}
+.third_btn:hover svg {
+  transform: rotate(0);
+}
+
+
+.options_container .btn {
+  background: none;
+}
+
+.options_container .btn:hover {
+  background: rgb(94, 94, 94);
+}
+
+
 @media (min-width: 768px) {
   .detailCompany_wrapper .info_company .row {
     flex-direction: row;
@@ -62,6 +88,6 @@
   .button_actions {
     flex-direction: row;
   }
-  
+
 
 }

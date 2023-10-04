@@ -23,6 +23,15 @@ class DepartmentAPIView(APIView):
       except:
         return Response({"error":"not found"}, status=status.HTTP_400_BAD_REQUEST)
 
+  # POST METHOD
+  def post(self, request, pk=None, *args, **kwargs):
+    serializer_instance = DepartmentSerializer(data=self.request.data)
+    if serializer_instance.is_valid():
+      serializer_instance.save()
+      return Response(serializer_instance.data, status=status.HTTP_201_CREATED)
+
+    return Response(serializer_instance.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 class PositionAPIView(APIView):
@@ -42,3 +51,12 @@ class PositionAPIView(APIView):
         return Response(positions_serializers.data, status=status.HTTP_200_OK)
       except:
         return Response({"error":"not found"}, status=status.HTTP_400_BAD_REQUEST)
+
+  # POST METHOD
+  def post(self, request, pk=None, *args, **kwargs):
+    serializer_instance = JobPositionSerialzier(data=self.request.data)
+    if serializer_instance.is_valid():
+      serializer_instance.save()
+      return Response(serializer_instance.data, status=status.HTTP_201_CREATED)
+
+    return Response(serializer_instance.errors, status=status.HTTP_400_BAD_REQUEST)

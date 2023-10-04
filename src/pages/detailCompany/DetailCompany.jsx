@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import { RiCoinsFill, RiEdit2Fill, RiPrinterFill } from "react-icons/ri";
+import { RiCoinsFill, RiEdit2Fill, RiPrinterFill, RiArrowDownSFill } from "react-icons/ri";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import dayjs from "dayjs";
@@ -13,10 +13,15 @@ import { PageLoadingSpiner } from "../../components/ui/PageLoadingSpiner"
 
 import { getOneCompany, paymentNomina, getNominaPDF } from "../../services/companies.service"
 import {useFetchAndLoad} from '../../hooks/useFetchAndLoad'
+import { useModal } from "../../hooks/useModal";
 
 import './detailCompany.css'
 import { EmployeCompanyTable } from "../../containers/employeCompanyTable/EmployeCompanyTable"
 import { SecondaryBtn } from "../../components/ui/SecondaryBtn";
+import { ThirdBtn } from "../../components/ui/ThirdBtn";
+import { ModalContainer } from "../../containers/modalContainer/ModalContainer";
+import { AddDepartment } from "../../components/addDepartment/AddDepartment";
+import { AddPosition } from "../../components/addPosition/AddPosition";
 
 dayjs.locale("es")
 getNominaPDF
@@ -25,9 +30,21 @@ export const DetailCompany = () => {
 
   const [data, setData] = useState([])
   const [stateBtn, setStateBtn] = useState(true)
+  const [showAdd, setShowAdd] = useState(false)
   const MySwal = withReactContent(Swal)
 
   const {isLoading, callEndpoint} = useFetchAndLoad()
+  const {
+    showModal: openDeptModal,
+    closeModal:closeDeptModal,
+    isVisible:isVisibleDeptModal
+  } = useModal()
+
+  const {
+    showModal: openPosModal,
+    closeModal:closePosModal,
+    isVisible:isVisiblePosModal
+  } = useModal()
   const params = useParams()
 
 
@@ -112,7 +129,6 @@ export const DetailCompany = () => {
   },[])
 
 
-
   return (
     <div className='detailCompany_wrapper p-4 flex flex-col justify-center'>
       {isLoading && <PageLoadingSpiner/>}
@@ -129,26 +145,39 @@ export const DetailCompany = () => {
       </div>
 
       <div className="button_actions">
+
+        {/* Pay Nomina */}
         <PrimaryBtn
           label="Pagar Nomina"
           state={!data.activate_payment_option}
-          callback={handlePayBtn}
-        >
+          callback={handlePayBtn}>
           <RiCoinsFill/>
         </PrimaryBtn>
-        <SecondaryBtn 
+
+        {/* Print Nomnina */}
+        <SecondaryBtn
           label="Imprimir Nomina"
-          callback={getPrintNomina}
-        >
+          callback={getPrintNomina}>
           <RiPrinterFill/>
         </SecondaryBtn>
-        {/* <button className="primary_btn"><RiEdit2Fill/><span>Editar</span></button>
-        <button className="secondary_btn"><RiCoinsFill/><span>Pagar Nomina</span></button> */}
+
+        <ThirdBtn
+        label="Agregar"
+        addClass="drowpdown_btn"
+        callback={() => setShowAdd(!showAdd)}>
+          <RiArrowDownSFill />
+          <div className={`options_container ${showAdd && 'show'}`}>
+            <p onClick={openDeptModal} className="btn">Departmanento</p>
+            <p onClick={openPosModal} className="btn">Puesto</p>
+          </div>
+        </ThirdBtn>
+
+        {/* Add Button */}
       </div>
 
       <div className="info_company">
         <div className="row row_one">
-          <p>Correo Electronico: <span>{`${data.email !== "" ? data.eamil : 'No registrado'}`}</span></p>
+          <p>Correo Electronico: <span>{`${data.email !== null ? data.email : 'No registrado'}`}</span></p>
           <p>Telefono: <span>{`${data.phone !== "" ? data.phone : 'No registrado'}`}</span></p>
           <p>Dirección: <span>{`${data.address !== '' ? data.address : 'No registrado'}`}</span></p>
           <p>Ciudad: <span>{`${data.city !== null ? data.city : 'No registrado'}`}</span></p>
@@ -162,6 +191,14 @@ export const DetailCompany = () => {
       <div className="employe_table_container">
         <EmployeCompanyTable companyId={params.companyId} />
       </div>
+
+      {isVisibleDeptModal && <ModalContainer>
+        <AddDepartment closeFn={closeDeptModal} companyId={params.companyId} />
+      </ModalContainer>}
+
+      {isVisiblePosModal && <ModalContainer>
+        <AddPosition closeFn={closePosModal} companyId={params.companyId} />
+      </ModalContainer>}
     </div>
   )
 }

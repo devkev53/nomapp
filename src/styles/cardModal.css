@@ -1,0 +1,86 @@
+.card_modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  max-width: 600px;
+  background: #E7EAF3;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px rgba(255,255,255, .3);
+  margin: 0 auto;
+}
+
+
+/* TITLE CARD MODAL */
+.card_modal .title {
+  display: flex;
+  padding: 16px;
+  width: 100%;
+  border-bottom: 2px solid #ccc;
+}
+
+.card_modal .title h3 {
+  display: flex;
+  font-weight: bold;
+  align-items: center;
+  font-size: clamp(18px, 10vw, 28px);
+}
+
+.card_modal .title h3 svg {
+  font-size: clamp(22px, 10vw, 36px);
+}
+.card_modal .title .close_btn {
+  margin-left: auto;
+  color: rgb(226, 79, 54);;
+}
+
+.card_modal .title .close_btn svg {
+  font-size: clamp(22px, 10vw, 36px);
+  transition: .3s all ease;
+}
+.card_modal .title .close_btn:hover svg {
+  transform: scale(1.5) rotate(360deg);
+}
+
+
+
+/* BODY CARD MODAL */
+.card_modal .body {
+  display: flex;
+  width: 100%;
+  padding: 22px;
+  border-bottom: 2px solid rgba(51,51,51,.5);
+}
+.card_modal .body form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  width: 100%;
+}
+
+.card_modal .body form select {
+  color: #ccc;
+  font-weight: bold;
+  background: #FFF;
+  padding: 16px;
+  border-radius: 10px;
+  width: 100%;
+}
+.card_modal .body form option:active,
+.card_modal .body form option:checked {
+  color: #333;
+}
+
+
+
+
+
+/* FOOTER CARD MODAL */
+.card_modal .footer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 22px;
+}

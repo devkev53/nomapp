@@ -99,6 +99,7 @@ export const AddEmployee = () => {
     fetchGetCompanies()
   },[company])
 
+  // console.log(departments)
 
   return (
     <div className="addEmploye_wrapper p-4 flex flex-col justify-center">
@@ -125,7 +126,7 @@ export const AddEmployee = () => {
 
           <div className="row row_two">
             <CustomInput name="phone" label="Teleono" />
-            <CustomInput name='birthday' label="Fecha de Nacimiento" />
+            <CustomInput type="date" name='birthday' label="Fecha de Nacimiento" />
             <CustomInput name="address" label="Dirección" />
           </div>
 

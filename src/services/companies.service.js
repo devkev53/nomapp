@@ -80,10 +80,26 @@ export const getNominaPDF = (company_id, data) => {
 };
 
 export const getDepartments = (data) => {
-  let url = "http://localhost:8000/api/department/";
+  let url = "";
+  if (data === null || data === undefined) {
+    url = "http://localhost:8000/api/department/";
+  } else {
+    url = `http://localhost:8000/api/department/?companyId=${data}`;
+  }
   const controller = loadAbort();
   return {
     call: axiosPrivateInstance.get(url, {
+      signal: controller.signal,
+    }),
+    controller,
+  };
+};
+
+export const createDepartments = (data) => {
+  let url = "http://localhost:8000/api/department/";
+  const controller = loadAbort();
+  return {
+    call: axiosPrivateInstance.post(url, data, {
       signal: controller.signal,
     }),
     controller,
@@ -95,6 +111,17 @@ export const getPositions = (data) => {
   const controller = loadAbort();
   return {
     call: axiosPrivateInstance.get(url, {
+      signal: controller.signal,
+    }),
+    controller,
+  };
+};
+
+export const createPositions = (data) => {
+  let url = "http://localhost:8000/api/positions/";
+  const controller = loadAbort();
+  return {
+    call: axiosPrivateInstance.post(url, data, {
       signal: controller.signal,
     }),
     controller,
