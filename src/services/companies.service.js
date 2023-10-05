@@ -52,11 +52,12 @@ export const createCompany = async (data) => {
   return response;
 };
 
-export const paymentNomina = (company_id) => {
+export const paymentNomina = (data) => {
   const controller = loadAbort();
   return {
-    call: axiosPrivateInstance.get(
-      `http://localhost:8000/api/company/${company_id}/pay-nomina`,
+    call: axiosPrivateInstance.post(
+      `http://127.0.0.1:8000/api/payment-nomina/`,
+      data,
       {
         signal: controller.signal,
       }

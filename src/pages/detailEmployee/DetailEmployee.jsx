@@ -135,7 +135,9 @@ export const DetailEmployee = () => {
             <RiCreativeCommonsByFill/>
             Familares
           </h5>
-          <RiArrowDownSFill/>
+          <i className={`${showTable && 'show'}`}>
+            <RiArrowDownSFill/>
+          </i>
         </div>
         <div className={`contanier ${showTable && 'show'}`}>
           <table className="table-auto famly_table">

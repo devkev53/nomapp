@@ -34,6 +34,7 @@ export const AddPosition = ({closeFn, companyId}) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     const data = new FormData(formRef.current)
+    console.log(data)
     fetchAddPosition(data)
   }
 

@@ -23,6 +23,7 @@ import { ThirdBtn } from "../../components/ui/ThirdBtn";
 import { ModalContainer } from "../../containers/modalContainer/ModalContainer";
 import { AddDepartment } from "../../components/addDepartment/AddDepartment";
 import { AddPosition } from "../../components/addPosition/AddPosition";
+import {AddPayment} from '../../components/addPayment/AddPayment'
 
 dayjs.locale("es")
 getNominaPDF
@@ -47,6 +48,13 @@ export const DetailCompany = () => {
     closeModal:closePosModal,
     isVisible:isVisiblePosModal
   } = useModal()
+
+  const {
+    showModal: openPaymentModal,
+    closeModal:closePaymentModal,
+    isVisible:isVisiblePaymentModal
+  } = useModal()
+
   const params = useParams()
 
 
@@ -84,15 +92,6 @@ export const DetailCompany = () => {
     return setStateBtn(false)
   }
 
-  const getPaymentExecute = async () => {
-    try {
-      let response = await callEndpoint(paymentNomina(params.companyId))
-      endPaymentNominaOK()
-      return response.data
-    } catch (e) {
-      endPaymentNominaConflict()
-    }
-  }
 
   const departmentsAndPositions = () => {
     let list = []
@@ -106,34 +105,24 @@ export const DetailCompany = () => {
 
   const handlePayBtn = () => {
     let month = dayjs(today).format('MMMM')
-    let type = ''
+    var type = 0
     if (today.getDate() >= 14 & today.getDate() <= 16) {
-      type = 'Quincena'
+      type = 1
     } else if (today.getDate() >= 27 & today.getDate() <= 31) {
-      type = 'Mes'
+      type = 2
     }
     MySwal.fire({
       title: `Pagar Nomina de ${month}`,
-      text: `Esta seguro que desea realizar el pago de ${type} del mes de ${month}`,
+      text: `Esta seguro que desea realizar el pago de Nómina ${type===1?'Quincenal' : 'Mensual'} del mes de ${month}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Si, continuar el pago..!',
     }).then((result) => {
       if (result.isConfirmed) {
-        data.activate_payment_option && getPaymentExecute()}
+        getPaymentExecute({"companyId":params.companyId, "type":type})}
     })
   }
 
-  const endPaymentNominaOK  = () => MySwal.fire({
-    title: 'Realizado con Exito..!',
-    icon: 'success',
-    html: <a className="btn secondary_btn" href="" target="_blank">Imprimir Nomina</a>
-  })
-  const endPaymentNominaConflict = () => MySwal.fire({
-    title: 'Oops..!',
-    icon: 'error',
-    text: 'No fue posible realiar el pago verifique con el administrador del sistema..!'
-  })
 
   const handleAddShowClass = (id) => {
     document.getElementById(id).classList.toggle('show')
@@ -171,8 +160,8 @@ export const DetailCompany = () => {
         {/* Pay Nomina */}
         <PrimaryBtn
           label="Pagar Nomina"
-          state={!data.activate_payment_option}
-          callback={handlePayBtn}>
+          // state={!data.activate_payment_option}
+          callback={openPaymentModal}>
           <RiCoinsFill/>
         </PrimaryBtn>
 
@@ -250,6 +239,9 @@ export const DetailCompany = () => {
         </div>
       </div>
 
+      {isVisiblePaymentModal && <ModalContainer>
+        <AddPayment closeFn={closePaymentModal} companyId={params.companyId} />
+      </ModalContainer>}
       {isVisibleDeptModal && <ModalContainer>
         <AddDepartment closeFn={closeDeptModal} companyId={params.companyId} />
       </ModalContainer>}

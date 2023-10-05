@@ -1,10 +1,13 @@
 from django.db import IntegrityError, models
+from django.db.models import UniqueConstraint
 from django.core.exceptions import ValidationError
 from django.forms import model_to_dict
 from core.models import BaseModel
 from employees.models import Employee
 from decimal import Decimal
 import datetime
+
+from pays.utils import calculate_socialSecurity
 
 # Create your models here.
 
@@ -19,12 +22,13 @@ class PayBase(BaseModel):
   """Model definition for PayBase."""
 
   # TODO: Define fields here
+  description = models.CharField(max_length=120, blank=True, null=True)
   employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
   credit_store = models.DecimalField(decimal_places=2, max_digits=10, default=0, blank=True, null=True, editable=False)
   amount = models.DecimalField(decimal_places=2, max_digits=10, default=0, editable=False)
   total = models.DecimalField(decimal_places=2, max_digits=10, editable=False)
-  month = models.PositiveSmallIntegerField(editable=False)
-  year = models.PositiveSmallIntegerField(editable=False)
+  month = models.PositiveSmallIntegerField()
+  year = models.PositiveSmallIntegerField()
 
   class Meta:
     """Meta definition for PayBase."""
@@ -63,14 +67,16 @@ class FortnightPayment(PayBase):
   class Meta:
     """Meta definition for FortnightPayment."""
 
+    unique_together = ['employee', 'year', 'month']
     verbose_name = 'FortnightPayment'
     verbose_name_plural = 'FortnightPayments'
 
   def save(self, *args, **kwargs):
-    today = datetime.date.today()
-    self.month = today.month
-    self.year = today.year
-    self.validate_pay()
+    # today = datetime.date.today()
+    # self.month = today.month
+    # self.year = today.year
+    self.description = 'Nómina Quincenal'
+    # self.validate_pay()
     self.amount = self.employee.total_prepaid()
     self.credit_store = self.pay_credit_store()
     self.total = Decimal(self.amount) - Decimal(self.credit_store)
@@ -78,19 +84,19 @@ class FortnightPayment(PayBase):
 
   # TODO: Define custom methods here
   def clean(self):
-    self.validate_pay()
+    # self.validate_pay()
     return super(FortnightPayment, self).clean()
 
-  def validate_pay(self):
-    today = datetime.date.today()
-    myMonth = today.month
-    myYear = today.year
-    if FortnightPayment.objects.filter(month=myMonth, year=myYear).exists():
-      raise ValidationError("El pago de este mes ya fue realizado..!")
+  # def validate_pay(self):
+  #   today = datetime.date.today()
+  #   myMonth = today.month
+  #   myYear = today.year
+  #   if FortnightPayment.objects.filter(month=myMonth, year=myYear).exists():
+  #     raise ValidationError("El pago de este mes ya fue realizado..!")
 
 
 class MonthlyPayment(PayBase):
-  """Model definition for FortnightPayment."""
+  """Model definition for MonthlyPayment."""
 
   # TODO: Define fields here
   comision = models.DecimalField(decimal_places=2, max_digits=10, default=0, blank=True, null=True)
@@ -98,16 +104,30 @@ class MonthlyPayment(PayBase):
   contribution = models.DecimalField(decimal_places=2, max_digits=10, default=0, blank=True, null=True)
   credit = models.DecimalField(decimal_places=2, max_digits=10, default=0, blank=True, null=True)
 
-  class Meta:
-    """Meta definition for FortnightPayment."""
 
-    verbose_name = 'FortnightPayment'
-    verbose_name_plural = 'FortnightPayments'
+  class Meta:
+    """Meta definition for MonthlyPayment."""
+
+    unique_together = ["employee", "year", 'month']
+    verbose_name = 'MonthlyPayment'
+    verbose_name_plural = 'MonthlyPayments'
 
   def save(self, *args, **kwargs):
+    today = datetime.date.today()
+    # self.month = today.month
+    # self.year = today.year
+    self.amount = self.employee.calculate_monthPayment()
+    self.social_security = calculate_socialSecurity(self.employee.job_position.salary)
+    self.description = 'Nómina Mensual'
+    self.calculate_total()
     super(MonthlyPayment, self).save()
 
   # TODO: Define custom methods here
+
+  def calculate_total(self):
+    amount = Decimal(self.employee.total_monthPayment()) - Decimal(calculate_socialSecurity(self.employee.job_position.salary))
+    self.total = amount
+
 
 
 

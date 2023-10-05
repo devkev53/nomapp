@@ -24,6 +24,8 @@ export const EmployeCompanyTable = ({data, searchLabel, companyId}) => {
     getData()
   },[])
 
+  // console.log(employes)
+
   const columns = [
     // columnHelper.accessor('id', {
     //   header: () => <span>Id</span>,
@@ -54,14 +56,19 @@ export const EmployeCompanyTable = ({data, searchLabel, companyId}) => {
       },
       footer: info => info.column.id
     }),
-    columnHelper.accessor('gender', {
-      header: () => <span>Genero</span>,
-      cell: info => {
-        if(info.getValue() === 'M') {
-          return (<p className="text-blue-700">Masculino</p>)
-        }
-        return (<p className="text-pink-800">Femenino</p>)
-      },
+    // columnHelper.accessor('gender', {
+    //   header: () => <span>Genero</span>,
+    //   cell: info => {
+    //     if(info.getValue() === 'M') {
+    //       return (<p className="text-blue-700">Masculino</p>)
+    //     }
+    //     return (<p className="text-pink-800">Femenino</p>)
+    //   },
+    //   footer: info => info.column.id
+    // }),
+    columnHelper.accessor('get_department_name', {
+      header: () => <span>Departamento</span>,
+      cell: info => <p>{`${info.getValue()}`}</p>,
       footer: info => info.column.id
     }),
     columnHelper.accessor('job_position', {

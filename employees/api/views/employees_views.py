@@ -6,11 +6,14 @@ from rest_framework.decorators import action
 from rest_framework import status
 from rest_framework.views import APIView
 
+from employees.utils import get_name_month
+
 from django.template.loader import render_to_string, get_template
 
 from weasyprint import HTML, CSS
 from weasyprint.text.fonts import FontConfiguration
 
+from companies.models import Company
 
 from employees.api.serialziers.employees_serializers import EmployeeSerializer, CreateEmployeeSerializer
 
@@ -47,6 +50,7 @@ class EmployeeFilterAPIView(APIView):
     return Response(employes_serialzier.data, status=status.HTTP_200_OK)
 
 class PaymentTiketPFD(APIView):
+  serializer_class = EmployeeSerializer
 
   # POST METHOD
   def post(self, request, pk=None, *args, **kwargs):
@@ -54,9 +58,17 @@ class PaymentTiketPFD(APIView):
 
     month = request.data['month']
     year = request.data['year']
+    employeId = request.data['employee']
+
+    employee = self.serializer_class.Meta.model.objects.filter(pk=employeId).get()
+    company = Company.objects.filter(pk=employee.job_position.department.company.pk).get()
+
+    print(employee)
 
     context = {
-      'month': month,
+      'company': company,
+      'employee': employee,
+      'month': get_name_month(month),
       'year': year
     }
 
