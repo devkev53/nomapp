@@ -11,6 +11,7 @@ import { getDepartments, createPositions } from "../../services/companies.servic
 
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import { useNavigate } from "react-router-dom";
 
 export const AddPosition = ({closeFn, companyId}) => {
 
@@ -19,6 +20,7 @@ export const AddPosition = ({closeFn, companyId}) => {
   const formRef = useRef()
   const {callEndpoint} = useFetchAndLoad()
   const SuccessSwall = withReactContent(Swal)
+  const navigate = useNavigate()
 
   const fetchGetDeptosCompany= async () => {
     try {
@@ -44,7 +46,7 @@ export const AddPosition = ({closeFn, companyId}) => {
           title: <p>El puesto fue creado con exito con exito..!</p>
         }).then(result => {
           closeFn()
-          // navigate('/employees')
+          navigate(0)
         })
       }
     } catch (e) {

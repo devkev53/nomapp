@@ -12,9 +12,10 @@ class FamilyEmployeeViewSet(CustomBaseViewSet):
 
 
   # Delete a Instance from Database
-  def destroy(self, request, pk=None):
-    instance_destroy = self.serializer_class.Meta.model.objects.filter(id=pk)
-    if instance_destroy == 1:
-        instance_destroy.delete()
-        return Response({'message':'instance delete successfull'}, status=status.HTTP_200_OK)
+  def destroy(self, request, pk=None, *args, **kwargs):
+    print(pk)
+    if pk is not None:
+      instance_destroy = self.serializer_class.Meta.model.objects.filter(id=pk)
+      instance_destroy.delete()
+      return Response({'message':'instance delete successfull'}, status=status.HTTP_200_OK)
     return Response({'error':'instance not found'}, status=status.HTTP_404_NOT_FOUND)

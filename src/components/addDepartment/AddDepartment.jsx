@@ -10,6 +10,7 @@ import { createDepartments } from "../../services/companies.service";
 
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import { useNavigate } from "react-router-dom";
 
 
 export const AddDepartment = ({companyId, closeFn}) => {
@@ -17,6 +18,7 @@ export const AddDepartment = ({companyId, closeFn}) => {
   const formRef = useRef()
   const {callEndpoint} = useFetchAndLoad()
   const SuccessSwall = withReactContent(Swal)
+  const navigate = useNavigate()
 
 
   const handleSubmit = (e) => {
@@ -36,7 +38,7 @@ export const AddDepartment = ({companyId, closeFn}) => {
           title: <p>Departamento creado con exito..!</p>
         }).then(result => {
           closeFn()
-          // navigate('/employees')
+          navigate(0)
         })
       }
     } catch (e) {

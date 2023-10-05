@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  @page {
+    margin: .5cm;
+    size: landscape;
+    size: letter;
+  }
+  * {
+    /* border: 1px solid red; */
+  }
+
+  /* TABLES STYLES */
+  .tables_container {
+    display: flex;
+    justify-content: center;
+    gap: 22px;
+  }
+  .table_div {
+    width: 100%;
+  }
+  .table_div:first-child {
+    margin-right: 11px;
+  }
+  .table_div:last-child {
+    margin-left: 11px;
+  }
+
+  .tabla_valores {
+    width: 100%;
+    justify-content: center;
+    border-collapse: collapse;
+  }
+  .tabla_valores thead tr:first-child {
+    background: #ccc;
+  }
+  .tabla_valores thead tr:nth-child(2) {
+    background: #333;
+    color: #fff;
+  }
+  .tabla_valores td,
+  .tabla_valores th {
+    padding: 5px;
+  }
+
+  .tabla_valores th {
+    width: 100%;
+    text-align: center;
+  }
+</style>
+<body>
+  <header>
+    <div class="logo"></div>
+    <div class="info"></div>
+    <div class="direction"></div>
+  </header>
+  <div class="info_periodo">
+    <p>Periodo de pago <span></span> al <span></span> dias pagados <span></span></p>
+  </div>
+  <div class="info_empleado">
+    <h3>Datos del Empleado</h3>
+    <p>Identificador: <span></span></p>
+    <p>Nombre: <span></span></p>
+    <p>Departamento: <span></span></p>
+    <p>Puesto: <span></span></p>
+  </div>
+
+  <div class="tables_container">
+    <div class="table_div table_left">
+      <table width="100%" class=" tabla_valores ingresos">
+        <thead>
+          <tr>
+            <th colspan="2">INGRESOS</th>
+          </tr>
+          <tr>
+            <th>DESCRICION</th>
+            <th>VALOR</th>
+          </tr>
+        </thead>
+      </table>
+      <div class="total_ingresos">
+        <p>TOTAL INGRESOS <span></span></p>
+      </div>
+      <div class="total_liquido">
+        <p>TOTAL LIQUIDO</p>
+      </div>
+    </div>
+    <div class="table_div table_rigth">
+      <table width="100%" class="tabla_valores egresos">
+        <thead>
+          <tr>
+            <th colspan="2">DESCUENTOS</th>
+          </tr>
+          <tr>
+            <th>DESCRICION</th>
+            <th>VALOR</th>
+          </tr>
+        </thead>
+      </table>
+      <div class="total_egresos">
+        <p>TOTAL DESCUENTOS <span></span></p>
+      </div>
+      <div class="total_liquido">
+        <p></p>
+      </div>
+    </div>
+  </div>
+
+  <P>Impreso: span</P>
+
+  <p>Favor de revisar cuidadosamente esta boleta cualquier informidad o duda favor de comunicarse de inmediato con el Departamento de Nominas.</p>
+
+</body>
+</html>

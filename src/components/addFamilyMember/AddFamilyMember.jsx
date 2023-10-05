@@ -22,6 +22,7 @@ export const AddFamilyMember = ({employeeId, closeFn}) => {
     e.preventDefault()
     console.log('se envio el formulario')
     const data = new FormData(formRef.current)
+    let birthday = data.get('birthday')
     data.append("employee", employeeId)
     fetchAddFamilyMember(data)
   }

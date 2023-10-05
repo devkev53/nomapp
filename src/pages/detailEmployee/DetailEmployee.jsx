@@ -23,6 +23,8 @@ export const DetailEmployee = () => {
   const [employee, setEmployee] = useState('')
   const [familyMembers, setFamilyMembers] = useState([])
   const [years, setYears] = useState([])
+  const [showTable, setShowTable] = useState(false)
+
   const {isLoading, callEndpoint} = useFetchAndLoad()
   const params = useParams()
   const navigate = useNavigate()
@@ -60,8 +62,9 @@ export const DetailEmployee = () => {
           'Eliminado!',
           'El familiar fue eliminado con exito.',
           'success'
-        )
-        navigate(0)
+        ).then((result) => {
+          navigate(0)
+        })
       }
     } catch (e) {
       console.error(e)
@@ -77,7 +80,7 @@ export const DetailEmployee = () => {
       showCancelButton: true,
       confirmButtonColor: '#821953',
       cancelButtonColor: '#df4f35',
-      confirmButtonText: 'Si, emliminarlo it!'
+      confirmButtonText: 'Si, emliminarlo!'
     }).then((result) => {
       if (result.isConfirmed) {
         fetchDeleteFamilyMembers(id)
@@ -127,18 +130,14 @@ export const DetailEmployee = () => {
       </div>
 
       <div className="family_info">
-        <div className="title">
+        <div className="title" onClick={() => setShowTable(!showTable)}>
           <h5>
             <RiCreativeCommonsByFill/>
             Familares
           </h5>
           <RiArrowDownSFill/>
-          {/* <button className="addFamily_btn secondary_btn">
-            <RiAddCircleFill/>
-            <span>Agregar</span>
-          </button> */}
         </div>
-        <div className="contanier">
+        <div className={`contanier ${showTable && 'show'}`}>
           <table className="table-auto famly_table">
             <thead>
               <tr>

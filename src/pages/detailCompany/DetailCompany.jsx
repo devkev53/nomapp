@@ -240,13 +240,13 @@ export const DetailCompany = () => {
                     )
                     :(
                       <ul>
-                        <li>No se han regitrado puestos en el departamento</li>
+                        <li className="none">No se han regitrado puestos en el departamento</li>
                       </ul>
                     )}
                 </div>
               </div> ))
 
-            : (<p>No se ha registrado departamentos</p>)}
+            : (<p className="none">No se ha registrado departamentos</p>)}
         </div>
       </div>
 
