@@ -4,8 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext, USER_STATES } from "../context/authContext";
 import { loginService, logoutService } from "../services/auth.service";
 
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
 export const useAuth = () => {
   const navigate = useNavigate();
+  const MySwal = withReactContent(Swal);
 
   const { isLogin, setIsLogin, user, setUser } = useContext(AuthContext);
 
@@ -42,10 +46,18 @@ export const useAuth = () => {
   const handleLogin = async (data) => {
     try {
       const result = await loginService(data);
-      setLoginData(result);
-      navigate("/");
+      if (result.status == 200) {
+        setLoginData(result);
+        navigate("/");
+      }
     } catch (e) {
-      console.error(e);
+      if (e.response.status === 400) {
+        MySwal.fire({
+          title: "Oops..!",
+          icon: "error",
+          text: e.response.data.error,
+        });
+      }
     }
   };
 

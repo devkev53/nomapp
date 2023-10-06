@@ -222,6 +222,36 @@
   max-width: 200px;
 }
 
+.ticket_row {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 6px 24px;
+  color: rgba(109, 93, 0, 0.8);
+  font-weight: bold;
+  border-bottom: 1px solid rgb(192, 163, 0);
+}
+.ticket_row button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.ticket_row button:hover {
+  color: rgb(192, 163, 0);
+}
+
+.ticket_row button svg {
+  font-size: 24px;
+}
+.no_payments {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 24px;
+  color: #bd3720;
+}
 
 
 @media (min-width: 768px) {

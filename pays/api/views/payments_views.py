@@ -29,9 +29,17 @@ class PaymentNominaEmployeesAPIView(APIView):
     pay_list = []
     total = 0
     print(request.data['month'])
+    last_fothnightPyament = FortnightPaymentSerializer.Meta.model.objects.filter(year=year, month=month).exists()
+    last_monthlyPyament = MonthlyPaymentSerializer.Meta.model.objects.filter(year=year, month=month).exists()
+
+    print(last_fothnightPyament)
+    print(last_monthlyPyament)
 
     for employe in all_employees:
+
       if type == '1':
+        if last_fothnightPyament:
+          return Response({"errors":"El pago automatico de Nomina Quincenal de este mes ya fue realizado"}, status=status.HTTP_400_BAD_REQUEST)
         payment = {
           "employee":employe.pk,
           "month":month,
@@ -44,7 +52,10 @@ class PaymentNominaEmployeesAPIView(APIView):
           pay_list.append(serializer_instance.data)
         else:
           print(serializer_instance.errors)
+
       if type == '2':
+        if last_monthlyPyament:
+          return Response({"errors":"El pago automatico de Nomina Menusal de este mes ya fue realizado"}, status=status.HTTP_400_BAD_REQUEST)
         payment = {
           "employee":employe.pk,
           "month":month,

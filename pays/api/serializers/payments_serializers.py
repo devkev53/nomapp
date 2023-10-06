@@ -9,7 +9,7 @@ class FortnightPaymentSerializer(serializers.ModelSerializer):
     model = FortnightPayment
     fields = (
       'id', 'description', 'employee',
-      'credit_store', 'amount', 'total', 'month', 'year'
+      'credit_store', 'amount', 'total', 'month', 'year', 'type_payment'
     )
 
 
@@ -20,5 +20,5 @@ class MonthlyPaymentSerializer(serializers.ModelSerializer):
     fields = (
       'id', 'description', 'employee', 'comision',
       'social_security', 'contribution', 'credit',
-      'credit_store', 'amount', 'total', 'month', 'year'
+      'credit_store', 'amount', 'total', 'month', 'year', 'type_payment'
     )

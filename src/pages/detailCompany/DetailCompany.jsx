@@ -24,6 +24,7 @@ import { ModalContainer } from "../../containers/modalContainer/ModalContainer";
 import { AddDepartment } from "../../components/addDepartment/AddDepartment";
 import { AddPosition } from "../../components/addPosition/AddPosition";
 import {AddPayment} from '../../components/addPayment/AddPayment'
+import {months} from '../../utilitys/months-spanish.utils'
 
 dayjs.locale("es")
 getNominaPDF

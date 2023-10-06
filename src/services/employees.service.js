@@ -47,3 +47,25 @@ export const addEmployee = (data) => {
     controller,
   };
 };
+
+export const checkPayments = (employee, querys) => {
+  const url = `http://127.0.0.1:8000/api/check-payment/${employee}/?${querys}`;
+  const controller = loadAbort();
+  return {
+    call: axiosPrivateInstance.get(url, {
+      signal: controller.signal,
+    }),
+    controller,
+  };
+};
+
+export const downloadTicket = (type, id) => {
+  const url = `http://127.0.0.1:8000/api/payment-ticket-pdf/${id}/?type=${type}`;
+  const controller = loadAbort();
+  return {
+    call: axiosPrivateInstance.get(url, {
+      signal: controller.signal,
+    }),
+    controller,
+  };
+};

@@ -63,10 +63,12 @@ class FortnightPayment(PayBase):
   """Model definition for FortnightPayment."""
 
   # TODO: Define fields here
+  type_payment = models.PositiveSmallIntegerField(default=1)
 
   class Meta:
     """Meta definition for FortnightPayment."""
 
+    ordering = ["year", "month"]
     unique_together = ['employee', 'year', 'month']
     verbose_name = 'FortnightPayment'
     verbose_name_plural = 'FortnightPayments'
@@ -94,11 +96,24 @@ class FortnightPayment(PayBase):
   #   if FortnightPayment.objects.filter(month=myMonth, year=myYear).exists():
   #     raise ValidationError("El pago de este mes ya fue realizado..!")
 
+  def calculate_total(self):
+    amount = Decimal(self.total_ingresos()) - Decimal(self.total_egresos())
+    self.total = amount
+
+  def total_ingresos(self):
+    total = Decimal(self.amount) + Decimal(self.credit_store)
+    return total
+
+  def total_egresos(self):
+    total = Decimal(self.credit_store)
+    return total
+
 
 class MonthlyPayment(PayBase):
   """Model definition for MonthlyPayment."""
 
   # TODO: Define fields here
+  type_payment = models.PositiveSmallIntegerField(default=2)
   comision = models.DecimalField(decimal_places=2, max_digits=10, default=0, blank=True, null=True)
   social_security = models.DecimalField(decimal_places=2, max_digits=10, default=0, blank=True, null=True)
   contribution = models.DecimalField(decimal_places=2, max_digits=10, default=0, blank=True, null=True)
@@ -108,6 +123,7 @@ class MonthlyPayment(PayBase):
   class Meta:
     """Meta definition for MonthlyPayment."""
 
+    ordering = ["year", "month"]
     unique_together = ["employee", "year", 'month']
     verbose_name = 'MonthlyPayment'
     verbose_name_plural = 'MonthlyPayments'
@@ -125,8 +141,16 @@ class MonthlyPayment(PayBase):
   # TODO: Define custom methods here
 
   def calculate_total(self):
-    amount = Decimal(self.employee.total_monthPayment()) - Decimal(calculate_socialSecurity(self.employee.job_position.salary))
+    amount = Decimal(self.total_ingresos()) - Decimal(self.total_egresos())
     self.total = amount
+
+  def total_ingresos(self):
+    total = Decimal(self.amount) + Decimal(self.comision)
+    return total
+
+  def total_egresos(self):
+    total = Decimal(self.credit_store) + Decimal(calculate_socialSecurity(self.employee.job_position.salary)) + Decimal(self.contribution) + Decimal(self.credit)
+    return total
 
 
 

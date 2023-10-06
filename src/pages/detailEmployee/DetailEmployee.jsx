@@ -10,19 +10,19 @@ import {
   RiArrowDownSFill, RiDeleteBin5Fill
 } from 'react-icons/ri'
 import './detailEmployee.css'
-import { PrimaryBtn } from "../../components/ui/PrimaryBtn"
 import { deleteFamilyMembers, getFamilyMembers } from "../../services/familyMembers.service"
 import {useModal} from '../../hooks/useModal'
 import { ModalContainer } from "../../containers/modalContainer/ModalContainer";
 import {AddFamilyMember} from '../../components/addFamilyMember/AddFamilyMember'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import { EmployePaymentTickets } from "../../containers/employePaymentTickets/EmployePaymentTickets";
+
 
 export const DetailEmployee = () => {
 
   const [employee, setEmployee] = useState('')
   const [familyMembers, setFamilyMembers] = useState([])
-  const [years, setYears] = useState([])
   const [showTable, setShowTable] = useState(false)
 
   const {isLoading, callEndpoint} = useFetchAndLoad()
@@ -88,19 +88,8 @@ export const DetailEmployee = () => {
     })
   }
 
-  const calculateYears = () => {
-    const listYears = []
-    const date = new Date();
-    const actualYear = new Date(date).getFullYear()
-    for (let i = 2020; i <= actualYear; i++) {
-      listYears.push(i)
-    }
-    setYears(listYears)
-  }
-
   useEffect(() => {
     fetchDataEmployee()
-    calculateYears()
     fetchFamilyMembers()
   },[])
 
@@ -176,42 +165,7 @@ export const DetailEmployee = () => {
         </button>
       </div>
 
-      <div className="payment_info">
-        <h5>
-          <RiCoinsFill/>
-          Descargar Boleta de Pago
-        </h5>
-        <div className="filters">
-          <div className="month">
-            <label htmlFor="month">Mes</label>
-            <select name="" id="">
-              <option value="1">Enero</option>
-              <option value="2">Febrero</option>
-              <option value="3">Marzo</option>
-              <option value="4">Abril</option>
-              <option value="5">Mayo</option>
-              <option value="6">Junio</option>
-              <option value="7">Julio</option>
-              <option value="8">Agosto</option>
-              <option value="9">Septiembre</option>
-              <option value="10">Octubre</option>
-              <option value="11">Noviembre</option>
-              <option value="12">Diciembre</option>
-            </select>
-          </div>
-          <div className="year">
-            <label htmlFor="year">Año</label>
-            <select name="" id="">
-              {years?.map(item => (
-                <option key={item} value={item}>{item}</option>
-              ))}
-            </select>
-          </div>
-          <PrimaryBtn label="Buscar">
-            <RiFileSearchFill/>
-          </PrimaryBtn>
-        </div>
-      </div>
+      <EmployePaymentTickets/>
 
       {isVisibleFamily && (
         <ModalContainer>

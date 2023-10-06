@@ -43,6 +43,7 @@ export const PrivateInterceptor = () => {
     };
 
     if (request.url?.includes("report")) return updateTypeReportHeader(request);
+    if (request.url?.includes("pdf")) return updateTypeReportHeader(request);
     if (request.url?.includes("sales")) return updateJsonHeader(request);
 
     request = updateHeader(request);

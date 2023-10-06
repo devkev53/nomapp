@@ -48,12 +48,12 @@ export const AddPayment = ({companyId, closeFn}) => {
     title: 'Realizado con Exito..!',
     icon: 'success',
   }).then((result) => {
-    navigate(0)
+    // navigate(0)
   })
   const endPaymentNominaConflict = () => MySwal.fire({
     title: 'Oops..!',
     icon: 'error',
-    text: 'No fue posible realiar el pago verifique con el administrador del sistema..!'
+    html: <div><p>No fue posible realiar el pago de Nomina verifique con el administrador del sistema..!</p> <p>Es posible que ya se halla realizado el pago..!</p></div>
   })
 
   const fetchPaymentExecute = async (data) => {

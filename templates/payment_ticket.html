@@ -7,7 +7,7 @@
 </head>
 <style>
   @page {
-    margin: .5cm;
+    margin: 1cm;
     size: landscape;
     size: letter;
   }
@@ -114,7 +114,6 @@
 
 
 
-
   /* TABLES STYLES */
   .tables_container {
     display: flex;
@@ -123,12 +122,16 @@
   }
   .table_div {
     width: 100%;
+    /* border: 1px green solid; */
   }
   .table_div:first-child {
-    margin-right: 11px;
+    width: 50%;
+    margin-right: .5cm;
   }
+
   .table_div:last-child {
-    margin-left: 11px;
+    width: 50%;
+    margin-left: .5cm;
   }
 
   .tabla_valores {
@@ -139,28 +142,103 @@
   }
   .tabla_valores thead tr:first-child {
     background: #ccc;
+    border: 2px solid #ccc;
   }
   .tabla_valores thead tr:nth-child(2) {
     background: #333;
+    border: 2px solid #333;
     color: #fff;
+  }
+  .tabla_valores tbody tr {
+    border: 2px solid #333;
   }
   .tabla_valores td,
   .tabla_valores th {
-    padding: 5px;
+    padding: 5px 12px;
+    text-align: center;
   }
+  .tabla_valores tbody td {
+    text-align: left;
+    text-transform: uppercase;
+  }
+  .tabla_valores tbody tr td {
+    border: 2px solid #333;
+  }
+
 
   .tabla_valores th {
     width: 100%;
     text-align: center;
   }
+
+
+
   .totales {
-    margin-bottom: 12px;
-    padding: 5px;
+    width: 100%;
     display: flex;
-    justify-content: flex-end;
-    font-weight: bold;
-    background: #ccc;
+    margin-bottom: 12px;
   }
+  .totales_div {
+    width: 50%;
+    display: flex;
+    background: #ccc;
+    padding: 5px 12px;
+    margin-right: .5cm;
+    /* border: 1px solid red; */
+  }
+  .totales_div:last-child {
+    margin-right: 0;
+    margin-left: .5cm;
+  }
+  .totales_div p:first-child {
+    width: 100%;
+    text-transform: uppercase;
+    text-align: center;
+  }
+  .totales_div p:last-child {
+    width: 30%;
+    text-align: right;
+    padding-right: 6px;
+  }
+
+
+  .liquido {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 22px;
+  }
+  .liquido div {
+    width: 50%;
+    background: transparent;
+  }
+  .liquido div:first-child {
+    margin-right: .5cm;
+  }
+  .liquido div:last-child {
+    margin-left: .5cm;
+  }
+
+  .liquido div p {
+    width: min-content;
+    background: #ccc;
+    padding: 5px 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  .liquido .left {
+    align-items: flex-end;
+    text-align: right;
+  }
+
+  .get_date {
+    margin-bottom: 22px;
+    display: flex;
+  }
+
+
+
 </style>
 <body>
   <header>
@@ -173,7 +251,7 @@
     <div class="info">
       <h2>Boleta de Pago</h2>
       <p>Nómina</p>
-      <p>Nómina </p>
+      <p>{{payment.description}}</p>
       <p>{{month}} {{year}}</p>
     </div>
     <div class="direction">
@@ -207,13 +285,21 @@
             <th>VALOR</th>
           </tr>
         </thead>
+        <tbody>
+          {% if payment.amount != 0  %}
+          <tr>
+            <td>{{payment.description}}</td>
+            <td>{{payment.amount}}</td>
+          </tr>
+          {% endif %}
+          {% if payment.type_payment == 2  %}
+          <tr>
+            <td>Comision</td>
+            <td>{{payment.comision}}</td>
+          </tr>
+          {% endif %}
+        </tbody>
       </table>
-      <div class="totales total_ingresos">
-        <p>TOTAL INGRESOS <span></span></p>
-      </div>
-      <div class="totales total_liquido">
-        <p>TOTAL LIQUIDO</p>
-      </div>
     </div>
     <div class="table_div table_rigth">
       <table width="100%" class="tabla_valores egresos">
@@ -226,17 +312,55 @@
             <th>VALOR</th>
           </tr>
         </thead>
+        <tbody>
+          {% if payment.type_payment == 2  %}
+          <tr>
+            <td>IGSS</td>
+            <td>{{payment.social_security}}</td>
+          </tr>
+          <tr>
+            <td>Credito</td>
+            <td>{{payment.credit}}</td>
+          </tr>
+          <tr>
+            <td>Contribucion</td>
+            <td>{{payment.contribution}}</td>
+          </tr>
+          {% endif %}
+          {% if payment.credit_store != 0  %}
+          <tr>
+            <td>Tienda Solidaria</td>
+            <td>{{payment.credit_store}}</td>
+          </tr>
+          {% endif %}
+        </tbody>
       </table>
-      <div class="totales total_egresos">
-        <p>TOTAL DESCUENTOS <span></span></p>
-      </div>
-      <div class="totales total_liquido">
-        <p></p>
-      </div>
     </div>
   </div>
 
-  <P>Impreso: span</P>
+  <div class="totales">
+    <div class="totales_div total_ingresos">
+      <p>Total Ingresos</p>
+      <p class="amount">{{payment.total_ingresos}}</p>
+    </div>
+    <div class="totales_div total_egresos">
+      <p>Total Descuentos</p>
+      <p class="amount">{{payment.total_egresos}}</p>
+    </div>
+  </div>
+  <div class="liquido">
+    <div class="left">
+      <p>Total Liquido</p>
+    </div>
+    <div class="right">
+      <p>{{payment.total}}</p>
+    </div>
+  </div>
+
+  <div class="get_date">
+    <p>Usuario: <span></span></p>
+    <P>Impreso: <span>{{date}}</span></P>
+  </div>
 
   <p>Favor de revisar cuidadosamente esta boleta cualquier informidad o duda favor de comunicarse de inmediato con el Departamento de Nominas.</p>
 
