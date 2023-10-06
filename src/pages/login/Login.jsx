@@ -19,6 +19,7 @@ export const Login = () => {
     e.preventDefault()
     const data = new FormData(formRef.current)
     handleLogin(data)
+    console.log(data)
   }
 
   const handleShowPass = () => {

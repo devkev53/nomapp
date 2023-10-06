@@ -10,7 +10,7 @@ from .models import Payment, FortnightPayment, MonthlyPayment
 class FortnightPaymentAdmin(admin.ModelAdmin):
   '''Admin View for FortnightPayment'''
 
-  list_display = ('employee', 'month', 'year', 'amount', 'credit_store', 'total')
+  list_display = ('employee', 'get_company_name', 'month', 'year', 'amount', 'credit_store', 'total', 'get_base_salary')
 
 
 @admin.register(MonthlyPayment)
@@ -18,7 +18,7 @@ class MonthlyPaymentAdmin(admin.ModelAdmin):
   '''Admin View for MonthlyPayment'''
 
   list_display = (
-    'employee', 'month', 'year', 'amount', 'credit_store',
+    'employee', 'get_company_name', 'month', 'year', 'amount', 'credit_store',
     'comision', 'contribution', 'credit',
     'social_security', 'total'
   )

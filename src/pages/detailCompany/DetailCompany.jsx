@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import { RiCoinsFill, RiEdit2Fill, RiPrinterFill, RiArrowDownSFill } from "react-icons/ri";
+import {
+  RiCoinsFill, RiEdit2Fill,
+  RiPrinterFill, RiArrowDownSFill,
+  RiUser2Fill, RiHomeGearFill, RiShieldStarFill
+} from "react-icons/ri";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import dayjs from "dayjs";
@@ -15,7 +19,7 @@ import { getOneCompany, paymentNomina, getNominaPDF } from "../../services/compa
 import {useFetchAndLoad} from '../../hooks/useFetchAndLoad'
 import { useModal } from "../../hooks/useModal";
 
-import 'animate.css';
+// import 'animate.css';
 import './detailCompany.css'
 import { EmployeCompanyTable } from "../../containers/employeCompanyTable/EmployeCompanyTable"
 import { SecondaryBtn } from "../../components/ui/SecondaryBtn";
@@ -25,6 +29,8 @@ import { AddDepartment } from "../../components/addDepartment/AddDepartment";
 import { AddPosition } from "../../components/addPosition/AddPosition";
 import {AddPayment} from '../../components/addPayment/AddPayment'
 import {months} from '../../utilitys/months-spanish.utils'
+import { PrintNomina } from "../../components/printNomina/PrintNomina";
+import { AddEmployeeModal } from "../../components/addEmployeeModal/AddEmployeeModal";
 
 dayjs.locale("es")
 getNominaPDF
@@ -54,6 +60,18 @@ export const DetailCompany = () => {
     showModal: openPaymentModal,
     closeModal:closePaymentModal,
     isVisible:isVisiblePaymentModal
+  } = useModal()
+
+  const {
+    showModal: openAddEmployeeModal,
+    closeModal:closeAddEmployeeModal,
+    isVisible:isVisibleAddEmployeeModal
+  } = useModal()
+
+  const {
+    showModal: openPrintNomModal,
+    closeModal:closePrintNomModal,
+    isVisible:isVisiblePrintNomModal
   } = useModal()
 
   const params = useParams()
@@ -169,22 +187,35 @@ export const DetailCompany = () => {
         {/* Print Nomnina */}
         <SecondaryBtn
           label="Imprimir Nomina"
-          callback={getPrintNomina}>
+          callback={openPrintNomModal}>
           <RiPrinterFill/>
         </SecondaryBtn>
 
-        <ThirdBtn
-        label="Agregar"
-        addClass="drowpdown_btn"
-        callback={() => setShowAdd(!showAdd)}>
-          <RiArrowDownSFill />
+        <div className="dowpdown_container">
+          <ThirdBtn
+          label="Agregar"
+          addClass={`${showAdd && 'rotate'} drowpdown_btn`}
+          callback={() => setShowAdd(!showAdd)}>
+            <RiArrowDownSFill />
+          </ThirdBtn>
+
           {showAdd && (
             <div className={`options_container animate__animated animate__fadeIn show`}>
-              <p onClick={openDeptModal} className="btn">Departmanento</p>
-              <p onClick={openPosModal} className="btn">Puesto</p>
+              <button onClick={openDeptModal} className="btn">
+                <RiHomeGearFill/>
+                <span>Departmanento</span>
+              </button>
+              <button onClick={openPosModal} className="btn">
+                <RiShieldStarFill/>
+                <span>Puesto</span>
+              </button>
+              <button onClick={openAddEmployeeModal} className="btn">
+                <RiUser2Fill/>
+                <span>Empleado</span>
+              </button>
             </div>
           )}
-        </ThirdBtn>
+        </div>
 
         {/* Add Button */}
       </div>
@@ -240,6 +271,15 @@ export const DetailCompany = () => {
         </div>
       </div>
 
+      {isVisibleAddEmployeeModal && <ModalContainer>
+        <AddEmployeeModal
+          closeFn={closeAddEmployeeModal}
+          companyId={params.companyId}
+        />
+      </ModalContainer>}
+      {isVisiblePrintNomModal && <ModalContainer>
+        <PrintNomina closeFn={closePrintNomModal} companyId={params.companyId} />
+      </ModalContainer>}
       {isVisiblePaymentModal && <ModalContainer>
         <AddPayment closeFn={closePaymentModal} companyId={params.companyId} />
       </ModalContainer>}

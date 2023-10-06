@@ -1,0 +1,21 @@
+.employee_info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  height: 100%;
+}
+
+.employee_info .img {
+  max-width: 200px;
+  max-height: 200px;
+}
+
+.employee_info button {
+  padding: 20px;
+}
+
+.row {
+  display: flex;
+  gap: 22px;
+}

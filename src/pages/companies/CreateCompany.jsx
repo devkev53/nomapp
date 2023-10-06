@@ -8,6 +8,10 @@ import { createCompany } from '../../services/companies.service';
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import { useNavigate } from 'react-router-dom';
+import {PageLoadingSpiner} from '../../components/ui/PageLoadingSpiner'
+import { useFetchAndLoad } from "../../hooks/useFetchAndLoad";
+
+
 
 export const CreateCompany = () => {
 
@@ -15,6 +19,7 @@ export const CreateCompany = () => {
   const formRef = useRef()
 
   const SuccessSwall = withReactContent(Swal)
+  const {isLoading} = useFetchAndLoad()
 
   const handleCreateCompany = async (data) => {
     try {
@@ -27,8 +32,12 @@ export const CreateCompany = () => {
           navigate(`/company/${response.data.id}`)
         })
       }
-    } catch (error) {
-
+    } catch (e) {
+      SuccessSwall.fire({
+        title: "Oops..!",
+        icon: "error",
+        text: e.message,
+      });
     }
 
   }
@@ -41,6 +50,7 @@ export const CreateCompany = () => {
 
   return (
     <div className='createCompany_wrapper p-4 flex flex-col justify-center'>
+      {isLoading && <PageLoadingSpiner/>}
 
       {/* Title */}
       <div className="page_title">

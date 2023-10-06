@@ -58,6 +58,9 @@ class PayBase(BaseModel):
     except IntegrityError as e:
       raise ValidationError(e)
 
+  def get_company_name(self):
+    return self.employee.job_position.department.company.name
+
 
 class FortnightPayment(PayBase):
   """Model definition for FortnightPayment."""
@@ -95,6 +98,9 @@ class FortnightPayment(PayBase):
   #   myYear = today.year
   #   if FortnightPayment.objects.filter(month=myMonth, year=myYear).exists():
   #     raise ValidationError("El pago de este mes ya fue realizado..!")
+
+  def get_base_salary(self):
+    return Decimal(self.employee.job_position.salary)
 
   def calculate_total(self):
     amount = Decimal(self.total_ingresos()) - Decimal(self.total_egresos())
@@ -139,6 +145,9 @@ class MonthlyPayment(PayBase):
     super(MonthlyPayment, self).save()
 
   # TODO: Define custom methods here
+
+  def get_base_salary(self):
+    return Decimal(self.employee.job_position.salary)
 
   def calculate_total(self):
     amount = Decimal(self.total_ingresos()) - Decimal(self.total_egresos())

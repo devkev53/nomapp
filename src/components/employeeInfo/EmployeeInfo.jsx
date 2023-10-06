@@ -4,6 +4,11 @@ import { useParams } from "react-router-dom";
 import noImg from '../../assets/img/not-img.jpg'
 
 import { getOneEmployee } from "../../services/employees.service";
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+import { useFetchAndLoad } from "../../hooks/useFetchAndLoad";
+import {PageLoadingSpiner} from '../../components/ui/PageLoadingSpiner'
+
 
 import './employeeInfo.css'
 
@@ -11,11 +16,22 @@ export const EmployeeInfo = () => {
 
   const [employe, setEmployee] = useState({})
   const params = useParams()
+  const {isLoading, callEndpoint} = useFetchAndLoad()
+  const mySwal = withReactContent(Swal)
+
 
 
   const getEmployeData = async (id) => {
-    const resutl = await getOneEmployee(id).then(value => setEmployee(value))
-    return resutl
+    try {
+      let response = await callEndpoint(getOneEmployee(id))
+      setEmployee(response.data)
+    } catch (e) {
+      // mySwal.fire({
+      //   title: "Oops..!",
+      //   icon: "error",
+      //   text: e.message,
+      // });
+    }
   }
 
   const get_day = () => {
@@ -39,6 +55,7 @@ export const EmployeeInfo = () => {
 
   return (
     <div className='employeeInfo_wrapper'>
+      {isLoading && <PageLoadingSpiner/>}
       <picture>
         <img 
           src={`${employe.url_img !== "" 

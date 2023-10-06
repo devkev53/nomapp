@@ -46,10 +46,9 @@ export const useAuth = () => {
   const handleLogin = async (data) => {
     try {
       const result = await loginService(data);
-      if (result.status == 200) {
-        setLoginData(result);
-        navigate("/");
-      }
+      console.log(result);
+      setLoginData(result);
+      navigate("/");
     } catch (e) {
       if (e.response.status === 400) {
         MySwal.fire({
