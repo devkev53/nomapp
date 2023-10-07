@@ -5,11 +5,11 @@ import {
 import { loadAbort } from "../utilitys/load-abort-axios.utility";
 
 const baseUrl = "api/";
-const companiesUrl = "http://127.0.0.1:8000/api/companies/";
+const companiesUrl = "api/companies/";
 
 // export const getCompanies = async () => {
 //   const response = await axiosPublicInstance.get(
-//     `http://localhost:8000/api/companies/`
+//     `api/companies/`
 //   );
 //   return response.data;
 // };
@@ -45,23 +45,16 @@ export const getOneCompany = (id) => {
 };
 
 export const createCompany = async (data) => {
-  const response = await axiosPrivateInstance.post(
-    `http://localhost:8000/api/companies/`,
-    data
-  );
+  const response = await axiosPrivateInstance.post(`api/companies/`, data);
   return response;
 };
 
 export const paymentNomina = (data) => {
   const controller = loadAbort();
   return {
-    call: axiosPrivateInstance.post(
-      `http://127.0.0.1:8000/api/payment-nomina/`,
-      data,
-      {
-        signal: controller.signal,
-      }
-    ),
+    call: axiosPrivateInstance.post(`api/payment-nomina/`, data, {
+      signal: controller.signal,
+    }),
     controller,
   };
 };
@@ -70,7 +63,7 @@ export const getNominaPDF = (company_id, data) => {
   const controller = loadAbort();
   return {
     call: axiosPrivateInstance.post(
-      `http://localhost:8000/api/company_report_nomina/${company_id}/`,
+      `api/company_report_nomina/${company_id}/`,
       data,
       {
         signal: controller.signal,
@@ -83,9 +76,9 @@ export const getNominaPDF = (company_id, data) => {
 export const getDepartments = (data) => {
   let url = "";
   if (data === null || data === undefined) {
-    url = "http://localhost:8000/api/department/";
+    url = "api/department/";
   } else {
-    url = `http://localhost:8000/api/department/?companyId=${data}`;
+    url = `api/department/?companyId=${data}`;
   }
   const controller = loadAbort();
   return {
@@ -97,7 +90,7 @@ export const getDepartments = (data) => {
 };
 
 export const createDepartments = (data) => {
-  let url = "http://localhost:8000/api/department/";
+  let url = "api/department/";
   const controller = loadAbort();
   return {
     call: axiosPrivateInstance.post(url, data, {
@@ -108,7 +101,7 @@ export const createDepartments = (data) => {
 };
 
 export const getPositions = (data) => {
-  let url = "http://localhost:8000/api/positions/";
+  let url = "api/positions/";
   const controller = loadAbort();
   return {
     call: axiosPrivateInstance.get(url, {
@@ -119,7 +112,7 @@ export const getPositions = (data) => {
 };
 
 export const createPositions = (data) => {
-  let url = "http://localhost:8000/api/positions/";
+  let url = "api/positions/";
   const controller = loadAbort();
   return {
     call: axiosPrivateInstance.post(url, data, {

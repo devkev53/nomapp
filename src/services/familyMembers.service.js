@@ -4,7 +4,7 @@ import {
 } from "../utilitys/axios-instances";
 import { loadAbort } from "../utilitys/load-abort-axios.utility";
 
-const baseUrl = "http://127.0.0.1:8000/api/family-members/";
+const baseUrl = "api/family-members/";
 
 export const getFamilyMembers = () => {
   const controller = loadAbort();
