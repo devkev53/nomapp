@@ -3,7 +3,7 @@ import {
   axiosPublicInstance,
 } from "../utilitys/axios-instances";
 
-const baseUrl = "";
+import { baseUrl } from "../utilitys/base-url.utils";
 
 export const loginService = async (data) => {
   const response = await axiosPublicInstance.post(`${baseUrl}api/login/`, data);

@@ -3,8 +3,8 @@ import {
   axiosPublicInstance,
 } from "../utilitys/axios-instances";
 import { loadAbort } from "../utilitys/load-abort-axios.utility";
+import { baseUrl } from "../utilitys/base-url.utils";
 
-const baseUrl = "";
 const productssUrl = `${baseUrl}api/products/`;
 
 export const getProducts = () => {

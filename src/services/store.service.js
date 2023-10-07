@@ -5,8 +5,8 @@ import {
 } from "../utilitys/axios-instances";
 import { getAuthTokens } from "../utilitys/localStorage.utility";
 import { loadAbort } from "../utilitys/load-abort-axios.utility";
+import { baseUrl } from "../utilitys/base-url.utils";
 
-const baseUrl = "";
 const salesUrl = `${baseUrl}api/sales/`;
 
 export const createSale = async (data) => {
