@@ -5,12 +5,13 @@ import { useNavigate } from 'react-router-dom';
 import icon from '../../assets/img/payIcon.png'
 import { RiUser3Fill, RiKeyFill, RiLockFill, RiLockUnlockFill } from "react-icons/ri";
 import { useAuth } from '../../hooks/useAuth';
+import {PageLoadingSpiner} from '../../components/ui/PageLoadingSpiner'
 
 export const Login = () => {
 
   const [isShowPass, setIsShowPass] = useState(false)
 
-  const {handleLogin, isLogin} = useAuth()
+  const {handleLogin, isLogin, isLoading} = useAuth()
   const navigate = useNavigate()
 
   const formRef = useRef()
@@ -33,6 +34,7 @@ export const Login = () => {
 
   return (
     <main className="main font-sans bg-gradient-to-tr from-indigo-800 from-10% via-purple-500 to-pink-500 to-80%">
+      {isLoading && <PageLoadingSpiner />}
       <div>
         <picture className='icon_container bg-gray-50 rounded-full'>
           <img className='icon' src={icon} alt="" />

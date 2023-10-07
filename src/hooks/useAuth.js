@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { AuthContext, USER_STATES } from "../context/authContext";
 import { loginService, logoutService } from "../services/auth.service";
+import {useFetchAndLoad} from '../hooks/useFetchAndLoad'
 
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
@@ -12,6 +13,7 @@ export const useAuth = () => {
   const MySwal = withReactContent(Swal);
 
   const { isLogin, setIsLogin, user, setUser } = useContext(AuthContext);
+  const {isLoading, callEndpoint} = useFetchAndLoad()
 
   useEffect(() => {
     const getUser = JSON.parse(
@@ -45,9 +47,8 @@ export const useAuth = () => {
 
   const handleLogin = async (data) => {
     try {
-      const result = await loginService(data);
-      console.log(result);
-      setLoginData(result);
+      const response = await callEndpoint(loginService(data));
+      setLoginData(response.data);
       navigate("/");
     } catch (e) {
       if (e.response.status === 400) {
@@ -77,5 +78,6 @@ export const useAuth = () => {
     clearData,
     handleLogin,
     handleLogout,
+    isLoading,
   };
 };

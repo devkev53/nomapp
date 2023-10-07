@@ -6,16 +6,21 @@
   height: 100%;
 }
 
-.card_modal .add_employee_modal .employee_info .img {
+.card_modal.add_employee_modal .employee_info .image_input {
   max-width: 200px;
   max-height: 200px;
+  margin: 0 auto;
 }
 
 .employee_info button {
   padding: 20px;
 }
 
-.card_modal .add_employee_modal .row {
+.card_modal .add_employee_modal .employee_info .row {
   display: flex;
+  gap: 22px;
+}
+
+.card_modal.add_employee_modal .employee_info .row {
   gap: 22px;
 }

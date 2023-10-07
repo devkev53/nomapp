@@ -7,6 +7,8 @@ import {getEmployees} from '../../services/employees.service'
 import {getCompanies} from '../../services/companies.service'
 import {useFetchAndLoad} from '../../hooks/useFetchAndLoad'
 import {chekFortnightPayment, chekMonthlyPayment, restPayDays} from '../../utilitys/checkPayDay'
+import {PageLoadingSpiner} from '../../components/ui/PageLoadingSpiner'
+
 
 import './dashboard.css'
 import { useEffect, useState } from "react";
@@ -57,6 +59,8 @@ export const Dashboard = () => {
 
   return (
     <div className="dashboard_wrapper p-4 flex flex-col justify-center">
+
+      {isLoading && <PageLoadingSpiner/>}
 
       {/* Title */}
       <div className="page_title">
