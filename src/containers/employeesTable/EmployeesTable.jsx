@@ -5,6 +5,7 @@ import { RiInformationFill } from "react-icons/ri";
 import { AsyncTable } from "../asyncTable/AsyncTable"
 
 import noImg from '../../assets/img/not-img.jpg'
+import { baseUrl } from "../../utilitys/base-url.utils";
 
 
 export const EmployeesTable = ({data}) => {
@@ -32,7 +33,7 @@ export const EmployeesTable = ({data}) => {
         if (info.getValue() !== "") {
           return (<picture>
             <img className="store_img_employee rounded-full"
-              src={`http://127.0.0.1:8000${info.getValue()}`}
+              src={`${baseUrl}${info.getValue()}`}
               alt="" />
           </picture>)
         } else {

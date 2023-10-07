@@ -1,1 +1,1 @@
-export const baseUrl = "http://ccardona.pythonanywhere.com/";
+export const baseUrl = process.env.REACT_APP_API_URL;

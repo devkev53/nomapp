@@ -2,6 +2,7 @@ import {createColumnHelper } from "@tanstack/react-table"
 import { AsyncTable } from '../asyncTable/AsyncTable'
 import { RiInformationFill, RiEdit2Fill } from "react-icons/ri";
 import noImg from '../../assets/img/not-img.jpg'
+import { baseUrl } from "../../utilitys/base-url.utils";
 
 
 export const ComapniesTables = ({data, searchLabel}) => {
@@ -52,7 +53,7 @@ export const ComapniesTables = ({data, searchLabel}) => {
         if (info.getValue() !== null) {
           return (
             <picture className="logo_company">
-              <img src={`http://localhost:8000${info.getValue()}`} />
+              <img src={`${baseUrl}${info.getValue()}`} />
             </picture>
           )
         } else {

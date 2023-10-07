@@ -13,7 +13,7 @@ export const Home = () => {
     const response = await axios.get('http://127.0.0.1:8000/api/users/')
     setUsers(response.data)
   }
-  
+
 
   return (
     <div>

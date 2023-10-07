@@ -5,6 +5,8 @@ import { RiDeleteBin7Fill } from "react-icons/ri";
 import noImg from '../../assets/img/not-img.jpg'
 import {useStoreContext} from '../../hooks/useStoreState'
 
+import {baseUrl} from '../../utilitys/base-url.utils'
+
 export const ItemTableDetail = ({item}) => {
 
   const [cant, setCant] = useState(1)
@@ -30,7 +32,7 @@ export const ItemTableDetail = ({item}) => {
         </button>
       </td>
       <td width="100%" className="product">
-        <img src={`${item.url_img !== '' ? ('http://127.0.0.1:8000'+item.url_img) : noImg }`} alt="" />
+        <img src={`${item.url_img !== '' ? (baseUrl + item.url_img) : noImg }`} alt="" />
         <span>{item.name}</span>
       </td>
       <td>

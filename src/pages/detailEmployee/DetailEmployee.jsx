@@ -17,6 +17,7 @@ import {AddFamilyMember} from '../../components/addFamilyMember/AddFamilyMember'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import { EmployePaymentTickets } from "../../containers/employePaymentTickets/EmployePaymentTickets";
+import { baseUrl } from "../../utilitys/base-url.utils";
 
 
 export const DetailEmployee = () => {
@@ -101,7 +102,7 @@ export const DetailEmployee = () => {
         <h2 className='title'>
           {/* <RiBuilding2Fill /> */}
           <picture>
-            <img src={`${employee.url_img !== "" ? ('http://127.0.0.1:8000'+employee.url_img) : noImg}`} alt="" />
+            <img src={`${employee.url_img !== "" ? (baseUrl+employee.url_img) : noImg}`} alt="" />
           </picture>
           {employee.get_full_name}
         </h2>

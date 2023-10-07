@@ -11,6 +11,7 @@ import {PrimaryBtn} from '../../components/ui/PrimaryBtn'
 
 import './employees.css'
 import { useNavigate } from "react-router-dom";
+import { baseUrl } from "../../utilitys/base-url.utils";
 
 export const Employees = () => {
 
@@ -79,7 +80,7 @@ export const Employees = () => {
             onClick={() => setShowLisCompanies(!showLisCompanies)}>
             <img
                 className="img_preview"
-                src={`${company.logo === null ? noImg : ('http://127.0.0.1:8000'+company.logo)}`} alt="" />
+                src={`${company.logo === null ? noImg : (baseUrl+company.logo)}`} alt="" />
               <p>{company.name}</p>
             <RiArrowDownSFill/>
           </div>
@@ -98,7 +99,7 @@ export const Employees = () => {
                 className="company_content">
                 <img
                   className="img_preview"
-                  src={`${logo === null ? noImg : ('http://127.0.0.1:8000'+logo)}`} alt="" />
+                  src={`${logo === null ? noImg : (baseUrl+logo)}`} alt="" />
                 <p>{name}</p>
               </div>
             ))}

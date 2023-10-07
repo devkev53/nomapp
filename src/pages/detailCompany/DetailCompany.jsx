@@ -31,6 +31,7 @@ import {AddPayment} from '../../components/addPayment/AddPayment'
 import {months} from '../../utilitys/months-spanish.utils'
 import { PrintNomina } from "../../components/printNomina/PrintNomina";
 import { AddEmployeeModal } from "../../components/addEmployeeModal/AddEmployeeModal";
+import { baseUrl } from "../../utilitys/base-url.utils";
 
 dayjs.locale("es")
 getNominaPDF
@@ -167,7 +168,7 @@ export const DetailCompany = () => {
         <h2 className='title'>
           {/* <RiBuilding2Fill /> */}
           <picture>
-            <img src={`${data.logo !== null ? ('http://127.0.0.1:8000'+data.logo) : noImg}`} alt="" />
+            <img src={`${data.logo !== null ? (baseUrl+data.logo) : noImg}`} alt="" />
           </picture>
           {data.name}
         </h2>

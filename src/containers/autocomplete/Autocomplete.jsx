@@ -1,5 +1,6 @@
 
 import noImg from '../../assets/img/not-img.jpg'
+import { baseUrl } from '../../utilitys/base-url.utils'
 
 import './autocomplete.css'
 
@@ -11,7 +12,7 @@ const Autocomplete = ({data, callback}) => {
         : data.map(product => (
         <button onClick={() => callback(product)} key={product.id} className='item'>
           <picture>
-            <img src={`${product.url_img !== '' ? ('http://127.0.0.1:8000'+product.url_img) : noImg }`} alt="" />
+            <img src={`${product.url_img !== '' ? (baseUrl+product.url_img) : noImg }`} alt="" />
           </picture>
           <div className="info">
             <p>{product.name}</p>

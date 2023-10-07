@@ -8,6 +8,7 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import { useFetchAndLoad } from "../../hooks/useFetchAndLoad";
 import {PageLoadingSpiner} from '../../components/ui/PageLoadingSpiner'
+import {baseUrl} from '../../utilitys/base-url.utils'
 
 
 import './employeeInfo.css'
@@ -59,7 +60,7 @@ export const EmployeeInfo = () => {
       <picture>
         <img 
           src={`${employe.url_img !== "" 
-            ? `http://127.0.0.1:8000${employe.url_img}`
+            ? `${baseUrl}${employe.url_img}`
             : noImg}`
           }
           alt="photo"

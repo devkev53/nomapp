@@ -5,6 +5,7 @@ import noImg from '../../assets/img/not-img.jpg'
 import { useFetchAndLoad } from "../../hooks/useFetchAndLoad";
 import { useEffect, useState } from "react";
 import { getCompanyEmployes } from "../../services/companies.service";
+import { baseUrl } from "../../utilitys/base-url.utils";
 
 export const EmployeCompanyTable = ({data, searchLabel, companyId}) => {
 
@@ -43,7 +44,7 @@ export const EmployeCompanyTable = ({data, searchLabel, companyId}) => {
         if (info.getValue() !== '') {
           return (
             <picture className="logo_company">
-              <img src={`http://localhost:8000${info.getValue()}`} />
+              <img src={`${baseUrl}${info.getValue()}`} />
             </picture>
           )
         } else {

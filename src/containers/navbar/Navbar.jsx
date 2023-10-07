@@ -2,6 +2,7 @@ import './navbar.css'
 import { useAuth } from "../../hooks/useAuth"
 import {RiMenu2Fill} from "react-icons/ri";
 import {menuSubject} from '../../services/show-menu-subject.service'
+import { baseUrl } from '../../utilitys/base-url.utils';
 
 export const Navbar = () => {
 
@@ -23,7 +24,7 @@ export const Navbar = () => {
         <div className="nav_content__user_info">
           <picture>
             {user?.image
-              ? (<img className='bg-gray-100 rounded-full' src={`http://127.0.0.1:8000${user?.image}`} alt="" />) 
+              ? (<img className='bg-gray-100 rounded-full' src={`${baseUrl}${user?.image}`} alt="" />) 
               : (<img src={user?.url_img} alt="" />)
             }
           </picture>

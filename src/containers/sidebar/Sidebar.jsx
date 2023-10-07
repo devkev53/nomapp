@@ -6,6 +6,7 @@ import {
 } from "react-icons/ri";
 import {menuSubject} from '../../services/show-menu-subject.service'
 import { useEffect, useState } from 'react';
+import { baseUrl } from '../../utilitys/base-url.utils';
 
 export const Sidebar = () => {
 
@@ -32,7 +33,7 @@ export const Sidebar = () => {
         <div className="sidebar__user_info">
           <picture>
             {user?.image
-              ? (<img className='bg-gray-100 rounded-full' src={`http://127.0.0.1:8000${user?.image}`} alt="" />) 
+              ? (<img className='bg-gray-100 rounded-full' src={`${baseUrl}${user?.image}`} alt="" />) 
               : (<img src={user?.url_img} alt="" />)
             }
           </picture>
