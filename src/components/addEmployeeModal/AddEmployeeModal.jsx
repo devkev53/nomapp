@@ -83,7 +83,7 @@ export const AddEmployeeModal = ({companyId, closeFn }) => {
   },[])
 
   return (
-    <div className="card_modal animate__animated animate__bounceIn">
+    <div className="card_modal add_employee_modal animate__animated animate__bounceIn">
       <div className="title">
         <h3>
           <RiUser2Fill />

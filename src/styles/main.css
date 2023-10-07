@@ -256,9 +256,12 @@
 .image_input:hover picture::after {
   transform: scale(1);
 }
-  
+
 .image_input .image_input__input {
   opacity: 1;
+}
+.image_input .image_input__img input {
+  display: none;
 }
 
 @keyframes rotate {
