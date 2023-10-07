@@ -6,7 +6,8 @@ import {
 import { getAuthTokens } from "../utilitys/localStorage.utility";
 import { loadAbort } from "../utilitys/load-abort-axios.utility";
 
-const salesUrl = "api/sales/";
+const baseUrl = "";
+const salesUrl = `${baseUrl}api/sales/`;
 
 export const createSale = async (data) => {
   const response = axiosPrivateInstance.post(`${salesUrl}`, data);

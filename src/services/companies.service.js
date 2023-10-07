@@ -4,8 +4,9 @@ import {
 } from "../utilitys/axios-instances";
 import { loadAbort } from "../utilitys/load-abort-axios.utility";
 
-const baseUrl = "api/";
-const companiesUrl = "api/companies/";
+const baseUrl = "";
+
+const companiesUrl = `${baseUrl}api/companies/`;
 
 // export const getCompanies = async () => {
 //   const response = await axiosPublicInstance.get(
@@ -45,14 +46,17 @@ export const getOneCompany = (id) => {
 };
 
 export const createCompany = async (data) => {
-  const response = await axiosPrivateInstance.post(`api/companies/`, data);
+  const response = await axiosPrivateInstance.post(
+    `${baseUrl}api/companies/`,
+    data
+  );
   return response;
 };
 
 export const paymentNomina = (data) => {
   const controller = loadAbort();
   return {
-    call: axiosPrivateInstance.post(`api/payment-nomina/`, data, {
+    call: axiosPrivateInstance.post(`${baseUrl}api/payment-nomina/`, data, {
       signal: controller.signal,
     }),
     controller,
@@ -63,7 +67,7 @@ export const getNominaPDF = (company_id, data) => {
   const controller = loadAbort();
   return {
     call: axiosPrivateInstance.post(
-      `api/company_report_nomina/${company_id}/`,
+      `${baseUrl}api/company_report_nomina/${company_id}/`,
       data,
       {
         signal: controller.signal,
@@ -76,9 +80,9 @@ export const getNominaPDF = (company_id, data) => {
 export const getDepartments = (data) => {
   let url = "";
   if (data === null || data === undefined) {
-    url = "api/department/";
+    url = `${baseUrl}api/department/`;
   } else {
-    url = `api/department/?companyId=${data}`;
+    url = `${baseUrl}api/department/?companyId=${data}`;
   }
   const controller = loadAbort();
   return {
@@ -90,7 +94,7 @@ export const getDepartments = (data) => {
 };
 
 export const createDepartments = (data) => {
-  let url = "api/department/";
+  let url = `${baseUrl}api/department/`;
   const controller = loadAbort();
   return {
     call: axiosPrivateInstance.post(url, data, {
@@ -101,7 +105,7 @@ export const createDepartments = (data) => {
 };
 
 export const getPositions = (data) => {
-  let url = "api/positions/";
+  let url = `${baseUrl}api/positions/`;
   const controller = loadAbort();
   return {
     call: axiosPrivateInstance.get(url, {
@@ -112,7 +116,7 @@ export const getPositions = (data) => {
 };
 
 export const createPositions = (data) => {
-  let url = "api/positions/";
+  let url = `${baseUrl}api/positions/`;
   const controller = loadAbort();
   return {
     call: axiosPrivateInstance.post(url, data, {

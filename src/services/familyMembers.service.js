@@ -4,12 +4,13 @@ import {
 } from "../utilitys/axios-instances";
 import { loadAbort } from "../utilitys/load-abort-axios.utility";
 
-const baseUrl = "api/family-members/";
+const baseUrl = "";
+const url = `${baseUrl}api/family-members/`;
 
 export const getFamilyMembers = () => {
   const controller = loadAbort();
   return {
-    call: axiosPrivateInstance.get(baseUrl, {
+    call: axiosPrivateInstance.get(url, {
       signal: controller.signal,
     }),
     controller,
@@ -19,7 +20,7 @@ export const getFamilyMembers = () => {
 export const createFamilyMembers = (data) => {
   const controller = loadAbort();
   return {
-    call: axiosPrivateInstance.post(baseUrl, data, {
+    call: axiosPrivateInstance.post(url, data, {
       signal: controller.signal,
     }),
     controller,
@@ -29,7 +30,7 @@ export const createFamilyMembers = (data) => {
 export const deleteFamilyMembers = (id) => {
   const controller = loadAbort();
   return {
-    call: axiosPrivateInstance.delete(`${baseUrl}${id}`, {
+    call: axiosPrivateInstance.delete(`${url}${id}`, {
       signal: controller.signal,
     }),
     controller,

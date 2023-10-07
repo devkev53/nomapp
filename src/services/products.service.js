@@ -4,7 +4,8 @@ import {
 } from "../utilitys/axios-instances";
 import { loadAbort } from "../utilitys/load-abort-axios.utility";
 
-const productssUrl = "api/products/";
+const baseUrl = "";
+const productssUrl = `${baseUrl}api/products/`;
 
 export const getProducts = () => {
   const controller = loadAbort();

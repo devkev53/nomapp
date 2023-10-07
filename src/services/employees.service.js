@@ -4,8 +4,8 @@ import {
 } from "../utilitys/axios-instances";
 import { loadAbort } from "../utilitys/load-abort-axios.utility";
 
-const baseUrl = "api/";
-const employeesUrl = "api/employees/";
+const baseUrl = "";
+const employeesUrl = `${baseUrl}api/employees/`;
 
 export const getEmployees = () => {
   const controller = loadAbort();
@@ -19,7 +19,7 @@ export const getEmployeesFilter = (companyID) => {
   const controller = loadAbort();
   return {
     call: axiosPrivateInstance.get(
-      `api/employees-filter/?companyId=${companyID}`,
+      `${baseUrl}api/employees-filter/?companyId=${companyID}`,
       { signal: controller.signal }
     ),
     controller,
@@ -29,7 +29,7 @@ export const getEmployeesFilter = (companyID) => {
 export const getOneEmployee = (id) => {
   const controller = loadAbort();
   return {
-    call: axiosPublicInstance.get(`api/employees/${id}`, {
+    call: axiosPublicInstance.get(`${baseUrl}api/employees/${id}`, {
       signal: controller.signal,
     }),
     controller,
@@ -39,7 +39,7 @@ export const getOneEmployee = (id) => {
 export const addEmployee = (data) => {
   const controller = loadAbort();
   return {
-    call: axiosPrivateInstance.post(`api/employees/`, data, {
+    call: axiosPrivateInstance.post(`${baseUrl}api/employees/`, data, {
       signal: controller.signal,
     }),
     controller,
@@ -47,7 +47,7 @@ export const addEmployee = (data) => {
 };
 
 export const checkPayments = (employee, querys) => {
-  const url = `api/check-payment/${employee}/?${querys}`;
+  const url = `${baseUrl}api/check-payment/${employee}/?${querys}`;
   const controller = loadAbort();
   return {
     call: axiosPrivateInstance.get(url, {
@@ -58,7 +58,7 @@ export const checkPayments = (employee, querys) => {
 };
 
 export const downloadTicket = (type, id) => {
-  const url = `api/payment-ticket-pdf/${id}/?type=${type}`;
+  const url = `${baseUrl}api/payment-ticket-pdf/${id}/?type=${type}`;
   const controller = loadAbort();
   return {
     call: axiosPrivateInstance.get(url, {

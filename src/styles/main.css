@@ -260,7 +260,7 @@
 .image_input .image_input__input {
   opacity: 1;
 }
-.image_input .image_input__img input {
+.image_input  input {
   display: none;
 }
 

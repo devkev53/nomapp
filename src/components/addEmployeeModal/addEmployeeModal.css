@@ -15,7 +15,7 @@
   padding: 20px;
 }
 
-.row {
+.card_modal .add_employee_modal .row {
   display: flex;
   gap: 22px;
 }
