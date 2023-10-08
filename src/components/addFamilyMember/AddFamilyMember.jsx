@@ -10,12 +10,14 @@ import '../../styles/cardModal.css'
 import { createFamilyMembers } from "../../services/familyMembers.service";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import {PageLoadingSpiner} from '../../components/ui/PageLoadingSpiner'
+
 
 export const AddFamilyMember = ({employeeId, closeFn}) => {
 
   const formRef = useRef()
   const navigate = useNavigate()
-  const {callEndpoint} = useFetchAndLoad()
+  const {isLoading, callEndpoint} = useFetchAndLoad()
   const mySwal = withReactContent(Swal)
 
   const handleSubmit = (e) => {
@@ -46,6 +48,8 @@ export const AddFamilyMember = ({employeeId, closeFn}) => {
 
   return (
     <div className="card_modal addFamilyMember_wrapper">
+      {isLoading && <PageLoadingSpiner/>}
+
       <div className="title">
         <h3>
           <RiCreativeCommonsByFill />

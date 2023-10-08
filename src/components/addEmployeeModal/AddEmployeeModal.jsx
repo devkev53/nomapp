@@ -6,6 +6,8 @@ import { useFetchAndLoad } from "../../hooks/useFetchAndLoad";
 import {getCompanies, getDepartments, getPositions} from '../../services/companies.service'
 import {addEmployee} from '../../services/employees.service'
 import { useNavigate } from 'react-router-dom';
+import {PageLoadingSpiner} from '../../components/ui/PageLoadingSpiner'
+
 
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
@@ -84,6 +86,7 @@ export const AddEmployeeModal = ({companyId, closeFn }) => {
 
   return (
     <div className="card_modal add_employee_modal animate__animated animate__bounceIn">
+      {isLoading && <PageLoadingSpiner/>}
       <div className="title">
         <h3>
           <RiUser2Fill />

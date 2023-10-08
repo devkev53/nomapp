@@ -7,6 +7,7 @@ import { useFetchAndLoad } from "../../hooks/useFetchAndLoad";
 import { PrimaryBtn } from "../../components/ui/PrimaryBtn"
 import {months} from '../../utilitys/months-spanish.utils'
 import { paymentNomina} from "../../services/companies.service"
+import {PageLoadingSpiner} from '../../components/ui/PageLoadingSpiner'
 
 
 import Swal from 'sweetalert2'
@@ -23,7 +24,7 @@ export const AddPayment = ({companyId, closeFn}) => {
 
 
   const formRef = useRef()
-  const {callEndpoint} = useFetchAndLoad()
+  const {isLoading, callEndpoint} = useFetchAndLoad()
 
   const calculateYears = () => {
     const listYears = []
@@ -72,6 +73,8 @@ export const AddPayment = ({companyId, closeFn}) => {
 
   return (
     <div className="card_modal addFamilyMember_wrapper">
+      {isLoading && <PageLoadingSpiner/>}
+
       <div className="title">
         <h3>
           <RiCoinsFill />

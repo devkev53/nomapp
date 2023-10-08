@@ -12,13 +12,14 @@ import { getDepartments, createPositions } from "../../services/companies.servic
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import { useNavigate } from "react-router-dom";
+import {PageLoadingSpiner} from '../../components/ui/PageLoadingSpiner'
 
 export const AddPosition = ({closeFn, companyId}) => {
 
   const [departments, setDepartments] = useState([])
 
   const formRef = useRef()
-  const {callEndpoint} = useFetchAndLoad()
+  const {isLoading, callEndpoint} = useFetchAndLoad()
   const SuccessSwall = withReactContent(Swal)
   const navigate = useNavigate()
 
@@ -61,6 +62,8 @@ export const AddPosition = ({closeFn, companyId}) => {
 
   return (
     <div className="card_modal addDepartment_card animate__animated animate__bounceIn">
+      {isLoading && <PageLoadingSpiner/>}
+
       <div className="title">
         <h3>
           <RiShieldStarFill />
