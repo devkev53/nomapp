@@ -138,6 +138,7 @@ class MonthlyPayment(PayBase):
     today = datetime.date.today()
     # self.month = today.month
     # self.year = today.year
+    self.credit_store = self.pay_credit_store()
     self.amount = self.employee.calculate_monthPayment()
     self.social_security = calculate_socialSecurity(self.employee.job_position.salary)
     self.description = 'Nómina Mensual'
