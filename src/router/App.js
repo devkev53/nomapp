@@ -25,26 +25,26 @@ function App() {
             <Route element={<Protected />}>
               <Route path="/" element={<Dashboard />} />
               {/* Companies Routes */}
-              <Route path="companies/" element={<Compaies />} />
-              <Route path="company/:companyId/" element={<DetailCompany />} />
+              <Route path="/companies" element={<Compaies />} />
+              <Route path="/company/:companyId" element={<DetailCompany />} />
               <Route path="companies-create/" element={<CreateCompany />} />
 
-              <Route path="employees/" element={<Employees />} />
+              <Route path="/employees" element={<Employees />} />
               <Route
-                path="employee/:employeeId/"
+                path="/employee/:employeeId"
                 element={<DetailEmployee />}
               />
-              <Route path="add-employee/" element={<AddEmployee />} />
+              <Route path="/add-employee" element={<AddEmployee />} />
 
-              <Route path="store/" element={<Store />} />
+              <Route path="store" element={<Store />} />
               <Route
-                path="validate-buy/:employeeId/"
+                path="/validate-buy/:employeeId"
                 element={<ValidateBuy />}
               />
             </Route>
 
             <Route path="*" element={<Error404 />} />
-            <Route path="login/" element={<Login />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </Router>
       </StoreContextProvider>

@@ -51,7 +51,7 @@ export const Sidebar = () => {
               </a>
             </li>
             <li className="menu_item">
-              <a href="/companies/" className="menu_link text-2xl font-bold text-gray-300">
+              <a href="/companies" className="menu_link text-2xl font-bold text-gray-300">
                 <RiBuilding2Fill/>
                 <span>
                   Empresas
@@ -59,7 +59,7 @@ export const Sidebar = () => {
               </a>
             </li>
             <li className="menu_item">
-              <a href="/employees/" className="menu_link text-2xl font-bold text-gray-300">
+              <a href="/employees" className="menu_link text-2xl font-bold text-gray-300">
                 <RiUser2Fill/>
                 <span>
                   Empleados
@@ -67,7 +67,7 @@ export const Sidebar = () => {
               </a>
             </li>
             <li className="menu_item">
-              <a href="/store/" className="menu_link text-2xl font-bold text-gray-300">
+              <a href="/store" className="menu_link text-2xl font-bold text-gray-300">
                 <RiStoreFill/>
                 <span>
                   Tienda
