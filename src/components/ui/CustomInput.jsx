@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 
 
-export const CustomInput = ({name, label, type, required, children, onKeyUp}) => {
+export const CustomInput = ({name, label, type, required, children, onKeyUp, onBlur}) => {
   const [isEmpty, setIsEmpty] = useState(true)
 
   const handleCheck = (e) => {
@@ -14,7 +14,7 @@ export const CustomInput = ({name, label, type, required, children, onKeyUp}) =>
 
   return (
     <div className={`input_group2 ${!isEmpty && "no_empty"}`}>
-      <input onKeyUp={onKeyUp} onChange={handleCheck} type={type} name={name} required={required} />
+      <input onBlur={onBlur} onKeyUp={onKeyUp} onChange={handleCheck} type={type} name={name} required={required} />
       <label className="input_group2__label">{label}{children}</label>
       <div className="input_group2__underline"></div>
     </div>

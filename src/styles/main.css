@@ -110,7 +110,7 @@
   position: fixed;
   top: 110px;
   right: 25px;
-  z-index: 3;
+  z-index: 1;
 }
 .page_title .button_add button {
   height: 3.5rem;

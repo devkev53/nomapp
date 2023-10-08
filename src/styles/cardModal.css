@@ -53,6 +53,7 @@
   padding: 22px;
   border-bottom: 2px solid rgba(51,51,51,.5);
   overflow-y: scroll;
+  /* margin-bottom: -22px; */
 }
 .card_modal .body form {
   display: flex;
@@ -80,6 +81,25 @@
 
 
 
+
+
+
+
+.card_modal.addProductItemModal .image_input {
+  width: 200px;
+  height: 200px;
+}
+
+.card_modal .primary_btn {
+  padding: 22px;
+}
+.card_modal .row {
+  gap: 16px;
+}
+.card_modal form {
+  margin-bottom: 22px;
+  padding-bottom: 22px;
+}
 
 
 /* FOOTER CARD MODAL */

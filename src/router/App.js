@@ -15,6 +15,9 @@ import { DetailCompany } from "../pages/detailCompany/DetailCompany";
 import { Employees } from "../pages/employees/Employees";
 import { AddEmployee } from "../pages/addEmployee/AddEmployee";
 import { DetailEmployee } from "../pages/detailEmployee/DetailEmployee";
+import { StoreUsers } from "../pages/storeUsers/StoreUsers";
+import { Products } from "../pages/products/Products";
+import { UserProfile } from "../pages/userProfile/UserProfile";
 
 function App() {
   return (
@@ -36,12 +39,16 @@ function App() {
               />
               <Route path="/add-employee" element={<AddEmployee />} />
 
-              <Route path="store" element={<Store />} />
+              <Route path="/store" element={<Store />} />
               <Route
                 path="/validate-buy/:employeeId"
                 element={<ValidateBuy />}
               />
+              <Route path="/products" element={<Products />} />
+              <Route path="/my-profile" element={<UserProfile/>} />
             </Route>
+
+
 
             <Route path="*" element={<Error404 />} />
             <Route path="/login" element={<Login />} />

@@ -16,3 +16,13 @@ export const getProducts = () => {
     controller,
   };
 };
+
+export const addProduct = (data) => {
+  const controller = loadAbort()
+  return {
+    call: axiosPrivateInstance.post(productssUrl, data, {
+      signal:controller.signal,
+    }),
+    controller
+  }
+}

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-import { RiVerifiedBadgeFill, RiBox3Fill } from "react-icons/ri";
+import { RiVerifiedBadgeFill, RiBox3Fill, RiShoppingBasket2Fill } from "react-icons/ri";
 
 import {getProducts} from "../../services/products.service"
 
@@ -66,7 +66,7 @@ export const ValidateBuy = () => {
       {isLoading && <PageLoadingSpiner />}
       <div className="page_title">
         <h2 className='title'>
-          <RiVerifiedBadgeFill />
+          <RiShoppingBasket2Fill />
           Validar Compra
         </h2>
         <div className="tite_border"></div>

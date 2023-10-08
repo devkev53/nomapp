@@ -1,0 +1,8 @@
+.card_modal.changePass_card .input_group2 button {
+  margin-right: 22px;
+  font-size: 24px;
+  color: rgba(129,27,107, .7);
+}
+.card_modal.changePass_card .input_group2 button:hover {
+  color: rgba(106, 0, 83, 1);
+}

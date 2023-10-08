@@ -7,7 +7,11 @@ class ProductSerializer(serializers.ModelSerializer):
 
   class Meta:
     model = Product
-    fields = ('id', 'name', 'description', 'price', 'stock', 'url_img')
+    fields = (
+      'id', 'name', 'description', 
+      'price', 'stock', 'url_img',
+      'image'
+      )
 
   def url_img(self, obj):
     return obj.url_img
