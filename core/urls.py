@@ -14,4 +14,6 @@ urlpatterns = [
   path('store', HomeView.as_view(), name='store'),
   path('store-users', HomeView.as_view(), name='store_users'),
   path('validate-buy/<int:pk>', HomeView.as_view(), name='store_validate'),
+  path('products', HomeView.as_view(), name='products'),
+  path('my-profile', HomeView.as_view(), name='profile'),
 ]
