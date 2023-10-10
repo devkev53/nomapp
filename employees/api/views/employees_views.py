@@ -1,4 +1,5 @@
 from django.http import HttpResponse, HttpResponseRedirect
+from app.settings.local import DOMAIN
 from core.api.views.api_views import CustomBaseViewSet
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -14,7 +15,7 @@ from weasyprint import HTML, CSS
 from weasyprint.text.fonts import FontConfiguration
 
 from companies.models import Company
-from pays.api.serializers.payments_serializers import MonthlyPaymentSerializer, FortnightPaymentSerializer
+from pays.api.serializers.payments_serializers import MonthlyPaymentSerializer, FortnightPaymentSerializer, BonoPaymentSerializer, AguinaldoPaymentSerializer
 
 from employees.api.serialziers.employees_serializers import EmployeeSerializer, CreateEmployeeSerializer
 
@@ -65,10 +66,22 @@ class CheckPaymentAPIView(APIView):
 
     fortnight_payment = FortnightPaymentSerializer.Meta.model.objects.filter(month=month, year=year, employee=employee).exists()
     monthly_payment = MonthlyPaymentSerializer.Meta.model.objects.filter(month=month, year=year, employee=employee).exists()
+    bono_payment = None
+    aguinaldo_payment = None
+    bono_payment_serializer = None
+    aguinaldo_payment_serializer = None
+
+    if month == '7':
+      bono_payment = BonoPaymentSerializer.Meta.model.objects.filter(month=month, year=year, employee=employee).last()
+      bono_payment_serializer = BonoPaymentSerializer(bono_payment).data
+    if month == '12':
+      aguinaldo_payment = AguinaldoPaymentSerializer.Meta.model.objects.filter(month=month, year=year, employee=employee).last()
+      aguinaldo_payment_serializer = AguinaldoPaymentSerializer(aguinaldo_payment).data
 
     if fortnight_payment:
       fortnight_payment = FortnightPaymentSerializer.Meta.model.objects.filter(month=month, year=year, employee=employee).get()
       fortnight_payment_serializer = FortnightPaymentSerializer(fortnight_payment).data
+
     else:
       fortnight_payment_serializer = None
 
@@ -78,10 +91,13 @@ class CheckPaymentAPIView(APIView):
     else:
       monthly_payment_serializer = None
 
-    if monthly_payment_serializer == None and fortnight_payment_serializer == None:
-      return Response({'result': None}, status=status.HTTP_200_OK)
+    # if monthly_payment_serializer == None and fortnight_payment_serializer == None:
+    #   return Response({'result': None}, status=status.HTTP_200_OK)
 
-    return Response({'result': [fortnight_payment_serializer, monthly_payment_serializer]}, status=status.HTTP_200_OK)
+    return Response({'result': [
+      fortnight_payment_serializer, monthly_payment_serializer,
+      bono_payment_serializer, aguinaldo_payment_serializer
+      ]}, status=status.HTTP_200_OK)
 
 
 
@@ -98,19 +114,25 @@ class PaymentTicketPFD(APIView):
     today = datetime.datetime.now()
 
     type = self.request.query_params.get('type')
+    print(pk)
+    print('-*-*-*-*-*-*-*-*-*-*')
+    print(type)
 
 
     if type == '1':
       payment = FortnightPaymentSerializer.Meta.model.objects.filter(pk=pk).get()
     elif type == '2':
       payment = MonthlyPaymentSerializer.Meta.model.objects.filter(pk=pk).get()
+    elif type == '3':
+      payment = BonoPaymentSerializer.Meta.model.objects.filter(pk=pk).get()
+    elif type == '4':
+      payment = AguinaldoPaymentSerializer.Meta.model.objects.filter(pk=pk).get()
 
     employee = self.serializer_class.Meta.model.objects.filter(pk=payment.employee.id).get()
     company = Company.objects.filter(pk=employee.job_position.department.company.pk).get()
 
-    print(employee)
-
     context = {
+      'domain': DOMAIN,
       'date': today,
       'payment': payment,
       'company': company,

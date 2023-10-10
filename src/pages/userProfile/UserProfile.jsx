@@ -11,6 +11,8 @@ import { PrimaryBtn } from '../../components/ui/PrimaryBtn'
 import { SecondaryBtn } from '../../components/ui/SecondaryBtn'
 import { ModalContainer } from '../../containers/modalContainer/ModalContainer'
 import { ChangePassModal } from '../../components/changePassModal/ChangePassModal'
+import { EditProfileModal } from '../../components/editProfileModal/EditProfileModal'
+import { baseUrl } from '../../utilitys/base-url.utils'
 
 export const UserProfile = () => {
 
@@ -36,7 +38,7 @@ export const UserProfile = () => {
       <h2 className='title'>
         {/* <RiBuilding2Fill /> */}
         <picture>
-          <img src={user?.url_img} alt="" />
+          <img src={`${user?.image === null ? user?.url_img : (baseUrl+user?.url_img)}`} alt="" />
         </picture>
         {user?.username}
       </h2>
@@ -75,7 +77,7 @@ export const UserProfile = () => {
     </div>
 
     <div className="button_options">
-      <PrimaryBtn label="Editar Perfil">
+      <PrimaryBtn callback={openEdit} label="Editar Perfil">
         <RiEdit2Fill/>
       </PrimaryBtn>
       <SecondaryBtn callback={openPass} label="Cambiar Contraseña">
@@ -86,6 +88,7 @@ export const UserProfile = () => {
       <ChangePassModal closeFn={closePass} />
     </ModalContainer>}
     {isVisibleEdit && <ModalContainer>
+      <EditProfileModal closeFn={closeEdit} />
     </ModalContainer>}
   </div>
   )

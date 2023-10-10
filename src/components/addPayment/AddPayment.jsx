@@ -16,6 +16,8 @@ import withReactContent from 'sweetalert2-react-content'
 export const AddPayment = ({companyId, closeFn}) => {
 
   const [years, setYears] = useState([])
+  const [type, setType] = useState('1')
+  const [showMonth, setShowMonth] = useState(true)
 
   const navigate = useNavigate()
   const MySwal = withReactContent(Swal)
@@ -41,6 +43,11 @@ export const AddPayment = ({companyId, closeFn}) => {
     console.log('se envio el formulario')
     const data = new FormData(formRef.current)
     data.append("companyId", companyId)
+    if (type === '3') {
+      data.append('month', '7')
+    } else if (type === '4') {
+      data.append('month', '12')
+    }
     console.log(data)
     fetchPaymentExecute(data)
   }
@@ -71,6 +78,14 @@ export const AddPayment = ({companyId, closeFn}) => {
     calculateYears()
   },[])
 
+  useEffect(()=>{
+    if (type === '1' || type === '2') {
+      setShowMonth(true)
+    } else {
+      setShowMonth(false)
+    }
+  },[type])
+
   return (
     <div className="card_modal addFamilyMember_wrapper">
       {isLoading && <PageLoadingSpiner/>}
@@ -87,9 +102,11 @@ export const AddPayment = ({companyId, closeFn}) => {
       <div className="body">
         <form ref={formRef} onSubmit={handleSubmit}>
           <div className="select">
-            <select name="type" required>
+            <select name="type" required value={type} onChange={(e) => setType(e.target.value)}>
               <option value="1">Nómina Quincenal</option>
               <option value="2">Nómina Mensual</option>
+              <option value="3">Nómina Bono 14</option>
+              <option value="4">Nómina Aguinaldo</option>
             </select>
           </div>
           <div className="select">
@@ -99,13 +116,16 @@ export const AddPayment = ({companyId, closeFn}) => {
               ))}
             </select>
           </div>
-          <div className="select">
-            <select name="month" required>
-              {months.map(({id,name}) => (
-                <option key={id} selected={actualMonth===id} value={id}>{name}</option>
-              ))}
-            </select>
-          </div>
+
+          {showMonth && (
+            <div className="select">
+              <select name="month" required>
+                {months.map(({id,name}) => (
+                  <option key={id} selected={actualMonth===id} value={id}>{name}</option>
+                ))}
+              </select>
+            </div>
+          )}
 
           <PrimaryBtn label="Guardar" type="submit">
             <RiSave3Fill/>

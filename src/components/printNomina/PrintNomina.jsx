@@ -81,12 +81,12 @@ export const PrintNomina = ({closeFn, companyId}) => {
       </div>
       <div className="body">
         <form ref={formRef} onSubmit={handleSubmit}>
-          <div className="select">
+          {/* <div className="select">
             <select name="type" required>
               <option value="1">Nómina Quincenal</option>
               <option value="2">Nómina Mensual</option>
             </select>
-          </div>
+          </div> */}
           <div className="select">
             <select name="year" required>
               {years?.map(item => (

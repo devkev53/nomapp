@@ -18,6 +18,9 @@ import { DetailEmployee } from "../pages/detailEmployee/DetailEmployee";
 import { StoreUsers } from "../pages/storeUsers/StoreUsers";
 import { Products } from "../pages/products/Products";
 import { UserProfile } from "../pages/userProfile/UserProfile";
+import { CreateUser } from "../pages/createUser/CreateUser";
+import { ResetPassword } from "../pages/resetPassword/ResetPassword";
+import { ChangePassword } from "../pages/changePassword/ChangePassword";
 
 function App() {
   return (
@@ -52,6 +55,9 @@ function App() {
 
             <Route path="*" element={<Error404 />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/reset-password" element={<ResetPassword/>}/>
+            <Route path="/change-password/:token" element={<ChangePassword/>}/>
+            <Route path="/create-user" element={<CreateUser />} />
           </Routes>
         </Router>
       </StoreContextProvider>

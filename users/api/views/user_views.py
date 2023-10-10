@@ -1,14 +1,20 @@
+import uuid
 from django.shortcuts import get_object_or_404
 
 from rest_framework.decorators import action, permission_classes
 from rest_framework import viewsets, status
+from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from core.api.views.api_views import PermisionPolicyMixin
 
-
-from users.api.serializers.user_serializers import UserSerializer, UserUpdateSerializer, UserListSerializer, CreateUserSerializer, PasswordSerializer
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from django.template.loader import render_to_string
+from app.settings import local
+from users.api.serializers.user_serializers import UserSerializer, UserUpdateSerializer, UserListSerializer, CreateUserSerializer, PasswordSerializer, ResetPasswordSerializer
 
 # class UserViewset(viewsets.GenericViewSet):
 class UserViewset(
@@ -64,7 +70,8 @@ class UserViewset(
     # Update a User
     def update(self, request, pk=None):
         user = self.get_object(pk)
-        user_serializer = UserUpdateSerializer(user, data=request.data)
+        print(request.data)
+        user_serializer = UserUpdateSerializer(user, data=request.data, partial=True)
         if user_serializer.is_valid():
             user_serializer.save()
             return Response(user_serializer.data, status=status.HTTP_200_OK)
@@ -99,6 +106,88 @@ class UserViewset(
             user.set_password(password_serializer.validated_data['password'])
             user.save()
             return Response({'message': 'Password updated successfull'}, status=status.HTTP_200_OK)
+        return Response({
+            'error':'check your fields', 'errors':password_serializer.errors
+            },status=status.HTTP_400_BAD_REQUEST)
+
+class ResetPasswordAPIView(GenericAPIView):
+    serializer_class = ResetPasswordSerializer
+
+    def send_mail_reset_password(self, user):
+        data = {}
+        try:
+            print(self.request.META)
+            URL = local.DOMAIN
+
+            user.reset_token = uuid.uuid4()
+            user.save()
+           
+            link_resetpwd = 'http://{}change-password/{}/'.format(URL, str(user.reset_token))
+            print(link_resetpwd)
+            
+            mailServer = smtplib.SMTP(local.EMAIL_HOST, local.EMAIL_PORT)
+            mailServer.starttls()
+            mailServer.login(local.EMAIL_HOST_USER, local.EMAIL_HOST_PASSWORD)
+            email_to = user.email
+            print('Conectando...')
+
+            message = MIMEMultipart()
+            message['From'] = local.EMAIL_HOST_USER
+            message['To'] = email_to
+            message['Sibject'] = 'Reseteo de contraseña.!'
+
+
+            content = render_to_string('send_email.html', {
+                'user': user,
+                'link_resetpwd': link_resetpwd,
+                'link_home': 'http://{}'.format(URL)
+            })
+            message.attach(MIMEText(content, 'html'))
+
+            mailServer.sendmail(local.EMAIL_HOST_USER, email_to, message.as_string())
+
+            print('Correo enviado correctamente')
+        except Exception as e:
+            data['error'] = str(e)
+        
+        return data
+
+    def post(self, request, *args, **kwargs):
+        # try:
+        email = request.data["email"]
+        user = UserSerializer.Meta.model.objects.filter(email=email).first()
+        if user != None:
+            print("Entro Aqui..!")
+            result = self.send_mail_reset_password(user)
+            print(result)
+            if  result == {}:
+                return Response({"message":"Ok"}, status=status.HTTP_200_OK)
+        
+            return Response({"errors":"Error 400 Bad Request..!"}, status=status.HTTP_400_BAD_REQUEST)
+
+        return Response({"errors":"User not exists..!"}, status=status.HTTP_404_NOT_FOUND)
+        # except:
+        #     return Response({"errors":"Error 400 Bad Request..!"}, status=status.HTTP_400_BAD_REQUEST)
+    
+    
+    def put(self, request, token=None, *args, **kwars):
+        reset_token=token
+
+        user = UserSerializer.Meta.model.objects.filter(reset_token=reset_token).first()
+        print(user)
+
+        if user != None:
+            password_serializer = PasswordSerializer(data = request.data)
+            if password_serializer.is_valid():
+                user.set_password(password_serializer.validated_data['password'])
+                user.reset_token = None
+                user.save()
+                return Response({'message': 'Password updated successfull'}, status=status.HTTP_200_OK)
+ 
+            return Response({
+                'error':'check your fields', 'errors':password_serializer.errors
+                },status=status.HTTP_400_BAD_REQUEST)
+        
         return Response({
             'error':'check your fields', 'errors':password_serializer.errors
             },status=status.HTTP_400_BAD_REQUEST)

@@ -7,6 +7,7 @@ import {useFetchAndLoad} from '../hooks/useFetchAndLoad'
 
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { getOneUser } from "../services/users.service";
 
 export const useAuth = () => {
   const navigate = useNavigate();
@@ -45,19 +46,26 @@ export const useAuth = () => {
     window.localStorage.removeItem("authData");
   };
 
+  const updateUserData = async(id) => {
+    try {
+      let response = await callEndpoint(getOneUser(id))
+      response.status === 200 && setUserData(response.data)
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
   const handleLogin = async (data) => {
     try {
       const response = await callEndpoint(loginService(data));
       setLoginData(response.data);
       navigate("/");
     } catch (e) {
-      if (e.response.status === 400) {
-        MySwal.fire({
-          title: "Oops..!",
-          icon: "error",
-          text: e.response.data.error,
-        });
-      }
+      MySwal.fire({
+        title: "Oops..!",
+        icon: "error",
+        text: 'Verifique los campos ingresados..!',
+      });
     }
   };
 
@@ -77,6 +85,7 @@ export const useAuth = () => {
     setLoginData,
     clearData,
     handleLogin,
+    updateUserData,
     handleLogout,
     isLoading,
   };

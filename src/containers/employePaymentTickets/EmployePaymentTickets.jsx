@@ -35,6 +35,7 @@ export const EmployePaymentTickets = () => {
     calculateYears()
   },[])
 
+
   const handleCkeckPayments = () => {
     let year = document.querySelector('#year').value
     let month = document.querySelector('#month').value
@@ -44,6 +45,7 @@ export const EmployePaymentTickets = () => {
   }
 
   const handleCliclDownloadTicket = (type, id) => {
+    console.log(type, id)
     fetchDownloadTicket(type, id)
   }
 
@@ -71,6 +73,8 @@ export const EmployePaymentTickets = () => {
       console.error(e)
     }
   }
+
+  console.log(payments)
 
   return (
     <>

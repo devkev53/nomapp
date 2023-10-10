@@ -1,8 +1,11 @@
-.card_modal.changePass_card .input_group2 button {
+.card_modal.changePass_card .input_group2 span {
+  display: flex;
+  align-items: center;
   margin-right: 22px;
   font-size: 24px;
   color: rgba(129,27,107, .7);
 }
-.card_modal.changePass_card .input_group2 button:hover {
+.card_modal.changePass_card .input_group2 span:hover {
   color: rgba(106, 0, 83, 1);
+  user-select: none;
 }

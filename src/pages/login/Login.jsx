@@ -64,7 +64,13 @@ export const Login = () => {
             </button>
           </div>
           <button className='primary_btn bg-yellow-500 w-full rounded py-2 hover:bg-yellow-400 font-bold'>Ingresar</button>
-          <a href="" className='hover:text-teal-600'>Recuperar Contraseña</a>
+          <a href="/reset-password" className='hover:text-teal-600'>Recuperar Contraseña</a>
+          <a 
+            href="/create-user" 
+            className='text-purple-600 font-bold hover:text-teal-500'
+          >
+            Crear Usuario
+          </a>
         </form>
       </div>
     </main>

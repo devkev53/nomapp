@@ -1,5 +1,5 @@
 import datetime
-from companies.utils import exucute_month_each, exucute_prepaid_each
+# from companies.utils import exucute_month_each, exucute_prepaid_each
 from core.api.views.api_views import CustomBaseViewSet
 
 from rest_framework.permissions import IsAuthenticated
@@ -11,7 +11,7 @@ from rest_framework.views import APIView
 
 from companies.api.serializers.serializers import CompanySerializer
 from employees.api.serialziers.employees_serializers import EmployeeSerializer
-from pays.models import Payment
+# from pays.models import Payment
 
 
 

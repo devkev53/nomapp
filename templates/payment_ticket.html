@@ -237,6 +237,24 @@
     display: flex;
   }
 
+  .info_empleado .data {
+    display: flex;
+    padding: 16px;
+  }
+  .info_empleado .data .row {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .info_empleado .data .row p {
+    width: 8cm;
+    display: flex;
+    margin-bottom: 6px;
+  }
+
+
 
 
 </style>
@@ -266,10 +284,14 @@
   <div class="info_empleado">
     <h3 class="title">Datos del Empleado</h3>
     <div class="data">
-      <p>Identificador: <span>{{employee.id}}</span></p>
-      <p>Nombre: <span>{{employee.get_full_name}}</span></p>
-      <p>Departamento: <span>{{employee.get_department_name}}</span></p>
-      <p>Puesto: <span>{{employee.job_position.name}}</span></p>
+      <div class="row">
+        <p>Identificador: <span>{{employee.id}}</span></p>
+        <p>Nombre: <span>{{employee.get_full_name}}</span></p>
+      </div>
+      <div class="row">
+        <p>Departamento: <span>{{employee.get_department_name}}</span></p>
+        <p>Puesto: <span>{{employee.job_position.name}}</span></p>
+      </div>
     </div>
   </div>
 
@@ -293,6 +315,10 @@
           </tr>
           {% endif %}
           {% if payment.type_payment == 2  %}
+          <tr>
+            <td>Bono 37-01</td>
+            <td>{{payment.bono3701}}</td>
+          </tr>
           <tr>
             <td>Comision</td>
             <td>{{payment.comision}}</td>

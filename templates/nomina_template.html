@@ -7,7 +7,7 @@
 </head>
 <style>
   @page {
-    margin: .5in;
+    margin: .2in;
     size: landscape;
     orientation: landscape;
     size: 13in 8.5in;
@@ -74,8 +74,8 @@
   }
 
   .nomina_table thead tr:last-child th:nth-child(3),
-  .nomina_table thead tr:last-child th:nth-child(12),
-  .nomina_table thead tr:last-child th:nth-child(8) {
+  .nomina_table thead tr:last-child th:nth-child(13),
+  .nomina_table thead tr:last-child th:nth-child(9) {
     border-right: 1px solid white;
   }
   .nomina_table tbody tr:nth-child(even) {
@@ -117,7 +117,7 @@
       <thead>
         <tr>
           <th colspan="3">Informacion del Empleado</th>
-          <th colspan="5">Salarios y Beneficios</th>
+          <th colspan="6">Salarios y Beneficios</th>
           <th colspan="4">Retenciones y Descuentos</th>
           <th rowspan="2">Total Liquido</th>
         </tr>
@@ -127,6 +127,12 @@
           <th>Salario Base</th>
           <th>Salario Quincenal</th>
           <th>Salario Mensual</th>
+          <th>Bono 37-01</th>
+          
+          {% if pay.aguinaldo > 0 %}
+            <th>Aguinaldo</th>
+          {% endif %}
+            
           <th>Comisiónes</th>
           <th>Horas Extras</th>
           <th>Total Ingresos</th>
@@ -145,6 +151,12 @@
             <td>Q. {{pay.base}}</td>
             <td>Q. {{pay.fortnight}}</td>
             <td>Q. {{pay.monthly}}</td>
+            <td>Q. {{pay.bono3701}}</td>
+            
+            {% if pay.aguinaldo > 0 %}
+              <td>Q. {{pay.aguinaldo}}</td>
+            {% endif %}
+
             <td>Q. {{pay.comision}}</td>
             <td>Q. {{pay.extras}}</td>
             <td>Q. {{pay.total_in}}</td>

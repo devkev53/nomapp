@@ -50,37 +50,37 @@ class Company(BaseModel):
     except employes.DoesNotExist as e:
       raise e
 
-  def getLastPayment(self):
-    try:
-      from pays.models import Payment
-      lastPay = Payment.objects.filter(employee__job_position__department__company=self.pk).last()
-      return lastPay.toJSON()
-    except:
-      return None
+  # def getLastPayment(self):
+  #   try:
+  #     from pays.models import Payment
+  #     lastPay = Payment.objects.filter(employee__job_position__department__company=self.pk).last()
+  #     return lastPay.toJSON()
+  #   except:
+  #     return None
 
-  def activate_payment_option(self):
-    today = datetime.datetime.now()
-    day = today.day
-    month = today.month
-    year = today.year
-    from pays.models import Payment
-    lastPay = Payment.objects.filter(employee__job_position__department__company=self.pk).last()
-    if lastPay == None:
-      if day >= 13 and day <= 18:
-        return True
-      elif day >= 26 and day <= 31:
-        return True
-    elif lastPay.month < month and lastPay.year == year:
-      if day >= 13 and day <= 18:
-        return True
-      elif day >= 26 and day <= 18:
-        return True
-    elif lastPay.month == month and lastPay.type == '1':
-      if day >= 26 and day <= 31:
-        return True
-      else:
-        return False
-    return False
+  # def activate_payment_option(self):
+  #   today = datetime.datetime.now()
+  #   day = today.day
+  #   month = today.month
+  #   year = today.year
+  #   from pays.models import Payment
+  #   lastPay = Payment.objects.filter(employee__job_position__department__company=self.pk).last()
+  #   if lastPay == None:
+  #     if day >= 13 and day <= 18:
+  #       return True
+  #     elif day >= 26 and day <= 31:
+  #       return True
+  #   elif lastPay.month < month and lastPay.year == year:
+  #     if day >= 13 and day <= 18:
+  #       return True
+  #     elif day >= 26 and day <= 18:
+  #       return True
+  #   elif lastPay.month == month and lastPay.type == '1':
+  #     if day >= 26 and day <= 31:
+  #       return True
+  #     else:
+  #       return False
+  #   return False
 
   def get_job_positions(self):
     from positions.models import JobPosition

@@ -6,6 +6,8 @@ from core.models import BaseModel
 from employees.models import Employee
 from decimal import Decimal
 import datetime
+import _strptime
+import calendar
 
 from pays.utils import calculate_socialSecurity
 
@@ -25,6 +27,7 @@ class PayBase(BaseModel):
   description = models.CharField(max_length=120, blank=True, null=True)
   employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
   credit_store = models.DecimalField(decimal_places=2, max_digits=10, default=0, blank=True, null=True, editable=False)
+  bono3701 = models.DecimalField(decimal_places=2, max_digits=10, default=0.00)
   amount = models.DecimalField(decimal_places=2, max_digits=10, default=0, editable=False)
   total = models.DecimalField(decimal_places=2, max_digits=10, editable=False)
   month = models.PositiveSmallIntegerField()
@@ -45,6 +48,20 @@ class PayBase(BaseModel):
 
   # TODO: Define custom methods here
 
+  def get_employee_start_work(self):
+    return self.employee.created
+
+  def get_fortnightPayment(self):
+    total = Decimal(Decimal(self.get_base_salary()) * Decimal(.45))
+    return Decimal("{:.2f}".format(total))
+
+  def get_monthlyPayment(self):
+    total = Decimal(self.get_base_salary() - self.get_fortnightPayment())
+    return Decimal("{:.2f}".format(total))
+
+  def get_base_salary(self):
+    return Decimal(self.employee.job_position.salary)
+
   def pay_credit_store(self):
     try:
       credit = 0
@@ -62,6 +79,9 @@ class PayBase(BaseModel):
     return self.employee.job_position.department.company.name
 
 
+
+
+
 class FortnightPayment(PayBase):
   """Model definition for FortnightPayment."""
 
@@ -77,12 +97,8 @@ class FortnightPayment(PayBase):
     verbose_name_plural = 'FortnightPayments'
 
   def save(self, *args, **kwargs):
-    # today = datetime.date.today()
-    # self.month = today.month
-    # self.year = today.year
     self.description = 'Nómina Quincenal'
-    # self.validate_pay()
-    self.amount = self.employee.total_prepaid()
+    self.amount = self.get_fortnightPayment()
     self.credit_store = self.pay_credit_store()
     self.total = Decimal(self.amount) - Decimal(self.credit_store)
     super(FortnightPayment, self).save()
@@ -98,7 +114,7 @@ class FortnightPayment(PayBase):
   #   myYear = today.year
   #   if FortnightPayment.objects.filter(month=myMonth, year=myYear).exists():
   #     raise ValidationError("El pago de este mes ya fue realizado..!")
-
+ 
   def get_base_salary(self):
     return Decimal(self.employee.job_position.salary)
 
@@ -136,10 +152,9 @@ class MonthlyPayment(PayBase):
 
   def save(self, *args, **kwargs):
     today = datetime.date.today()
-    # self.month = today.month
-    # self.year = today.year
+    self.bono3701 = self.calculate_bono3701()
     self.credit_store = self.pay_credit_store()
-    self.amount = self.employee.calculate_monthPayment()
+    self.amount = self.get_monthlyPayment()
     self.social_security = calculate_socialSecurity(self.employee.job_position.salary)
     self.description = 'Nómina Mensual'
     self.calculate_total()
@@ -147,15 +162,15 @@ class MonthlyPayment(PayBase):
 
   # TODO: Define custom methods here
 
-  def get_base_salary(self):
-    return Decimal(self.employee.job_position.salary)
+  def calculate_bono3701(self):
+    return Decimal(250.00)
 
   def calculate_total(self):
     amount = Decimal(self.total_ingresos()) - Decimal(self.total_egresos())
     self.total = amount
 
   def total_ingresos(self):
-    total = Decimal(self.amount) + Decimal(self.comision)
+    total = Decimal(self.amount) + Decimal(self.comision) + Decimal(self.calculate_bono3701())
     return total
 
   def total_egresos(self):
@@ -166,140 +181,132 @@ class MonthlyPayment(PayBase):
 
 
 
-
-class PaymentBase(BaseModel):
-  """Model definition for PaymentBase."""
+class BonoPayment(PayBase):
+  """Model definition for BonoPayment."""
 
   # TODO: Define fields here
-  employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
-  amount = models.DecimalField(decimal_places=2, max_digits=10, default=0, editable=False)
-  day = models.PositiveSmallIntegerField()
-  month = models.PositiveSmallIntegerField()
-  year = models.PositiveSmallIntegerField()
+  type_payment = models.PositiveSmallIntegerField(default=3)
+  # days_payment = models.PositiveSmallIntegerField(blank=True, null=True)
+  # months_payment = models.PositiveSmallIntegerField(blank=True, null=True)
+  # amount_days_payment = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, blank=True, null=True)
+  # amount_months_payment = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, blank=True, null=True)
 
   class Meta:
-    """Meta definition for PaymentBase."""
+    """Meta definition for BonoPayment."""
 
-    abstract = True
-    verbose_name = 'PaymentBase'
-    verbose_name_plural = 'PaymentBases'
-
-  def __str__(self):
-    """Unicode representation of Pay."""
-    return '%s - %s' % (self.employee.get_full_name(), self.created)
+    ordering = ["year", "month"]
+    unique_together = ['employee', 'year', 'month']
+    verbose_name = 'BonoPayment'
+    verbose_name_plural = 'BonoPayments'
 
   def save(self, *args, **kwargs):
-      today = datetime.date.today()
-      self.day = today.day
-      self.month = today.month
-      self.year = today.year
-      super(PaymentBase, self).save()
+    self.description = 'Nómina Bono 14'
+    self.amount = self.calculate_amount()
+    self.total = Decimal(self.amount)
+    super(BonoPayment, self).save()
+  
+  def calculate_days_for_pay(self):
+    base = self.employee.job_position.salary
+    salary_for_monht = base / 12
+    salary_for_day = salary_for_monht / 31
+    day = self.employee.created.day
+    month = self.employee.created.month
+    last_month_day = calendar.monthrange(self.year, month)[1]
+    days_for_pay = last_month_day - day
+    return {"days":days_for_pay, "amount": Decimal("{:.2f}".format(days_for_pay * salary_for_day)) }
+  
+  def calculate_months_for_pay(self):
+    base = self.employee.job_position.salary
+    salary_for_monht = base / 12
+    month = self.employee.created.month
+    if month < 6:
+      months_for_pay = 6 - month
+    elif month > 6:
+      months_for_pay = (12 - month) + 6
+    return {"months":months_for_pay, "amount": Decimal("{:.2f}".format(salary_for_monht * months_for_pay)) }
 
-  # TODO: Define custom methods here
+  def calculate_amount(self):
+    days = self.calculate_days_for_pay()
+    months = self.calculate_months_for_pay()
+    total = days['amount'] + months['amount']
+    return total
+      
+    
+  def calculate_total(self):
+    amount = Decimal(self.total_ingresos()) - Decimal(self.total_egresos())
+    self.total = amount
+
+  def total_ingresos(self):
+    total = Decimal(self.amount)
+    return total
+
+  def total_egresos(self):
+    total = 0
+    return total
+  
+  def days_pays(self):
+    pass
+  def months_pays(self):
+    pass
 
 
-class Payment(PaymentBase):
-  """Model definition for Payment."""
+
+
+class AguinaldoPayment(PayBase):
+  """Model definition for AguinaldoPayment."""
 
   # TODO: Define fields here
-  type = models.CharField(choices=TYPE_PAYMENT_CHOICE, default=1, max_length=15)
+  type_payment = models.PositiveSmallIntegerField(default=4)
 
   class Meta:
-    """Meta definition for Payment."""
+    """Meta definition for AguinaldoPayment."""
 
-    verbose_name = 'Payment'
-    verbose_name_plural = 'Payments'
+    ordering = ["year", "month"]
+    unique_together = ['employee', 'year', 'month']
+    verbose_name = 'AguinaldoPayment'
+    verbose_name_plural = 'AguinaldoPayments'
 
-  # def save(self):
-  #   """Save method for Payment."""
-  #   pass
+  def save(self, *args, **kwargs):
+    self.description = 'Nómina Aguinaldo'
+    self.amount = self.calculate_amount()
+    self.total = Decimal(self.amount)
+    super(AguinaldoPayment, self).save()
 
+  def calculate_days_for_pay(self):
+    base = self.employee.job_position.salary
+    salary_for_monht = base / 12
+    salary_for_day = salary_for_monht / 31
+    day = self.employee.created.day
+    month = self.employee.created.month
+    last_month_day = calendar.monthrange(self.year, month)[1]
+    days_for_pay = last_month_day - day
+    return {"days":days_for_pay, "amount": Decimal("{:.2f}".format(days_for_pay * salary_for_day)) }
+  
+  def calculate_months_for_pay(self):
+    base = self.employee.job_position.salary
+    salary_for_monht = base / 12
+    month = self.employee.created.month
+    if month < 12:
+      months_for_pay = 12 - month
+    elif month == 12:
+      months_for_pay = 12
+    return {"months":months_for_pay, "amount": Decimal("{:.2f}".format(salary_for_monht * months_for_pay)) }
 
-  # TODO: Define custom methods here
-  def toJSON(self):
-    item = model_to_dict(self)
-    item['salary_base'] = self.salary_base()
-    return item
+  def calculate_amount(self):
+    days = self.calculate_days_for_pay()
+    months = self.calculate_months_for_pay()
+    total = days['amount'] + months['amount']
+    return total
+      
+    
+  def calculate_total(self):
+    amount = Decimal(self.total_ingresos()) - Decimal(self.total_egresos())
+    self.total = amount
 
-  def clean(self):
-    if self.type == '1':
-      self.amount = self.pay_is_prepaid()
-    elif self.type == '2':
-      self.amount = self.pay_is_monthPayment()
-    return super(Payment, self).clean()
+  def total_ingresos(self):
+    total = Decimal(self.amount)
+    return total
 
-  def salary_base(self):
-    return self.employee.job_position.salary
-
-  def calculate_bono14(self):
+  def total_egresos(self):
     total = 0
-    last_pay = Payment.objects.filter(employee=self.employee).last()
-    if last_pay.day >= 30 and last_pay.month == 6:
-
-      last_year_pays = Payment.objects.filter(
-        year__gte=(last_pay.year-1), year__lte=(last_pay.year),
-        month__gte=1, month__lte=6, employee=self.employee, 
-      ).exclude(type=[3,4])
-      for pay in last_year_pays:
-        total += pay.amount
-        print(pay)
-    total = total/12
     return total
-
-  def calculate_aguinaldo(self):
-    total = 0
-    last_pay = Payment.objects.filter(employee=self.employee).last()
-    if last_pay.day >= 30 and last_pay.month == 11:
-
-      last_year_pays = Payment.objects.filter(
-        year__gte=(last_pay.year-1), year__lte=(last_pay.year),
-        month__gte=12, month__lte=11, employee=self.employee, 
-      ).exclude(type=[3,4])
-      for pay in last_year_pays:
-        total += pay.amount
-        print(pay)
-    total = total/12
-    return total
-
-  def pay_is_prepaid(self):
-    try:
-      total = self.employee.total_prepaid()
-      return total
-    except IntegrityError as e:
-      raise ValidationError(e)
-
-  def pay_is_monthPayment(self):
-    total = self.employee.total_monthPayment()
-    return total
-
-  def get_prepaid(self):
-    today = datetime.date.today()
-    try:
-      prepaid = Payment.objects.filter(employee=self.employee, type=1, month=self.month).last()
-      return prepaid.amount
-    except:
-      raise ValidationError("Debe existe el pago quincenal..!")
-
-  def calc_commission(self):
-    total = Decimal(0.00)
-    return total
-
-  def calc_creditPayment(self):
-    total = Decimal(0.00)
-    return total
-
-  def calc_storePayment(self):
-    total = Decimal(0.00)
-    return total
-
-  def calc_solidarityContribution(self):
-    try:
-      total = self.employee.store_credit()
-      return total
-    except IntegrityError as e:
-      raise ValidationError(e)
-
-  def calc_socialSecurity(self):
-    total = self.employee.job_position.salary
-    amount = "{:.2f}".format(total * Decimal(4.83) / 100)
-    return amount

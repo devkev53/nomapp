@@ -145,7 +145,9 @@ export const DetailCompany = () => {
 
 
   const handleAddShowClass = (id) => {
-    document.getElementById(id).classList.toggle('show')
+    const departmentNode = document.getElementById(id)
+    console.log(departmentNode)
+    departmentNode.classList.toggle('show')
   }
 
   useEffect(() => {
@@ -245,7 +247,7 @@ export const DetailCompany = () => {
             ? deptos.map(({id, name, positions}) => (
               <div key={id} className="deptos_section">
 
-                <div className="subtitle depto" id={id} onClick={()=>handleAddShowClass(id)}>
+                <div className="subtitle depto" id={`${id}-${name}`} onClick={()=>handleAddShowClass(`${id}-${name}`)}>
                   <p>Departamento de {name}</p>
                   <RiArrowDownSFill/>
                 </div>

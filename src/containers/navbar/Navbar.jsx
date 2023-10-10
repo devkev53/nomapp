@@ -5,6 +5,9 @@ import {menuSubject} from '../../services/show-menu-subject.service'
 import { baseUrl } from '../../utilitys/base-url.utils';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import {useModal} from '../../hooks/useModal'
+import {ChangePassModal} from '../../components/changePassModal/ChangePassModal'
+import {ModalContainer} from '../../containers/modalContainer/ModalContainer'
 
 export const Navbar = () => {
 
@@ -14,6 +17,7 @@ export const Navbar = () => {
   const navigate = useNavigate()
   const {user, handleLogout} = useAuth()
   const now = new Date(timestamp).toLocaleDateString()
+  const {isVisible, showModal, closeModal} = useModal()
 
 
   const handleOpenMenu = () => {
@@ -22,6 +26,9 @@ export const Navbar = () => {
 
   return (
     <nav className="nav_wrapper">
+      {isVisible && <ModalContainer>
+        <ChangePassModal closeFn={closeModal}/>
+      </ModalContainer>}
       <div className="nav_content">
         <button onClick={handleOpenMenu} className='nav_open_menu text-4xl' ><RiMenu2Fill/></button>
         <h1 className='title_app'>nomapp <span>| {now}</span></h1>
@@ -50,7 +57,7 @@ export const Navbar = () => {
                 Perfil
               </span>
             </button>
-            <button>
+            <button onClick={showModal}>
               <RiKey2Fill/>
               <span>
                 Cambiar Contraseña
