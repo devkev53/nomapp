@@ -100,7 +100,7 @@ class NominaPagoEmpresaPDF(APIView):
             else:
                 aguinaldo = 0.00
 
-            store = fortnight_store + monthly_store
+            store = Decimal(fortnight_store) + Decimal(monthly_store)
             total_in = (
                 Decimal(bono3701) + Decimal(fortnight) + 
                 Decimal(monthly) + Decimal(comision) +
