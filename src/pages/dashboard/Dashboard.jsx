@@ -56,7 +56,6 @@ export const Dashboard = () => {
     countEmployees()
   },[])
 
-
   return (
     <div className="dashboard_wrapper p-4 flex flex-col justify-center">
 
@@ -80,12 +79,19 @@ export const Dashboard = () => {
             </div>
 
             <div className="info_card">
-              <p>Faltan</p>
-              <p className="number">{numPayDays}</p>
+              <p>Solo</p>
+              <p className="number">
+                {/* {numPayDays === 1 && <small>un</small>} */}
+                {numPayDays}
+                {numPayDays > 1
+                  ? (<small>dias</small>)
+                  : (<small>dia</small>)
+                }
+              </p>
               <p>Para el Pago</p>
             </div>
           </div>
-          
+
           <div className="companies card_dash_container">
             <div className="icon">
               <RiBuilding2Fill/>
@@ -96,7 +102,7 @@ export const Dashboard = () => {
               <p>Empresas</p>
             </div>
           </div>
-          
+
           <div className="employees card_dash_container">
             <div className="icon">
               <RiUser2Fill/>

@@ -21,7 +21,7 @@ import { UserProfile } from "../pages/userProfile/UserProfile";
 import { CreateUser } from "../pages/createUser/CreateUser";
 import { ResetPassword } from "../pages/resetPassword/ResetPassword";
 import { ChangePassword } from "../pages/changePassword/ChangePassword";
-import { EditCompany } from '../pages/editCompany/EditCompany'
+import { EditCompany } from "../pages/editCompany/EditCompany";
 
 function App() {
   return (
@@ -30,13 +30,19 @@ function App() {
         <Router>
           <Routes>
             <Route element={<Protected />}>
+              {/* Dashboard Route */}
               <Route path="/" element={<Dashboard />} />
-              {/* Companies Routes */}
+
+              {/* Companies Routes 4 */}
               <Route path="/companies" element={<Compaies />} />
               <Route path="/company/:companyId" element={<DetailCompany />} />
-              <Route path="/edit-company/:companyId" element={<EditCompany/>} />
+              <Route
+                path="/edit-company/:companyId"
+                element={<EditCompany />}
+              />
               <Route path="companies-create/" element={<CreateCompany />} />
 
+              {/* Employees Routes 3 */}
               <Route path="/employees" element={<Employees />} />
               <Route
                 path="/employee/:employeeId"
@@ -44,22 +50,26 @@ function App() {
               />
               <Route path="/add-employee" element={<AddEmployee />} />
 
+              {/* Store Routes 2  */}
               <Route path="/store" element={<Store />} />
               <Route
                 path="/validate-buy/:employeeId"
                 element={<ValidateBuy />}
               />
+              {/* Products Routes 1  */}
               <Route path="/products" element={<Products />} />
-              <Route path="/my-profile" element={<UserProfile/>} />
+              {/* Profile Route 1 */}
+              <Route path="/my-profile" element={<UserProfile />} />
             </Route>
 
-
-
-            <Route path="*" element={<Error404 />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/reset-password" element={<ResetPassword/>}/>
-            <Route path="/change-password/:token" element={<ChangePassword/>}/>
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route
+              path="/change-password/:token"
+              element={<ChangePassword />}
+            />
             <Route path="/create-user" element={<CreateUser />} />
+            <Route path="*" element={<Error404 />} />
           </Routes>
         </Router>
       </StoreContextProvider>

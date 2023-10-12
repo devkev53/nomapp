@@ -33,6 +33,11 @@
   background: rgba(0, 73, 73, 0.8);
   color: #ccc;
 }
+.date small {
+  font-size: 17px;
+  font-weight: normal;
+  color: #ccc;
+}
 
 .companies {
   background: rgba(73, 7, 34, 0.8);
