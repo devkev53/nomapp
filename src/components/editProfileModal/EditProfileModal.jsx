@@ -15,6 +15,7 @@ import { updateUser } from "../../services/users.service";
 
 
 import './editProfileModal.css'
+import { CustomEditImagenInput } from "../ui/CustomEditImagenInput";
 
 export const EditProfileModal = ({closeFn}) => {
   
@@ -116,7 +117,11 @@ export const EditProfileModal = ({closeFn}) => {
       <div className="body">
         <form ref={formRef} onSubmit={handleSubmit}> 
 
-          <div className="image_input" onClick={handleImgClick}>
+          <CustomEditImagenInput 
+            name="image"
+            data={preview} 
+          />
+          {/* <div className="image_input" onClick={handleImgClick}>
             <picture>
               <img src={preview} alt="" className="image_input__img" />
               <input
@@ -127,7 +132,7 @@ export const EditProfileModal = ({closeFn}) => {
                 className="image_input__input"
               />
             </picture>
-          </div>
+          </div> */}
 
           <div className="edit_row">
             <div className="input_group2">

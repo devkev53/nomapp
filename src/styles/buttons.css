@@ -57,6 +57,11 @@
   background: rgba(250, 204, 21, .9);
 }
 
+.delete_btn {
+  background: rgb(199, 53, 27);
+  color: #FFF;
+}
+
 
 .secondary_btn {
   background: rgba(98, 40, 189);

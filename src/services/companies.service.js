@@ -34,10 +34,30 @@ export const getCompanyEmployes = (id) => {
   };
 };
 
+export const updateCompany = (id, data) => {
+  const controller = loadAbort();
+  return {
+    call: axiosPrivateInstance.put(`${companiesUrl}${id}/`, data, {
+      signal: controller.signal,
+    }),
+    controller,
+  };
+}
+
 export const getOneCompany = (id) => {
   const controller = loadAbort();
   return {
     call: axiosPrivateInstance.get(`${companiesUrl}${id}`, {
+      signal: controller.signal,
+    }),
+    controller,
+  };
+};
+
+export const deleteOneCompany = (id) => {
+  const controller = loadAbort();
+  return {
+    call: axiosPrivateInstance.delete(`${companiesUrl}${id}`, {
       signal: controller.signal,
     }),
     controller,

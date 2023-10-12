@@ -127,6 +127,9 @@ class Employee(PersonBase):
 
   def get_company_name(self):
     return self.job_position.department.company.name
+  
+  def get_company_id(self):
+    return self.job_position.department.company.pk
 
   def get_department_name(self):
     return self.job_position.department.name

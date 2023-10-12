@@ -21,6 +21,7 @@ import { UserProfile } from "../pages/userProfile/UserProfile";
 import { CreateUser } from "../pages/createUser/CreateUser";
 import { ResetPassword } from "../pages/resetPassword/ResetPassword";
 import { ChangePassword } from "../pages/changePassword/ChangePassword";
+import { EditCompany } from '../pages/editCompany/EditCompany'
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
               {/* Companies Routes */}
               <Route path="/companies" element={<Compaies />} />
               <Route path="/company/:companyId" element={<DetailCompany />} />
+              <Route path="/edit-company/:companyId" element={<EditCompany/>} />
               <Route path="companies-create/" element={<CreateCompany />} />
 
               <Route path="/employees" element={<Employees />} />

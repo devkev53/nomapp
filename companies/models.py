@@ -43,7 +43,7 @@ class Company(BaseModel):
     count = 0
     try:
       from employees.models import Employee
-      employes = Employee.objects.filter(job_position__department__company=self.id)
+      employes = Employee.objects.filter(job_position__department__company=self.id, is_active=True)
       for employee in employes:
         count += 1
       return count

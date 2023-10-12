@@ -22,7 +22,7 @@ class CompanyViewSet(CustomBaseViewSet):
   @action(detail=True, methods=['get'], url_path='employees')
   def get_employees_company(self, request, pk=None, *args, **kwargs):
     company = self.get_object(pk)
-    employees = EmployeeSerializer.Meta.model.objects.filter(job_position__department__company=company)
+    employees = EmployeeSerializer.Meta.model.objects.filter(job_position__department__company=company, is_active=True)
     employees_serializer = EmployeeSerializer(employees, many=True)
 
     return Response(employees_serializer.data, status=status.HTTP_200_OK)

@@ -4,7 +4,6 @@ import notImage from '../../assets/img/not-img.jpg'
 export const CustomImageInput = ({name, type}) => {
 
   const [preview, setPreview] = useState(notImage)
-
   const inputImgRef = useRef()
 
   const handleChange = (e) => {
@@ -28,7 +27,13 @@ export const CustomImageInput = ({name, type}) => {
     <div onClick={handleImgClick} className="image_input">
       <picture>
         <img className="image_input__img" src={preview} alt="" />
-        <input onChange={handleChange} ref={inputImgRef} name={name} className="image_input__input" type="file" />
+        <input 
+          onChange={handleChange} 
+          ref={inputImgRef} 
+          name={name} 
+          className="image_input__input" 
+          type="file" 
+        />
       </picture>
     </div>
   )

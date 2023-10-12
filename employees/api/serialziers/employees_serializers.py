@@ -11,6 +11,7 @@ class EmployeeSerializer(serializers.ModelSerializer):
   calculate_prepaid = serializers.SerializerMethodField()
   calculate_monthPayment = serializers.SerializerMethodField()
   url_img = serializers.SerializerMethodField()
+  get_company_id = serializers.SerializerMethodField()
   get_company_name = serializers.SerializerMethodField()
   get_department_name = serializers.SerializerMethodField()
   job_position = JobPositionSerialzier()
@@ -23,9 +24,12 @@ class EmployeeSerializer(serializers.ModelSerializer):
       'get_full_name', 'job_position',
       'total_prepaid', 'total_monthPayment',
       'calculate_monthPayment', 'calculate_prepaid',
-      'get_department_name', 'get_company_name'
+      'get_department_name', 'get_company_name', 'get_company_id'
     )
 
+  def get_company_id(self, obj):
+    return obj.get_company_id
+  
   def total_monthPayment(self, obj):
     return obj.total_monthPayment
 
@@ -49,6 +53,7 @@ class EmployeeSerializer(serializers.ModelSerializer):
 
   def get_department_name(self, obj):
     return obj.get_department_name()
+  
 
 
 class CreateEmployeeSerializer(serializers.ModelSerializer):

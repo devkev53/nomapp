@@ -37,6 +37,17 @@ class EmployeeViewSet(CustomBaseViewSet):
     return Response({
     'error':'check your fields', 'errors':instance_serialier.errors
     }, status=status.HTTP_400_BAD_REQUEST)
+  
+
+  def update(self, request, pk=None, *args, **kwargs):
+    instance = self.get_object(pk)
+    instance_serializer = CreateEmployeeSerializer(instance, data=self.request.data, partial=True)
+    if instance_serializer.is_valid():
+        instance_serializer.save()
+        return Response({'message':'instance updated successful'})
+    return Response({
+    'error':'check your fields', 'errors':instance_serializer.errors
+    }, status=status.HTTP_400_BAD_REQUEST)
 
 
 class EmployeeFilterAPIView(APIView):
@@ -45,7 +56,7 @@ class EmployeeFilterAPIView(APIView):
     queryset = EmployeeSerializer.Meta.model.objects.all()
     companyId = self.request.query_params.get('companyId')
     if companyId is not None:
-      queryset = queryset.filter(job_position__department__company=companyId)
+      queryset = queryset.filter(job_position__department__company=companyId, is_active=True)
     return queryset
 
   def get(self, request, pk=None, *args, **kwargs):

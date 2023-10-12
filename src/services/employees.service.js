@@ -36,6 +36,26 @@ export const getOneEmployee = (id) => {
   };
 };
 
+export const deleteOneEmployee = (id) => {
+  const controller = loadAbort();
+  return {
+    call: axiosPublicInstance.delete(`${baseUrl}api/employees/${id}`, {
+      signal: controller.signal,
+    }),
+    controller,
+  };
+};
+
+export const updateOneEmployee = (id, data) => {
+  const controller = loadAbort();
+  return {
+    call: axiosPrivateInstance.put(`${baseUrl}api/employees/${id}/`, data, {
+      signal: controller.signal,
+    }),
+    controller,
+  };
+};
+
 export const addEmployee = (data) => {
   const controller = loadAbort();
   return {

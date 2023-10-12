@@ -11,7 +11,7 @@ class CompanyAdmin(SimpleHistoryAdmin):
   list_display = (
     'id', 'img_preview', 'name', 'phone',
     'email', 'num_employees', 'get_job_positions',
-    'get_departments'
+    'get_departments', 'is_active'
   )
   # list_filter = ('',)
   # raw_id_fields = ('',)

@@ -1,6 +1,6 @@
 import './createCompany.css'
 import { useRef } from 'react'
-import { RiBuilding2Fill, RiSave2Fill } from "react-icons/ri";
+import { RiBuilding2Fill, RiEdit2Fill, RiSave2Fill } from "react-icons/ri";
 import { CustomTexarea } from '../../components/ui/CustomTexarea';
 import { CustomInput } from '../../components/ui/CustomInput';
 import { CustomImageInput } from '../../components/ui/CustomImageInput';
@@ -55,8 +55,8 @@ export const CreateCompany = () => {
       {/* Title */}
       <div className="page_title">
         <h2 className='title'>
-          <RiBuilding2Fill />
-          Crear Empresa
+          <RiEdit2Fill />
+          Editar Empresa
         </h2>
         <div className="tite_border"></div>
       </div>
