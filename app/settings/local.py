@@ -11,7 +11,7 @@ SECRET_KEY = 'django-insecure-*cwt%maan@w#g0q1#!=wldjn1n%fa*c66k624x_nh6s($67t4e
 DEBUG = True
 
 DOMAIN = config('DJANGO_DOMAIN')
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*', DOMAIN]
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -88,14 +88,16 @@ CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:3000',
     'http://localhost:8000',
     'http://127.0.0.1:8000',
-    'http://172.17.200.220:3000'
+    'http://172.17.200.220:3000',
+    DOMAIN
 ]
 CORS_ORIGIN_WHITELIST= [
     'http://localhost:3000',
     'http://127.0.0.1:3000',
     'http://localhost:8000',
     'http://127.0.0.1:8000',
-    'http://172.17.200.220:3000'
+    'http://172.17.200.220:3000',
+    DOMAIN
 ]
 
 # CONFIGURACION PARA CORREOS ELECTRONICOS
