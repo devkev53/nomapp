@@ -131,6 +131,7 @@ class FortnightPayment(PayBase):
     return total
 
 
+
 class MonthlyPayment(PayBase):
   """Model definition for MonthlyPayment."""
 
@@ -176,8 +177,6 @@ class MonthlyPayment(PayBase):
   def total_egresos(self):
     total = Decimal(self.credit_store) + Decimal(calculate_socialSecurity(self.employee.job_position.salary)) + Decimal(self.contribution) + Decimal(self.credit)
     return total
-
-
 
 
 
@@ -248,8 +247,6 @@ class BonoPayment(PayBase):
     pass
   def months_pays(self):
     pass
-
-
 
 
 class AguinaldoPayment(PayBase):

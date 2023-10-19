@@ -49,8 +49,8 @@ export const AddEmployeeModal = ({companyId, closeFn }) => {
     e.preventDefault()
     const dataForm = new FormData(formRef.current)
     dataForm.append("company", companyId)
-    console.log(dataForm)
-    // fetchAddNewEmploye(dataForm)
+    // console.log(dataForm)
+    fetchAddNewEmploye(dataForm)
   }
 
   const handleChangeDepartment = (e) => {

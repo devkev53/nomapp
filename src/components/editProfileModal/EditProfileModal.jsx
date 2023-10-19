@@ -18,7 +18,7 @@ import './editProfileModal.css'
 import { CustomEditImagenInput } from "../ui/CustomEditImagenInput";
 
 export const EditProfileModal = ({closeFn}) => {
-  
+
   const {user, updateUserData} = useAuth()
 
   const [img, setImg] = useState(user?.image)
