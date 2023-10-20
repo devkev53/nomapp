@@ -10,28 +10,28 @@ SECRET_KEY = 'django-insecure-*cwt%maan@w#g0q1#!=wldjn1n%fa*c66k624x_nh6s($67t4e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-DOMAIN = config('DJANGO_DOMAIN')
-ALLOWED_HOSTS = ['*', 'ccardona.pythonanywhere.com']
+# DOMAIN = config('DJANGO_DOMAIN')
+ALLOWED_HOSTS = ['*', 'localhost:8000', '127.0.0.1:8000']
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'nomapp',
-#         'USER': 'admin',
-#         'PASSWORD': 'abc123/-',
-#         'HOST': 'localhost',
-#         'PORT': '5432'
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'nomapp',
+        'USER': 'admin',
+        'PASSWORD': 'abc123/-',
+        'HOST': 'localhost',
+        'PORT': '5432'
+    }
+}
 
 # REST_FRAMEWORK TOKEN AUTHORIZATION
 
@@ -101,8 +101,8 @@ CORS_ORIGIN_WHITELIST= [
 # CONFIGURACION PARA CORREOS ELECTRONICOS
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = config('USER_EMAIL')
-EMAIL_HOST_PASSWORD = config('USER_MAIL_PASSWORD')
+EMAIL_HOST_USER = 's0p0rt3linea@gmail.com'
+EMAIL_HOST_PASSWORD = 'sepanlsvjikevpkn'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
