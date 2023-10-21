@@ -1,4 +1,5 @@
 from django.http import HttpResponse, HttpResponseRedirect
+from app.settings.local import DOMAIN
 from core.api.views.api_views import CustomBaseViewSet
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -142,7 +143,7 @@ class PaymentTicketPFD(APIView):
     company = Company.objects.filter(pk=employee.job_position.department.company.pk).get()
 
     context = {
-      'domain': 'http://localhost:8000/',
+      'domain': DOMAIN,
       'date': today,
       'payment': payment,
       'company': company,
