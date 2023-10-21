@@ -66,7 +66,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-     # Se utiliza para las internacionalizaciones
+    # Se utiliza para las internacionalizaciones
     # 'django.middleware.locale.LocaleMiddleware'
     # Se utilia para validar las creaciones de usuario
     'crum.CurrentRequestUserMiddleware',

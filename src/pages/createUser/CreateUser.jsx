@@ -106,12 +106,12 @@ export const CreateUser = () => {
         {/* <picture className='icon_container bg-gray-50 rounded-full'>
           <img className='icon' src={icon} alt="" />
         </picture> */}
-        <form ref={formRef} onSubmit={handleSubmit} action="" className="form_content form_content_newUser rounded justify-center bg-gray-50">
+        <form ref={formRef} onSubmit={handleSubmit} action="" className="form_content_newUser rounded bg-gray-50">
           <h3 className='font-bold text-2xl'>
             <RiUser3Fill />
             Crear Usuario
           </h3>
-          
+
           <div className="user_info">
             <div className="row">
               <CustomInput label="Usuario" name="username" required={true} />

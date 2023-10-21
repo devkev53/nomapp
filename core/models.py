@@ -3,7 +3,6 @@ from django.utils.translation import gettext as _
 from users.models import User
 from datetime import date
 from crum import get_current_user
-from simple_history.models import HistoricalRecords
 
 
 # Create your models here.
@@ -13,16 +12,19 @@ class BaseModel(models.Model):
 
     # TODO: Define fields here
     created_by = models.ForeignKey(
-        User, verbose_name=_('Created by'), on_delete=models.PROTECT,
-        related_name='created_by%(app_label)s_%(class)s_related', blank=True, null=True, editable=False)
+        User, verbose_name=_('Created by'),
+        on_delete=models.PROTECT,
+        related_name='created_by%(app_label)s_%(class)s_related',
+        blank=True, null=True, editable=False)
     created = models.DateField(
         _('Created'), auto_now_add=True, blank=True, null=True)
     updated_by = models.ForeignKey(
-        User, verbose_name=_('Updated by'), on_delete=models.PROTECT,
-        related_name='updated_by%(app_label)s_%(class)s_related', blank=True, null=True, editable=False)
+        User, verbose_name=_('Updated by'),
+        on_delete=models.PROTECT,
+        related_name='updated_by%(app_label)s_%(class)s_related',
+        blank=True, null=True, editable=False)
     updated = models.DateField(
         _('Updated'), auto_now=True, blank=True, null=True)
-    # historical = HistoricalRecords(inherit=True)
     is_active = models.BooleanField(_('Is Active'), default=True)
 
     class Meta:

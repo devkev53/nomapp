@@ -1,5 +1,4 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from app.settings.local import DOMAIN
 from core.api.views.api_views import CustomBaseViewSet
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -37,7 +36,7 @@ class EmployeeViewSet(CustomBaseViewSet):
     return Response({
     'error':'check your fields', 'errors':instance_serialier.errors
     }, status=status.HTTP_400_BAD_REQUEST)
-  
+
 
   def update(self, request, pk=None, *args, **kwargs):
     instance = self.get_object(pk)
@@ -143,7 +142,7 @@ class PaymentTicketPFD(APIView):
     company = Company.objects.filter(pk=employee.job_position.department.company.pk).get()
 
     context = {
-      'domain': DOMAIN,
+      'domain': 'http://localhost:8000/',
       'date': today,
       'payment': payment,
       'company': company,
