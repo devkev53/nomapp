@@ -7,10 +7,12 @@ import { baseUrl } from "../utilitys/base-url.utils";
 
 const url = `${baseUrl}api/family-members/`;
 
-export const getFamilyMembers = () => {
+export const getFamilyMembers = (employeId) => {
+  let customUrl = `${url}${employeId}/for_employe/`;
+  console.log(customUrl);
   const controller = loadAbort();
   return {
-    call: axiosPrivateInstance.get(url, {
+    call: axiosPrivateInstance.get(customUrl, {
       signal: controller.signal,
     }),
     controller,

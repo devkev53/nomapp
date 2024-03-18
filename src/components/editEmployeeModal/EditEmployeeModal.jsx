@@ -82,12 +82,14 @@ export const EditEmployeeModal = ({ closeFn, employee }) => {
   }).then((result) => {
     navigate(0)
   })
-  
+
   const endConflict = () => mySwal.fire({
     title: 'Oops..!',
     icon: 'error',
     html: <div><p>No fue posible realizar la actualización..!</p></div>
   })
+
+  console.log(employee)
 
   return (
     <div className="card_modal add_employee_modal animate__animated animate__bounceIn">
@@ -107,49 +109,49 @@ export const EditEmployeeModal = ({ closeFn, employee }) => {
           <div className="employee_info">
 
             <div className="img">
-              <CustomEditImagenInput 
-                data={employee?.url_img} 
-                name="photo" 
+              <CustomEditImagenInput
+                data={employee?.url_img}
+                name="photo"
               />
             </div>
 
             <div className="row row_one">
-              <CustomInputEdit 
-                val={employee?.name} 
-                name="name" 
-                label="Nombres" 
-                required={true} 
+              <CustomInputEdit
+                val={employee?.name}
+                name="name"
+                label="Nombres"
+                required={true}
               />
-              <CustomInputEdit 
-                val={employee?.last_name} 
-                name="last_name" 
-                label="Apellidos" 
-                required={true} 
+              <CustomInputEdit
+                val={employee?.last_name}
+                name="last_name"
+                label="Apellidos"
+                required={true}
               />
             </div>
 
             <div className="row row_two">
-              <CustomInputEdit 
-                  val={employee?.phone} 
-                  name="phone" 
-                  label="Telefono" 
-                  required={false} 
+              <CustomInputEdit
+                  val={employee?.phone}
+                  name="phone"
+                  label="Telefono"
+                  required={false}
                 />
-                <CustomInputEdit 
-                  val={employee?.birthday} 
+                <CustomInputEdit
+                  val={employee?.birthday}
                   name="birthday"
-                  type="date" 
-                  label="Fecha de Nacimiento" 
-                  required={false} 
+                  type="date"
+                  label="Fecha de Nacimiento"
+                  required={false}
                 />
             </div>
 
-            <CustomInputEdit 
-                val={employee?.address} 
+            <CustomInputEdit
+                val={employee?.address}
                 name="address"
-                type="text" 
-                label="Dirección" 
-                required={false} 
+                type="text"
+                label="Dirección"
+                required={false}
               />
 
 

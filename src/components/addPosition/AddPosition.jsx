@@ -90,7 +90,9 @@ export const AddPosition = ({closeFn, companyId}) => {
           <CustomInput
           label="Salario"
           name="salary"
-          type="number"/>
+          type="decimal"
+          pattern="^\d*(\.\d{0,2})?$"
+          />
         <PrimaryBtn>
           <RiSave3Fill />
           <span>Guardar</span>

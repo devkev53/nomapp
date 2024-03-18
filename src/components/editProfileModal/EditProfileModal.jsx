@@ -155,7 +155,7 @@ export const EditProfileModal = ({closeFn}) => {
                 value={last_name}
                 onChange={(e) => setLast_Name(e.target.value)}
               />
-              <label className="input_group2__label">Nombres</label>
+              <label className="input_group2__label">Apellidos</label>
               <div className="input_group2__underline"></div>
             </div>            
           </div>

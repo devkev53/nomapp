@@ -4,6 +4,7 @@ import { baseUrl } from "../../utilitys/base-url.utils"
 export const CustomEditImagenInput = ({data, name}) => {
 
   const [preview, setPreview] = useState('')
+  const [isChange, setIsChange] = useState(false)
   const inputImgRef = useRef()
 
   const handleChange = (e) => {
@@ -12,6 +13,7 @@ export const CustomEditImagenInput = ({data, name}) => {
       const reader = new FileReader(e.target.files[0])
       reader.onload = (e) => {
         setPreview(e.target.result)
+        setIsChange(true)
       }
       reader.readAsDataURL(e.target.files[0])
     } else {
@@ -32,13 +34,15 @@ export const CustomEditImagenInput = ({data, name}) => {
     <div className="image_input" onClick={handleImgClick}>
       <picture>
         <img src={preview} alt="" className="image_input__img" />
-        <input
-          onChange={handleChange}
-          ref={inputImgRef}
-          name={name}
-          className="image_input__input"
-          type="file"
-        />
+        {isChange && (
+          <input
+            onChange={handleChange}
+            ref={inputImgRef}
+            name={name}
+            className="image_input__input"
+            type="file"
+          />
+        )}
       </picture>
     </div>
   )

@@ -48,7 +48,7 @@ export const DetailEmployee = () => {
 
   const fetchFamilyMembers = async () => {
     try {
-      let response = await callEndpoint(getFamilyMembers())
+      let response = await callEndpoint(getFamilyMembers(params.employeeId))
       setFamilyMembers(response.data)
     } catch (e) {
       console.error(e)

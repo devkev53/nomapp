@@ -89,8 +89,8 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:8000',
     'http://127.0.0.1:8000',
     'http://172.17.200.220:3000',
-    'https://ccardona.pythonanywhere.com/',
-    'http://ccardona.pythonanywhere.com/'
+    # 'https://ccardona.pythonanywhere.com/',
+    # 'http://ccardona.pythonanywhere.com/'
 ]
 CORS_ORIGIN_WHITELIST= [
     'http://localhost:3000',
@@ -98,8 +98,8 @@ CORS_ORIGIN_WHITELIST= [
     'http://localhost:8000',
     'http://127.0.0.1:8000',
     'http://172.17.200.220:3000',
-    'https://ccardona.pythonanywhere.com/',
-    'http://ccardona.pythonanywhere.com/'
+    # 'https://ccardona.pythonanywhere.com/',
+    # 'http://ccardona.pythonanywhere.com/'
 ]
 
 # CONFIGURACION PARA CORREOS ELECTRONICOS
