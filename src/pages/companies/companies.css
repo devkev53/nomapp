@@ -1,0 +1,29 @@
+
+.companies_wrapper .search_and_add {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.companies_wrapper .search_and_add div {
+  margin: 0;
+}
+.companies_container {
+  margin-top: 16px;
+}
+
+.button_add .primary_btn span {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .companies_wrapper .search_and_add {
+    flex-direction: row;
+  }
+  .button_add .primary_btn span {
+    display: flex;
+  }
+
+}

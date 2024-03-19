@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  @page {
+    margin: .2in;
+    size: landscape;
+    orientation: landscape;
+    size: 13in 8.5in;
+  }
+  * {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
+  header {
+    display: flex;
+    text-align: center;
+  }
+  header div {
+    width: 33.3%;
+    padding: 16px;
+  }
+  .one {
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+  img {
+    height: 110px;
+  }
+  .companyInfo {
+    text-transform: uppercase;
+  }
+  .companyInfo h1 {
+    font-size: 26px;
+    padding: 6px;
+    border-bottom: 2px solid #333;
+    margin: 6px;
+  }
+  .three {
+    margin-top: 1cm;
+  }
+  .three p {
+    margin-bottom: 6px;
+  }
+
+
+  .nomina_table {
+    font-size: 10px;
+    text-align: center;
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+  }
+  .nomina_table tr th,
+  .nomina_table tr td{
+    padding: 6px 3px;
+  }
+  .nomina_table thead tr:first-child th {
+    border-right: 1px solid white;
+  }
+  .nomina_table thead tr:first-child th:last-child {
+    border-right: none;
+  }
+  .nomina_table thead tr {
+    background: #333;
+    color: white;
+  }
+  .nomina_table thead tr th {
+    text-transform: uppercase;
+  }
+
+  .nomina_table thead tr:last-child th:nth-child(3),
+  .nomina_table thead tr:last-child th:nth-child(13),
+  .nomina_table thead tr:last-child th:nth-child(9) {
+    border-right: 1px solid white;
+  }
+  .nomina_table tbody tr:nth-child(even) {
+    background: #ccc;
+  }
+  .nomina_table tbody tr td {
+    border-right: 1px solid #ccc;
+  }
+  .nomina_table tbody tr:nth-child(even) td {
+    border-right: 1px solid white;
+  }
+
+
+
+
+
+</style>
+<body>
+  <header>
+    <div class="one">
+      <img src="http://127.0.0.1:8000/media/{{company.logo}}" alt="{{company.logo}}">
+      <p>{{company.name}}</p>
+    </div>
+    <div class="companyInfo">
+      <h1>Reporte de Nómina</h1>
+      <p>{{company.name}}</p>
+      <p>{{company.address}}</p>
+      <p>{{company.phone}}</p>
+      <p>{{company.email}}</p>
+    </div>
+    <div class="three">
+      <p>{{description}}</p>
+      <p>Periodo de Nómina de <span>{{month_name}}</span> del <span>{{year}}</span></p>
+    </div>
+  </header>
+
+  <div class="table_nomina_container">
+    <table class="nomina_table">
+      <thead>
+        <tr>
+          <th colspan="3">Informacion del Empleado</th>
+          <th colspan="6">Salarios y Beneficios</th>
+          <th colspan="4">Retenciones y Descuentos</th>
+          <th rowspan="2">Total Liquido</th>
+        </tr>
+        <tr>
+          <th>Empleado</th>
+          <th>Cargo/Posición</th>
+          <th>Salario Base</th>
+          <th>Salario Quincenal</th>
+          <th>Salario Mensual</th>
+          <th>Bono 37-01</th>
+          
+          {% if pay.aguinaldo > 0 %}
+            <th>Aguinaldo</th>
+          {% endif %}
+            
+          <th>Comisiónes</th>
+          <th>Horas Extras</th>
+          <th>Total Ingresos</th>
+          <th>IGSS 4.83%</th>
+          <!-- <th>ISR</th> -->
+          <th>Contribucion Solidaria</th>
+          <th>Tienda</th>
+          <th>Total Descuentos</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for pay in pays %}
+          <tr>
+            <td>{{pay.employee}}</td>
+            <td>{{pay.position}}</td>
+            <td>Q. {{pay.base}}</td>
+            <td>Q. {{pay.fortnight}}</td>
+            <td>Q. {{pay.monthly}}</td>
+            <td>Q. {{pay.bono3701}}</td>
+            
+            {% if pay.aguinaldo > 0 %}
+              <td>Q. {{pay.aguinaldo}}</td>
+            {% endif %}
+
+            <td>Q. {{pay.comision}}</td>
+            <td>Q. {{pay.extras}}</td>
+            <td>Q. {{pay.total_in}}</td>
+            <td>Q. {{pay.igss}}</td>
+            <td>Q. {{pay.contribution}}</td>
+            <td>Q. {{pay.store}}</td>
+            <td>Q. {{pay.total_e}}</td>
+            <td>Q. {{pay.liquid}}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

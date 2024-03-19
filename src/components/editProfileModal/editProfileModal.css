@@ -1,0 +1,28 @@
+.card_modal.editProfileModal_wrapper .image_input {
+  max-width: 200px;
+  max-width: 200px;
+}
+.card_modal.editProfileModal_wrapper .image_input picture {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.card_modal.editProfileModal_wrapper .image_input picture img {
+  object-fit: cover;
+  height: 100%;
+}
+
+
+
+.card_modal.editProfileModal_wrapper .edit_row {
+  display: grid;
+  gap: 22px;
+  grid-template-columns: 1fr 1fr;
+}
+
+
+.card_modal.editProfileModal_wrapper .input_group2 .input_group2__input.no_empty ~ .input_group2__label {
+  transform: translateY(-10px) translateX(-10px) scale(60%);
+  color: #B452E5;
+}

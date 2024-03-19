@@ -1,0 +1,98 @@
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 10px;
+  background: #333;
+  width: 100%;
+  max-width: 250px;
+  font-weight: bold;
+  font-size: 17px;
+  position: relative;
+  overflow: hidden;
+  transition: .3s all ease;
+  position: relative;
+  height: 3.5rem;
+}
+.btn:hover {
+  box-shadow: 2px 2px 5px rgba(51, 51, 51,.3);
+}
+
+.btn svg {
+  font-size: 32px;
+  transition: .3s all ease;
+}
+
+.btn:hover svg {
+  transform: scale(1.4) rotate(-15deg);
+}
+.btn span {
+  transition: .3s all ease;
+}
+
+.btn:hover span {
+  transform: scale(.9);
+}
+
+.btn:disabled:hover {
+  box-shadow: none;
+}
+.btn:disabled:hover svg {
+  transform: none;
+}
+.btn:disabled:hover span {
+  transform: none;
+}
+
+
+.primary_btn {
+  color: #333;
+  background: rgba(250, 204, 21);
+}
+.primary_btn:disabled {
+  opacity: .5;
+  background: rgba(250, 204, 21, .9);
+}
+
+.delete_btn {
+  background: rgb(199, 53, 27);
+  color: #FFF;
+}
+
+
+.secondary_btn {
+  background: rgba(98, 40, 189);
+  color: #FFFFFF;
+}
+.secondary_btn:disabled {
+  opacity: .5;
+  background: rgba(98, 40, 189, .9);
+}
+
+.third_btn {
+  color: #FFF;
+  overflow: auto;
+}
+
+.table_btn {
+  border-radius: 10px;
+  height: 46px;
+  width: 46px;
+}
+.table_btn svg {
+  font-size: 24px;
+}
+
+.drowpdown_btn svg {
+  position: absolute;
+  right: 12px;
+}
+
+
+
+
+@media (min-width: 768px) {
+}

@@ -1,0 +1,56 @@
+.cards_dash {
+  display: grid;
+  gap: 22px;
+}
+.card_dash_container {
+  /* box-shadow: 5px 5px 5px rgba(51,51,51,.5); */
+  padding: 20px;
+  width: 100%;
+  border-radius: 10px;
+  min-height: 100px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  max-width: 350px;
+  gap: 22px;
+  margin: 0 auto;
+}
+.card_dash_container .icon {
+  font-size: clamp(70px, 6vw, 160px);
+  color: #FFF;
+}
+.card_dash_container .info_card .number {
+  font-weight: bold;
+  font-size: 48px;
+  margin: -10px 0;
+  padding-left: 10px;
+  color: #FFF;
+}
+
+
+
+.date {
+  background: rgba(0, 73, 73, 0.8);
+  color: #ccc;
+}
+.date small {
+  font-size: 17px;
+  font-weight: normal;
+  color: #ccc;
+}
+
+.companies {
+  background: rgba(73, 7, 34, 0.8);
+  color: #ccc;
+}
+
+.employees {
+  background: rgba(194, 6, 194, 0.9);
+  color: #ccc;
+}
+
+@media (min-width: 1024px) {
+  .cards_dash {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+}

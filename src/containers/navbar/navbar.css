@@ -1,0 +1,156 @@
+.nav_wrapper {
+  background: #E7EAF3;
+  width: 100%;
+  height: 5rem;
+  box-shadow: .1rem .2rem 2rem rgba(0, 0, 0, .1);
+  z-index: 2;
+}
+
+.nav_content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  /* overflow: hidden; */
+}
+.nav_open_menu {
+  padding: 1rem;
+  font-size: clamp(26px, 2vw, 36px);
+}
+
+.title_app {
+  font-family: 'Odibee';
+  font-size: clamp(22px, 2vw, 36px);
+  text-transform: uppercase;
+  font-weight: bold;
+  display: flex;
+}
+.title_app span {
+  margin-left: 8px;
+  display: none;
+  font-weight: normal;
+}
+
+
+.nav_content h1 {
+  padding: 1rem;
+  width: 100%;
+}
+.nav_content__user_info {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  color: #333;
+  gap: .5rem;
+  margin-left: auto;
+  /* padding: 1rem; */
+  background: #E7EAF3;
+  position: relative;
+}
+.nav_content__user_info__btn {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.nav_content__user_info__btn picture {
+  height: 3rem;
+  width: 3rem;
+  display: flex;
+  overflow: hidden;
+  border-radius: 50px;
+}
+.nav_content__user_info__btn picture img {
+  transition: .3s all ease;
+}
+
+.nav_content__user_info__btn:hover picture img {
+  transform: rotate(15deg) scale(1.25);
+}
+
+
+.nav_content__user_info__btn h3 {
+  display: none;
+}
+.nav_content__user_info__btn svg {
+  margin-right: 10px;
+}
+
+
+
+
+.user_options {
+  /* width: 100%; */
+  min-width: 100px;
+  max-width: 230px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: calc(100%);
+  right: 22px;
+  background: red;
+  z-index: -1;
+  background: #E7EAF3;
+  border-radius: 10px;
+  overflow: hidden;
+  transform: translateY(calc(-100% - 10px));
+  transition: .3s all ease;
+}
+.user_options.show {
+  transform: translateY(0);
+  box-shadow: 2px 2px 5px rgba(51,51,51,.2);
+}
+.user_options button {
+  display: flex;
+  justify-content: flex-start;
+  justify-content: center;
+  padding: 12px;
+  gap: 6px;
+  /* background: #E7EAF3; */
+  transition: .3s all ease;
+  font-weight: bold;
+}
+.user_options button span {
+  display: none;
+}
+.user_options button svg {
+  font-size: 24px;
+}
+
+.user_options button:hover {
+  background: #7723C9;
+  color: #fff;
+}
+
+
+
+@media (min-width: 480px) {
+  .title_app span {
+    display: flex;
+  }
+}
+@media (min-width: 768px) {
+  .nav_open_menu {
+    display: none;
+  }
+
+  .nav_content__user_info {
+    padding-right: 2rem;
+  }
+
+  .nav_content__user_info h3 {
+    display: flex;
+  }
+
+ 
+  .user_options button {
+    justify-content: flex-start;
+  }
+  .user_options button span {
+    display: flex;
+  }
+
+}

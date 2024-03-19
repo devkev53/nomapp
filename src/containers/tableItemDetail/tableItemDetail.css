@@ -1,0 +1,115 @@
+.table_detail_items {
+  /* display: flex; */
+  /* width: auto; */
+  border-collapse: collapse;
+  font-size: 14px;
+  width: 100%;
+}
+.table_detail_items .deleteBtn {
+  text-align: center;
+}
+.table_detail_items .deleteBtn button {
+  margin-top: 0;
+  padding: 10px;
+  background: rgb(226, 79, 54);
+  color: #FFF;
+  font-size: clamp(14px, 2vw, 20px);
+  border-radius: 10px;
+  transition: .3s all ease;
+}
+.table_detail_items .deleteBtn button svg {
+  transition: .3s all ease;
+}
+.table_detail_items .deleteBtn button:hover svg {
+  transform: rotate(15deg);
+}
+
+
+.table_detail_items tr td:nth-child(2),
+.table_detail_items tr td:nth-child(3),
+.table_detail_items tr td:nth-child(4),
+.table_detail_items tr td:nth-child(5) {
+  padding: 5px 8px;
+  text-wrap: nowrap;
+  text-align: center;
+  min-width: 150px;
+}
+.table_detail_items tr th {
+  background: rgba(51,51,51, .4);
+  padding: 5px 8px;
+  text-wrap: nowrap;
+  text-align: center;
+}
+.table_detail_items tbody tr {
+  border-bottom: 1px solid rgba(51,51,51, .1)
+}
+
+.table_detail_items tr .product {
+}
+
+/* .table_detail_items tr .product {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 16px;
+} */
+.table_detail_items tr .product img {
+  height: 50px;
+  width: 50px;
+  border-radius: 100%;
+  border: 4px solid #FFF;
+  display: none;
+}
+
+.table_detail_items .cantidad {
+  max-width: 50px;
+  border-radius: 5px;
+  outline: none;
+  padding: 5px;
+}
+
+.total_footer {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  background: rgba(51,51,51, .7);
+  padding: 5px;
+  font-weight: bold;
+  color: #FFF;
+}
+
+.warning_total {
+  display: flex;
+  /* flex-direction: column; */
+  align-items: center;
+  justify-content: center;
+  background: tomato;
+  width: 100%;
+  margin-top: 16px;
+  max-width: 400px;
+  font-weight: bold;
+  color: #FFF;
+  padding: 12px;
+  gap: 16px;
+  font-size: clamp(10px, 2vw, 14px);
+  border-radius: 10px;
+}
+.warning_totat svg {
+  font-size: clamp(32px, 2vw, 36px);
+}
+
+
+@media (min-width: 768px) {
+  .table_detail_items tr .product img {
+    display: flex;
+  }
+
+  .table_detail_items tr .product {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 16px;
+  }
+
+}

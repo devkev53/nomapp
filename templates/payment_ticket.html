@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  @page {
+    margin: 1cm;
+    size: landscape;
+    size: letter;
+  }
+  * {
+    /* border: 1px solid red; */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  /* HEDAERS STYLES */
+  header {
+    display: flex;
+    justify-content: center;
+  }
+  header div {
+    /* border: 1px solid red; */
+  }
+  header .logo {
+    max-width: 6.6cm;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* overflow: hidden; */
+    /* border: 1px solid red; */
+  }
+  header .logo img {
+    /* width: 100%; */
+    max-height: 100px;
+    text-align: center;
+    justify-self: center;
+  }
+  header .logo h3 {
+    /* margin-left: 50%; */
+    text-transform: uppercase;
+    /* background: green; */
+    width: 6.6cm;
+    text-align: center;
+  }
+
+
+  header .info {
+    max-width: 6.6cm;
+    text-align: center;
+    padding: 5px;
+  }
+  header .info h2 {
+    font-size: 22px;
+  }
+  header .info h2,
+  header .info p {
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+
+
+
+  header .direction {
+    max-width: 6.6cm;
+    text-align: center;
+    padding: 5px;
+  }
+  header .direction p {
+    margin-bottom: 12px;
+    font-weight: bold;
+  }
+  header .direction p:first-child {
+    font-size: 22px;
+  }
+
+
+
+
+
+
+  header div:nth-child(2) {
+    /* background: purple; */
+    width: 100%;
+  }
+
+
+  /* INFO EMPLOYEE STYLES */
+  .info_empleado {
+    width: 100%;
+  }
+  .info_empleado .title {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 5px;
+    background: #ccc;
+  }
+  .info_empleado span {
+    font-weight: bold;
+  }
+
+
+  .info_periodo {
+    margin: 22px 0;
+  }
+
+
+
+  /* TABLES STYLES */
+  .tables_container {
+    display: flex;
+    justify-content: center;
+    gap: 22px;
+  }
+  .table_div {
+    width: 100%;
+    /* border: 1px green solid; */
+  }
+  .table_div:first-child {
+    width: 50%;
+    margin-right: .5cm;
+  }
+
+  .table_div:last-child {
+    width: 50%;
+    margin-left: .5cm;
+  }
+
+  .tabla_valores {
+    width: 100%;
+    justify-content: center;
+    border-collapse: collapse;
+    margin-bottom: 12px;
+  }
+  .tabla_valores thead tr:first-child {
+    background: #ccc;
+    border: 2px solid #ccc;
+  }
+  .tabla_valores thead tr:nth-child(2) {
+    background: #333;
+    border: 2px solid #333;
+    color: #fff;
+  }
+  .tabla_valores tbody tr {
+    border: 2px solid #333;
+  }
+  .tabla_valores td,
+  .tabla_valores th {
+    padding: 5px 12px;
+    text-align: center;
+  }
+  .tabla_valores tbody td {
+    text-align: left;
+    text-transform: uppercase;
+  }
+  .tabla_valores tbody tr td {
+    border: 2px solid #333;
+  }
+
+
+  .tabla_valores th {
+    width: 100%;
+    text-align: center;
+  }
+
+
+
+  .totales {
+    width: 100%;
+    display: flex;
+    margin-bottom: 12px;
+  }
+  .totales_div {
+    width: 50%;
+    display: flex;
+    background: #ccc;
+    padding: 5px 12px;
+    margin-right: .5cm;
+    /* border: 1px solid red; */
+  }
+  .totales_div:last-child {
+    margin-right: 0;
+    margin-left: .5cm;
+  }
+  .totales_div p:first-child {
+    width: 100%;
+    text-transform: uppercase;
+    text-align: center;
+  }
+  .totales_div p:last-child {
+    width: 30%;
+    text-align: right;
+    padding-right: 6px;
+  }
+
+
+  .liquido {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 22px;
+  }
+  .liquido div {
+    width: 50%;
+    background: transparent;
+  }
+  .liquido div:first-child {
+    margin-right: .5cm;
+  }
+  .liquido div:last-child {
+    margin-left: .5cm;
+  }
+
+  .liquido div p {
+    width: min-content;
+    background: #ccc;
+    padding: 5px 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  .liquido .left {
+    align-items: flex-end;
+    text-align: right;
+  }
+
+  .get_date {
+    margin-bottom: 22px;
+    display: flex;
+  }
+
+  .info_empleado .data {
+    display: flex;
+    padding: 16px;
+  }
+  .info_empleado .data .row {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .info_empleado .data .row p {
+    width: 8cm;
+    display: flex;
+    margin-bottom: 6px;
+  }
+
+
+
+
+</style>
+<body>
+  <header>
+
+    <div class="logo">
+      <img src="http://127.0.0.1:8000/media/{{company.logo}}" alt="{{company.logo}}">
+      <h3>{{company.name}}</h3>
+    </div>
+
+    <div class="info">
+      <h2>Boleta de Pago</h2>
+      <p>Nómina</p>
+      <p>{{payment.description}}</p>
+      <p>{{month}} {{year}}</p>
+    </div>
+    <div class="direction">
+      <p>NOMAPP</p>
+      <p>Aplicación para la Gestión de Nóminas</p>
+      <p>Departamento de Nominas</p>
+    </div>
+  </header>
+  <div class="info_periodo">
+    <p>Periodo de pago <span></span> al <span></span> dias pagados <span></span></p>
+  </div>
+  <div class="info_empleado">
+    <h3 class="title">Datos del Empleado</h3>
+    <div class="data">
+      <div class="row">
+        <p>Identificador: <span>{{employee.id}}</span></p>
+        <p>Nombre: <span>{{employee.get_full_name}}</span></p>
+      </div>
+      <div class="row">
+        <p>Departamento: <span>{{employee.get_department_name}}</span></p>
+        <p>Puesto: <span>{{employee.job_position.name}}</span></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="tables_container">
+    <div class="table_div table_left">
+      <table width="100%" class=" tabla_valores ingresos">
+        <thead>
+          <tr>
+            <th colspan="2">INGRESOS</th>
+          </tr>
+          <tr>
+            <th>DESCRICION</th>
+            <th>VALOR</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if payment.amount != 0  %}
+          <tr>
+            <td>{{payment.description}}</td>
+            <td>{{payment.amount}}</td>
+          </tr>
+          {% endif %}
+          {% if payment.type_payment == 2  %}
+          <tr>
+            <td>Bono 37-01</td>
+            <td>{{payment.bono3701}}</td>
+          </tr>
+          <tr>
+            <td>Comision</td>
+            <td>{{payment.comision}}</td>
+          </tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+    <div class="table_div table_rigth">
+      <table width="100%" class="tabla_valores egresos">
+        <thead>
+          <tr>
+            <th colspan="2">DESCUENTOS</th>
+          </tr>
+          <tr>
+            <th>DESCRICION</th>
+            <th>VALOR</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if payment.type_payment == 2  %}
+          <tr>
+            <td>IGSS</td>
+            <td>{{payment.social_security}}</td>
+          </tr>
+          <tr>
+            <td>Credito</td>
+            <td>{{payment.credit}}</td>
+          </tr>
+          <tr>
+            <td>Contribucion</td>
+            <td>{{payment.contribution}}</td>
+          </tr>
+          {% endif %}
+          {% if payment.credit_store != 0  %}
+          <tr>
+            <td>Tienda Solidaria</td>
+            <td>{{payment.credit_store}}</td>
+          </tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="totales">
+    <div class="totales_div total_ingresos">
+      <p>Total Ingresos</p>
+      <p class="amount">{{payment.total_ingresos}}</p>
+    </div>
+    <div class="totales_div total_egresos">
+      <p>Total Descuentos</p>
+      <p class="amount">{{payment.total_egresos}}</p>
+    </div>
+  </div>
+  <div class="liquido">
+    <div class="left">
+      <p>Total Liquido</p>
+    </div>
+    <div class="right">
+      <p>{{payment.total}}</p>
+    </div>
+  </div>
+
+  <div class="get_date">
+    <p>Usuario: <span></span></p>
+    <P>Impreso: <span>{{date}}</span></P>
+  </div>
+
+  <p>Favor de revisar cuidadosamente esta boleta cualquier informidad o duda favor de comunicarse de inmediato con el Departamento de Nominas.</p>
+
+</body>
+</html>

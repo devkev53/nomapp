@@ -1,0 +1,60 @@
+.store_img_employee {
+  width: 3rem;
+  height: 3rem;
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  object-fit: cover;
+  background: #ccc;
+  border: .2rem solid white;
+}
+
+.styled-table {
+  border-collapse: collapse;
+  /* margin: 25px; */
+  border-radius: .5rem;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  width: 100%;
+  min-width: 400px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+}
+
+.styled-table thead tr th{
+  background-color: #821A58;
+  color: #ffffff;
+  text-align: center;
+  /* border-radius: 10px; */
+}
+.styled-table thead tr th:first-child {
+  border-top-left-radius: 10px;
+}
+.styled-table thead tr th:last-child {
+  border-top-right-radius: 10px;
+}
+
+
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+    text-align: center;
+    align-items: center;
+}
+
+.styled-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+  background-color: #e4e4e4;
+}
+
+.styled-table tbody tr:last-of-type td {
+  /* border-bottom: 2px solid linear-gradient(45deg, rgba(130, 26, 88, 0.761), rgba(55,48,163,.6)); */
+  border-radius: 10px;
+}
+
+.styled-table tbody tr.active-row {
+  font-weight: bold;
+  color: #009879;
+}

@@ -1,0 +1,44 @@
+.user_info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 22px;
+  margin-bottom: 22px;
+}
+.user_row {
+  background: #fff ;
+  padding: 22px;
+  border-radius: 10px;
+}
+.user_row {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.user_row p {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.user_row p span {
+  font-weight: bold;
+}
+
+.user_row p svg {
+  font-size: 36px;
+  color: rgba(127,31,167,.7);
+}
+
+.user_row p:first-child {
+  text-transform: capitalize;
+}
+
+.button_options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  justify-content: center;
+  gap: 22px;
+}
+.button_options button {
+  justify-self: center;
+}
+

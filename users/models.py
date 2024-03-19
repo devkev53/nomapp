@@ -1,4 +1,5 @@
 from django.db import models
+import uuid
 from django.utils.translation import gettext as _
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
 from simple_history.models import HistoricalRecords
@@ -10,6 +11,7 @@ from django.utils.html import format_html
 
 class User(AbstractBaseUser, PermissionsMixin):
   username = models.CharField(_('Username'), max_length=150, validators=[UnicodeUsernameValidator], unique=True)
+  reset_token = models.UUIDField(primary_key=False, editable=False, null=True, blank=True)
   email = models.EmailField(_('Email'), max_length=150, unique=True, blank=False, null=False)
   name = models.CharField(_('Name'), max_length=150, blank=True, null=True)
   last_name = models.CharField(_('Last name'), max_length=150, blank=True, null=True)
