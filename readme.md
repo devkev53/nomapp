@@ -167,7 +167,8 @@ To install react.js we only have to install the packages:
 pnpm install
 ```
 If everything goes well it should show the installed packages...!
-<img src="./core/static/imgs/installPakages.png" alt="Package Install"/>
+
+![Package Install](./core/static/imgs/installPakages.png)
 
 In order to launch the test application we must run the start command
 ```bash
