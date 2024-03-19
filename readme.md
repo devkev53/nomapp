@@ -1,128 +1,186 @@
+<a name="readme-top"></a>
+
+<div align="center">
+
 # 💵 NOMAPP 💱
-## La aplicacion de control de nominas multiempresa
 
-NOMAPP es una aplicacion que te ofrece manejar la nomina de multipes empresas, manejar pagos y creditos del personal de las empreas.
+[![en](https://img.shields.io/badge/lang-en-red.svg)](./README.md)
+[![es](https://img.shields.io/badge/lang-es-yellow.svg)](./README.es.md)
 
-# ⚙️ Información Técnica
-Para la creacion de NOMAPP se utilziaron proyectos de codigo abierto para funcioanr correctamente y facilitar el desarrollo.
+## The payroll control application 💰 multi-company 🏢
 
-<span style="margin-left:30px;display:flex; width:100%; red; align-items:center; gap:5px; margin-bottom: 10px">
+![Dashboard](./core/static/imgs/dashboard.png)
+
+NOMAPP is an application that offers you to manage the payroll of multiple companies, manage payments and credits of company personnel.
+
+Visit the test [website] (https://ccardona.pythonanywhere.com/) to learn more.
+Use these credentials: username: **admin** password: **abc123/-**
+
+</div>
+
+# ⚙️ Technical Information
+For the creation of NOMAPP, open source projects were used to function correctly and facilitate development.
+
+
+<p style="margin-left:30px;display:flex; width:100%; red; align-items:center; gap:5px; margin-bottom: 10px">
   <a style="display:flex; align-items:center; gap:5px">
     <img src="./core/static/imgs/python_logo.png" style="object-fit:cover; height: 30px; display:flex" />
     Python
   </a>
-  para la creacion del backend.
-</span>
+  for the creation of the backend.
+</p>
 
-<span style="margin-left:30px;display:flex; width:100%; red; gap:5px; margin-bottom: 10px; align-items:center">
+<p style="margin-left:30px;display:flex; width:100%; red; gap:5px; margin-bottom: 10px; align-items:center">
   <a style="display:flex; align-items:center; gap:5px">
     <img src="./core/static/imgs/docker_logo.png" style="object-fit:cover; height: 30px; display:flex" />
     Docker
   </a>
-  para la creacion del backend.
-</span>
+  as a container and launch a virtual machine.
+</p>
 
-<span style="margin-left:30px;display:flex; width:100%; red; gap:5px; margin-bottom: 10px; align-items:center">
+<p style="margin-left:30px;display:flex; width:100%; red; gap:5px; margin-bottom: 10px; align-items:center">
   <a style="display:flex; align-items:center; gap:5px">
     <img src="./core/static/imgs/node_logo.svg" style="object-fit:cover; height: 30px; display:flex" />
     Node JS
   </a>
-  para la instalacion de paquetes requeridos por el frontend.
-</span>
+  for the installation of packages required by the frontend.
+</p>
 
-# 🚀 Instalación
+# 🚀 Installation
 
-NOMAPP esta creado con un backend en python con ayuda de Django y con el frontend con la ayuda de React.js, por lo que dependiendo de cual de estos desee isntalar o correr debera seguir los sigueintes pasos:
+NOMAPP is created with a backend in python with the help of Django and with the frontend with the help of React.js, so depending on which of these you want to install or run, you should follow the following steps:
 
-<a style="display:flex; gap: 5px; font-size: 25px; color: rgba(12,75,51); font-weight:bold; align-items:center; margin-bottom: 20px;margin-top: 0">
-  <img style="height: 40px; border-radius:100%" src="./core/static/imgs/django_logo.png" />
-  Django
-</a>
+<details open>
+<summary style="font-size:24px; font-weight:bold">Backend 🛠️</summary>
 
-Rquiere <a href="https://www.python.org">Python</a> v3.8+ o una version mayor para correr.
-Asi como de requiere que se cuente con <a href="https://pip.pypa.io/en/stable/installation/">pip</a> instalado el cual es manejador de paquetes de <a href="https://www.python.org">Python</a>
+<p>
+  <a style="display:flex; gap: 5px; font-size: 25px; color: rgba(12,75,51); font-weight:bold; align-items:center; margin-bottom: 20px;margin-top: 0">
+    <img style="height: 40px; border-radius:100%" src="./core/static/imgs/django_logo.png" />
+    Django
+  </a>
+</p>
 
-- Se recomienda el uso de un entorno virtual para controlar de mejor manera las dependencias a instalar.
+Requires <a href="https://www.python.org">Python</a> v3.8+ or higher to run.
+As well as it requires that you have <a href="https://pip.pypa.io/en/stable/installation/">pip</a> installed which is a <a href="https package manager ://www.python.org">Python</a>
+
+> - It is recommended to use a virtual environment to better control the dependencies to be installed.
+
 \
-  En lo personal utilizamos el paquete virtualenwrapper para el manejo de los entornos virtuales este se instala con el comando
-  ```sh
-  # Si se utiliza un sistema operativo basado en linux
-  pip install virtualenvwrapper
+  Personally, we use the virtualenwrapper package to manage virtual environments, this is installed with the command
+   ```sh
+   # If using a linux-based operating system
+   pip install virtualenvwrapper
 
-  # En caso de ser un sistema operativo windows
-  pip install virtaulenvwrapper-win
-  ```
-  Luego que se tiene instalado el paquete se procede a realizar el ingresar el siguiente comando
+   # In case of a Windows operating system
+   pip install viraulenvwrapper-win
+   ```
+   After the package is installed, proceed to enter the following command
 
-  ```sh
-  # Creacion del entorno virtual
-  mkvirtualenv #nombre del entorno
+   ```sh
+   # Creation of the virtual environment
+   mkvirtualenv #environment name
 
-  # Al crear el entorno este se activa automaticamente
-  ```
-  tal como se muestra en la siguiente imagen podemos ver el entorno virtual activo llamado **nomapp**
-  <img src="./core/static/imgs/ejemplo_env.png" style="border-radius:5px">
-  caso contrario si lo que deseamos es activar nuestro entorno virtual debemos ingresar el comando **workon** seguido del nombre de entorno
+   # When creating the environment it is activated automatically
+   ```
+   As shown in the following image we can see the active virtual environment called **nomapp**
+   <img src="./core/static/imgs/example_env.png" style="border-radius:5px">
+   Otherwise, if what we want is to activate our virtual environment, we must enter the command **workon** followed by the environment name
 
 
-  ```sh
-    workon #nombre del entorno
-  ```
-  En la siguiente imagen podemos obeservar el uso del comando workon
-  <img src="./core/static/imgs/workon.png" style="border-radius:5px">
-  gracias a plugins que se tienen instalados en mi terminal esta muestra los posibles entornos en el equipo sin embargo lo que continua luego del comapndo workon es el nombre del entorno en el cual se esta trabajando.
+   ```sh
+     workon #environment name
+   ```
+   In the following image we can see the use of the workon command
+   <img src="./core/static/imgs/workon.png" style="border-radius:5px">
+   Thanks to plugins that are installed on my terminal, this shows the possible environments on the computer, however what continues after the workon command is the name of the environment in which you are working.
 
-Instalar las dependencias, verifique el se encuentre el documento requirements.txt en la raiz del proyecto.
+Install the dependencies, verify that the requirements.txt document is located in the root of the project.
 ```sh
 pip install -r requirements.txt
 ```
-Recolectar los archivos estaticos, para este punto se debio realizar el build de react, para tener los ultimos cambios y cargar los estaticos que servira Django, se debe de aseguar de encontrarse a mismo nivel que el archivo manage.py.
+Collect the static files, for this point the react build should have been carried out, to have the latest changes and load the static files that Django will serve, you must make sure they are at the same level as the manage.py file.
 ```sh
 python manage.py collectstatic
 ```
-Configurar Base de Datos, dependiendo de que base de datos se dese utilizar se debera configurar esta configuracion se encuentra en local.py que se encuentra en la carpeta app/settings/
+Configure Database, depending on which database you want to use, you must configure this configuration, which is located in local.py, which is located in the app/settings/ folder.
 
 ```sh
-# Configuracion para usar Base de Datos predeterminada
+# Configuration to use default Database
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+     'default': {
+         'ENGINE': 'django.db.backends.sqlite3',
+         'NAME': BASE_DIR / 'db.sqlite3',
+     }
 }
 
-# Configuracion para usar Base de Datos de postgresql
+# Configuration to use postgresql Database
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'database_name',
-        'USER': 'user_postgres',
-        'PASSWORD': 'password_user',
-        'HOST': 'localhost',
-        'PORT': '5432'
-    }
+     'default': {
+         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+         'NAME': 'database_name',
+         'USER': 'user_postgres',
+         'PASSWORD': 'password_user',
+         'HOST': 'localhost',
+         'PORT': '5432'
+     }
 }
 ```
 
-Crear y correr las migraciones, este comando se utiliza para crear o modificar las migraciones que manejan los cambios en la base de datos del ORM de django.
+Create and run migrations, this command is used to create or modify migrations that handle changes to the django ORM database.
 
 ```sh
-# Crea las migraciones para la modificacion en Base de Datos
+# Create the migrations for the modification in the Database
 python manage.py makemigrations
-# Corre las migraciones y realiza los cambios en la base de datos
+# Run the migrations and make changes to the database
 python manage.py migrate
 ```
 
-👨‍💻 Correr el proyecto..! Si se realizaron correctamente todas las configuraciones y se corrieron con exito los comandos anteriroes el proyecto se correra en el puerto 8000, si desea cambiar el puerto se le debe especificar en el siguiente comando.
+👨‍💻 Run the project..! If all the configurations were made correctly and the previous commands were run successfully, the project will be run on port 8000. If you want to change the port, you must specify it in the following command.
 ```sh
-# Corre el proyecto en el puerto 8000
+# Run the project on port 8000
 python manage.py runserver
 
-# Corre el proyecto en el puerto especificado
-python manage.py runsever 'Puerto'
+# Run the project on the specified port
+python manage.py runsever 'Port'
 ```
 
-<a style="display:flex; gap: 5px; font-size: 25px; color: rgba(8,126,164); font-weight:bold; align-items:center; margin-bottom: 20px;margin-top: 0">
-  <img style="height: 40px;" src="./core/static/imgs/react_logo.png" />
-  React
-</a>
+</details>
+
+
+<details open>
+  <summary style="font-size:24px; font-weight:bold">Frontend 🪟</summary>
+
+  > The frontend in this application was made with React, however this must be done in development mode then execute the build command to build the project and perform a collectsatic to collect the frontend files so that Django can serve them.
+   <p>
+     <a style="display:flex; gap: 5px; font-size: 25px; color: rgba(8,126,164); font-weight:bold; align-items:center; margin-bottom: 20px;margin-top: 0" >
+       <img style="height: 40px;" src="./core/static/imgs/react_logo.png" />
+       react
+     </a>
+   </p>
+</details>
+To install react.js we only have to install the packages:
+
+#### Package Installation
+
+* pnpm
+```bash
+pnpm install
+```
+If everything goes well it should show the installed packages...!
+<img src="./core/static/imgs/installPakages.png" alt="Package Install"/>
+
+In order to launch the test application we must run the start command
+```bash
+pnpm run start
+```
+When executed correctly, it will raise the project showing the server information and the url where it is running:
+
+<img src="/core/static/imgs/run.png" alt="Run Project" />
+
+At this point you can make the changes that you think are necessary to the frontend part, without forgetting to build the project and collect the statics with the django baceknd so that everything works correctly.
+
+**Thank you for everything, you are invited to contribute or provide ideas or issues.**
+
+[![Contributors](https://contrib.rocks/image?repo=devkev53/nomapp)](https://github.com/devkev53/nomapp/graphs/contributors)
+
+<p align="right">(<a href="#readme-top">volver arriba</a>)</p>
